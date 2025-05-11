@@ -2,25 +2,24 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Change to your main branch name if different
-  workflow_dispatch:    # Allows manual triggering from GitHub UI
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Create .nojekyll file
-        run: touch .nojekyll
-
+      
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .      # The folder containing your site files
-          branch: gh-pages  # The branch to deploy to
-          clean: true    # Automatically remove deleted files
+          folder: dist
+          branch: gh-pages
+          clean: true
