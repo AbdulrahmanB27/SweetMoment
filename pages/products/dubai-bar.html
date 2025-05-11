@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dubai Bar - Sweet Moment Chocolates</title>
+  <meta name="description" content="A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/tailwind.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="bg-brown-800 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a href="../../index.html" class="text-2xl font-bold">Sweet Moment Chocolates</a>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="../../index.html" class="hover:text-brown-300">Home</a></li>
+          <li><a href="../../pages/menu.html" class="hover:text-brown-300">Menu</a></li>
+          <li><a href="../../pages/about.html" class="hover:text-brown-300">About</a></li>
+          <li><a href="https://5305fa2b-1ef4-4173-98ba-48d9fb1a9563-00-2747chn3vj065.janeway.replit.dev" class="hover:text-brown-300">Full Site</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container mx-auto px-4 py-8">
+
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row bg-white rounded-lg shadow-xl overflow-hidden border border-brown-100">
+          <div class="lg:w-1/2 relative">
+            
+            <img src="/assets/images/placeholder.jpg" alt="Dubai Bar" class="w-full h-full object-cover object-center transition-transform duration-700 transform hover:scale-105">
+          </div>
+          
+          <div class="lg:w-1/2 p-8">
+            <div class="flex items-center mb-2">
+              <a href="/pages/menu.html" class="text-sm font-medium text-brown-600 hover:text-brown-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6"/>
+                </svg>
+                Back to Menu
+              </a>
+            </div>
+            
+            <h1 class="text-3xl font-bold mb-2 text-brown-800">Dubai Bar</h1>
+            <div class="product-price text-xl mb-4 font-medium text-brown-700">From <span class="font-bold text-brown-800">$0.05</span></div>
+            
+            <div class="mb-6 text-brown-600 border-b border-brown-100 pb-6">
+              <p>A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
+            </div>
+            
+            
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-3 text-brown-800 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-brown-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          </svg>
+          Chocolate Type
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="border border-brown-200 rounded-md p-4 hover:bg-brown-50 cursor-pointer transition-all duration-200 hover:shadow-md bg-white relative overflow-hidden">
+            <div class="flex justify-between items-center relative z-10">
+              <span class="font-medium text-brown-800">Milk</span>
+              <span class="text-brown-600 text-sm font-medium bg-amber-50 px-2 py-1 rounded-full">Included</span>
+            </div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 bg-amber-50 rounded-tl-full opacity-30"></div>
+          </div>
+          <div class="border border-brown-200 rounded-md p-4 hover:bg-brown-50 cursor-pointer transition-all duration-200 hover:shadow-md bg-white relative overflow-hidden">
+            <div class="flex justify-between items-center relative z-10">
+              <span class="font-medium text-brown-800">Dark</span>
+              <span class="text-brown-600 text-sm font-medium bg-brown-100 px-2 py-1 rounded-full">+$200.00</span>
+            </div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 bg-brown-100 rounded-tl-full opacity-30"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold mb-3 text-brown-800 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-brown-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Shape Options
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="border border-brown-200 rounded-md p-4 hover:bg-brown-50 cursor-pointer transition-all duration-200 hover:shadow-md bg-white relative overflow-hidden">
+            <div class="flex justify-between items-center relative z-10">
+              <span class="font-medium text-brown-800">Rectangular</span>
+              <span class="text-brown-600 text-sm font-medium bg-brown-50 px-2 py-1 rounded-full">Included</span>
+            </div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 bg-brown-50 rounded-tl-full opacity-30"></div>
+          </div>
+          <div class="border border-brown-200 rounded-md p-4 hover:bg-brown-50 cursor-pointer transition-all duration-200 hover:shadow-md bg-white relative overflow-hidden">
+            <div class="flex justify-between items-center relative z-10">
+              <span class="font-medium text-brown-800">Curved</span>
+              <span class="text-brown-600 text-sm font-medium bg-brown-50 px-2 py-1 rounded-full">Included</span>
+            </div>
+            <div class="absolute bottom-0 right-0 w-16 h-16 bg-brown-50 rounded-tl-full opacity-30"></div>
+          </div>
+        </div>
+      </div>
+            
+            <div class="mt-8">
+              
+  <div class="mt-6">
+    <button 
+      class="w-full md:w-auto bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-6 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg"
+      onclick="redirectToCheckout('47', 'Dubai Bar', 0.05, {})"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      Buy Now - $0.05
+    </button>
+  </div>
+            </div>
+            
+            
+          </div>
+        </div>
+        
+        <div class="mt-16">
+          <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-brown-800">You Might Also Like</h2>
+            <a href="/pages/menu.html" class="text-brown-600 hover:text-brown-800 font-medium">View All Products</a>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Other product suggestions would be dynamically generated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="bg-brown-800 text-white py-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-4 md:mb-0">
+          <h3 class="text-xl font-bold mb-2">Sweet Moment Chocolates</h3>
+          <p>Experience life's sweetest moments</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-2">Connect With Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-brown-300">Instagram</a>
+            <a href="#" class="hover:text-brown-300">Facebook</a>
+            <a href="#" class="hover:text-brown-300">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-brown-700 pt-4 text-sm">
+        <p>&copy; 2025 Sweet Moment Chocolates. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,80 +1,31 @@
-# Sweet Moment Chocolates - Static Site
+# Sweet Moment Static Site
 
-This is the static version of the Sweet Moment Chocolates website, designed for deployment on platforms like GitHub Pages.
+This is a static HTML version of the Sweet Moment website, perfect for hosting on GitHub Pages or any static site hosting service.
 
-## Features
+## Structure
+- `index.html` - Home page
+- `menu.html` - Menu page with all products
+- `about.html` - About page
+- `products/` - Directory containing individual product pages
+- `checkout/` - Redirects to the main site for checkout
+- `public/` - Static assets like images, CSS, and JavaScript
 
-- Static HTML pages for key sections (home, menu, products, about)
-- Stripe checkout integration via redirect to the main site
-- Simplified product browsing experience
-- Direct checkout buttons on product and menu pages
+## Hosting Instructions
 
-## Directory Structure
+### GitHub Pages
+1. Create a new repository on GitHub
+2. Upload all these files to the repository
+3. Go to repository Settings > Pages
+4. Select the branch where your files are stored
+5. Click Save
+6. Your site will be published at `https://username.github.io/repository`
 
-```
-static-site/
-├── assets/
-│   ├── css/
-│   ├── images/
-│   └── js/
-├── pages/
-│   ├── products/
-│   ├── about.html
-│   └── menu.html
-├── api-cache/
-└── index.html
-```
+### Other Hosting Services
+Upload all files to the root directory of your web server.
 
-## How to Update Products
+## Updating Content
+To update content, regenerate the static site from the admin panel of the main site.
 
-### Adding a New Product
-
-1. On your main site, add the product through the admin interface
-2. Regenerate the static site using the generator script:
-
-```
-node scripts/generate-static-site.js
-```
-
-### Manually Adding a Product
-
-If you want to manually add a product to the static site:
-
-1. Create a new HTML file in `pages/products/` with the product name as the slug (e.g., `dark-truffle.html`)
-2. Use the existing product pages as a template
-3. Update the product details, including:
-   - Name
-   - Description
-   - Price
-   - Image URL
-   - Options (size, type, shape)
-4. Add the product to the menu page by editing `pages/menu.html`
-
-### Product Options
-
-The static site supports the same product options as the main site:
-
-- **Size Options**: Different box sizes (Small, Medium, Large)
-- **Type Options**: Chocolate types (Milk, Dark)
-- **Shape Options**: Special shapes when available
-
-For each option:
-- If the option value is "none", it won't be displayed
-- Price adjustments for options are displayed automatically
-- Quantity information is shown for size options
-
-## Deployment to GitHub Pages
-
-1. Push the entire `static-site` directory to your GitHub repository
-2. Enable GitHub Pages in your repository settings
-3. Set the source to the branch and directory containing the static site
-
-## Customization
-
-- Edit CSS files in `assets/css/` to customize the appearance
-- Update the main site URL in the JavaScript files if your domain changes
-- Replace placeholder images with actual product and branding images
-
-## Maintaining Consistency
-
-Remember to regenerate the static site whenever you make significant changes to products or content on the main site to keep both versions in sync.
+## Notes
+- This static site links back to the main site for cart and checkout functionality
+- Product pages link to the main site for adding items to cart
