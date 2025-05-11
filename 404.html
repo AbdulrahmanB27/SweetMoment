@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
   <title>Sweet Moment Chocolates</title>
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
     // MIT License
     // https://github.com/rafgraph/spa-github-pages
-    // This script takes the current url and converts the path and query
-    // string into just a query string, and then redirects the browser
-    // to the new url with only a query string and hash fragment
-    var pathSegmentsToKeep = 0;
+    // Modified for repository-based GitHub Pages
+    var pathSegmentsToKeep = 1; // Changed from 0 to 1 for repository-based GitHub Pages
+
     var l = window.location;
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
@@ -23,6 +21,6 @@
   </script>
 </head>
 <body>
-  Redirecting...
+  <h2>Redirecting...</h2>
 </body>
 </html>
