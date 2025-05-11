@@ -8,7 +8,7 @@ function HomePage() {
     "id": "ClassicChocolate",
     "name": "Classic Chocolate",
     "description": "Our signature chocolate, handcrafted with premium cocoa.",
-    "image": "/uploads/classic-chocolate.jpg",
+    "image": "uploads/classic-chocolate.jpg",
     "rating": 5,
     "reviewCount": 42,
     "basePrice": 15,
@@ -31,7 +31,7 @@ function HomePage() {
     "id": "CaramelChocolate",
     "name": "Caramel Chocolate",
     "description": "Rich chocolate with a luxurious caramel filling.",
-    "image": "/uploads/caramel-chocolate.jpg",
+    "image": "uploads/caramel-chocolate.jpg",
     "rating": 4.8,
     "reviewCount": 36,
     "basePrice": 17,
@@ -54,7 +54,7 @@ function HomePage() {
     "id": "DubaiBar",
     "name": "Dubai Bar",
     "description": "A taste of luxury with premium Dubai ingredients.",
-    "image": "/uploads/dubai-bar.jpg",
+    "image": "uploads/dubai-bar.jpg",
     "rating": 5,
     "reviewCount": 28,
     "basePrice": 25,
@@ -92,9 +92,9 @@ function HomePage() {
             {featuredProducts.map(product => (
               <div key={product.id} className="product-card">
                 <Link to={`/product/${product.id}`}>
-                  <img src={product.image} alt={product.name} />
+                  <img src={'./'+product.image} alt={product.name} />
                   <h3>{product.name}</h3>
-                  <p className="price">${product.basePrice.toFixed(2)}</p>
+                  <p className="price">{'$'}{product.basePrice.toFixed(2)}</p>
                 </Link>
               </div>
             ))}
