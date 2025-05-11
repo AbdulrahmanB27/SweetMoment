@@ -4,18 +4,21 @@ This is a static version of the Sweet Moment Chocolates website, ready for GitHu
 
 ## Deployment Instructions
 
-### Simple Method (Using GitHub Actions)
-1. Upload all these files to your GitHub repository
-2. Go to your repository's Settings > Pages
-3. Under "Build and deployment" > "Source", select "GitHub Actions"
-4. Your site will automatically be deployed to GitHub Pages
+### Direct Deployment Method (Recommended)
+1. Create a new GitHub repository named `SweetMoment`
+2. Upload ALL files from this folder to the repository
+3. Go to your repository's Settings > Pages
+4. Under "Build and deployment" > "Source", select "Deploy from a branch"
+5. Select the branch (e.g., `main`) and folder (select `/ (root)`)
+6. Click "Save" and wait for the deployment to complete
 
 ### Troubleshooting
+- Make sure your repository name is exactly `SweetMoment` (case-sensitive)
 - Make sure your repository is public or you have GitHub Pages enabled on your account
-- If the site doesn't appear immediately, check the Actions tab for deployment status
-- The site will be available at https://yourusername.github.io/repositoryname/
+- If the site doesn't appear immediately, check the repository settings
+- The site will be available at https://yourusername.github.io/SweetMoment/
 
 ## Important Files
 - `.nojekyll` - Prevents GitHub's Jekyll processor from processing your files
-- `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment
 - `404.html` - Provides SPA routing support on GitHub Pages
+- `index.html` - Contains the necessary redirect scripts for GitHub Pages
