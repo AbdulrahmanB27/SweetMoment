@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Sweet Moment Chocolates</title>
+  <meta name="description" content="Browse our delicious selection of premium chocolates">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="bg-brown-800 text-white py-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a href="../index.html" class="text-2xl font-bold">Sweet Moment Chocolates</a>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="../index.html" class="hover:text-brown-300">Home</a></li>
+          <li><a href="../pages/menu.html" class="hover:text-brown-300">Menu</a></li>
+          <li><a href="../pages/about.html" class="hover:text-brown-300">About</a></li>
+          <li><a href="https://5305fa2b-1ef4-4173-98ba-48d9fb1a9563-00-2747chn3vj065.janeway.replit.dev" class="hover:text-brown-300">Full Site</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="container mx-auto px-4 py-8">
+
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-brown-800 mb-4 md:mb-0">Our Chocolate Menu</h1>
+          <a href="#checkout" class="bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-6 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            Proceed to Checkout
+          </a>
+        </div>
+        
+        <p class="mb-8 text-brown-700">Explore our selection of handcrafted premium chocolates, each made with the finest ingredients and artisan techniques.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+    <div class="product-card hover:shadow-xl transition-all duration-300 border border-brown-100 rounded-lg overflow-hidden bg-white relative">
+      <div class="product-image-container relative overflow-hidden">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <img src="/uploads/1742792807445-327362076.jpeg" alt="Classic Chocolate" class="product-image hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+      </div>
+      <div class="product-info p-5">
+        <h3 class="product-title text-xl font-bold text-brown-800 mb-2">Classic Chocolate</h3>
+        <p class="product-description text-brown-600 mb-4 text-sm line-clamp-2">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
+        <div class="product-price text-brown-700 font-medium mb-4">
+          From <span class="text-lg font-bold text-brown-800 bg-brown-50 px-2 py-1 rounded-full">$0.08</span>
+        </div>
+        <div class="product-action">
+          <a href="/pages/products/classic-chocolate.html" class="btn-checkout bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card hover:shadow-xl transition-all duration-300 border border-brown-100 rounded-lg overflow-hidden bg-white relative">
+      <div class="product-image-container relative overflow-hidden">
+        <div class="absolute top-4 left-0 bg-gradient-to-r from-purple-500 to-indigo-600 border-purple-400 text-white px-4 py-1 rounded-r-full font-semibold text-sm shadow-md border-l-4">Premium</div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <img src="/uploads/1743291047091-28168151.jpeg" alt="Caramel Chocolate" class="product-image hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+      </div>
+      <div class="product-info p-5">
+        <h3 class="product-title text-xl font-bold text-brown-800 mb-2">Caramel Chocolate</h3>
+        <p class="product-description text-brown-600 mb-4 text-sm line-clamp-2">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+        <div class="product-price text-brown-700 font-medium mb-4">
+          From <span class="text-lg font-bold text-brown-800 bg-brown-50 px-2 py-1 rounded-full">$0.08</span>
+        </div>
+        <div class="product-action">
+          <a href="/pages/products/caramel-chocolate.html" class="btn-checkout bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card hover:shadow-xl transition-all duration-300 border border-brown-100 rounded-lg overflow-hidden bg-white relative">
+      <div class="product-image-container relative overflow-hidden">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <img src="/assets/images/placeholder.jpg" alt="Signature Collection" class="product-image hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+      </div>
+      <div class="product-info p-5">
+        <h3 class="product-title text-xl font-bold text-brown-800 mb-2">Signature Collection</h3>
+        <p class="product-description text-brown-600 mb-4 text-sm line-clamp-2">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
+        <div class="product-price text-brown-700 font-medium mb-4">
+          From <span class="text-lg font-bold text-brown-800 bg-brown-50 px-2 py-1 rounded-full">$0.10</span>
+        </div>
+        <div class="product-action">
+          <a href="/pages/products/signature-collection.html" class="btn-checkout bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card hover:shadow-xl transition-all duration-300 border border-brown-100 rounded-lg overflow-hidden bg-white relative">
+      <div class="product-image-container relative overflow-hidden">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <img src="/assets/images/placeholder.jpg" alt="Dubai Bar" class="product-image hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+      </div>
+      <div class="product-info p-5">
+        <h3 class="product-title text-xl font-bold text-brown-800 mb-2">Dubai Bar</h3>
+        <p class="product-description text-brown-600 mb-4 text-sm line-clamp-2">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
+        <div class="product-price text-brown-700 font-medium mb-4">
+          From <span class="text-lg font-bold text-brown-800 bg-brown-50 px-2 py-1 rounded-full">$0.05</span>
+        </div>
+        <div class="product-action">
+          <a href="/pages/products/dubai-bar.html" class="btn-checkout bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card hover:shadow-xl transition-all duration-300 border border-brown-100 rounded-lg overflow-hidden bg-white relative">
+      <div class="product-image-container relative overflow-hidden">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <img src="https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Assorted Nuts Chocolate" class="product-image hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+      </div>
+      <div class="product-info p-5">
+        <h3 class="product-title text-xl font-bold text-brown-800 mb-2">Assorted Nuts Chocolate</h3>
+        <p class="product-description text-brown-600 mb-4 text-sm line-clamp-2">A delightful mix of premium chocolates with assorted nuts from around the world.</p>
+        <div class="product-price text-brown-700 font-medium mb-4">
+          From <span class="text-lg font-bold text-brown-800 bg-brown-50 px-2 py-1 rounded-full">$0.09</span>
+        </div>
+        <div class="product-action">
+          <a href="/pages/products/assorted-nuts-chocolate.html" class="btn-checkout bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-4 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+        </div>
+        
+        <div id="checkout" class="mt-12 bg-brown-50 p-8 rounded-lg shadow-md border border-brown-100">
+          <h2 class="text-2xl font-bold mb-4 text-brown-800">Ready to Order?</h2>
+          <p class="mb-6 text-brown-700">Visit our main website for a full shopping experience with more options, or use our direct checkout to quickly place an order.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="https://5305fa2b-1ef4-4173-98ba-48d9fb1a9563-00-2747chn3vj065.janeway.replit.dev" class="bg-gradient-to-r from-brown-600 to-brown-700 hover:from-brown-700 hover:to-brown-800 text-white font-bold py-3 px-6 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              Visit Full Website
+            </a>
+            <a href="https://5305fa2b-1ef4-4173-98ba-48d9fb1a9563-00-2747chn3vj065.janeway.replit.dev/checkout.html" class="bg-gradient-to-r from-brown-800 to-brown-900 hover:from-brown-900 hover:to-black text-white font-bold py-3 px-6 rounded-md transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="bg-brown-800 text-white py-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between">
+        <div class="mb-4 md:mb-0">
+          <h3 class="text-xl font-bold mb-2">Sweet Moment Chocolates</h3>
+          <p>Experience life's sweetest moments</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-2">Connect With Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-brown-300">Instagram</a>
+            <a href="#" class="hover:text-brown-300">Facebook</a>
+            <a href="#" class="hover:text-brown-300">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-brown-700 pt-4 text-sm">
+        <p>&copy; 2025 Sweet Moment Chocolates. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
