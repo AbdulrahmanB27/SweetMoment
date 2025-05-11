@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Sweet Moment Chocolates</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f5f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #4E342E;
+      color: white;
+      padding: 1rem 0;
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+    .checkout-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #4E342E;
+      margin-bottom: 1rem;
+    }
+    .product-summary {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background-color: #f9f5f2;
+      border-radius: 8px;
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(78, 52, 46, 0.3);
+      border-radius: 50%;
+      border-top-color: #4E342E;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    footer {
+      background-color: #4E342E;
+      color: white;
+      padding: 1.5rem 0;
+      margin-top: auto;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .product-info {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    .product-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 1rem;
+    }
+    .product-details {
+      flex: 1;
+    }
+    .product-price {
+      font-weight: bold;
+      color: #6D4C41;
+    }
+    .product-option {
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .options-summary {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .total-price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      text-align: right;
+      color: #4E342E;
+    }
+    .error-container {
+      padding: 1rem;
+      background-color: #ffebee;
+      border-left: 4px solid #f44336;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">Sweet Moment Chocolates</a>
+    </div>
+  </header>
+  
+  <div class="checkout-container">
+    <h1>Checkout</h1>
+    
+    <div id="loading" class="loading">
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <div id="error-container" class="error-container" style="display: none;"></div>
+    
+    <div id="checkout-content" style="display: none;">
+      <div class="product-summary" id="product-summary">
+        <!-- Product info will be inserted here -->
+      </div>
+      
+      <div class="total-price" id="total-price">
+        <!-- Total price will be inserted here -->
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Sweet Moment Chocolates. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('product');
+      const size = urlParams.get('size');
+      const type = urlParams.get('type');
+      const shape = urlParams.get('shape');
+      const quantity = urlParams.get('quantity') || 1;
+      
+      if (!productId) {
+        showError('No product selected. Please return to the product page and try again.');
+        return;
+      }
+      
+      try {
+        // Get the host URL for API calls
+        const host = window.location.origin;
+        
+        // Load product data
+        const response = await fetch(`${host}/api/static-checkout/product-info?productId=${productId}`);
+        if (!response.ok) throw new Error('Failed to load product information');
+        
+        const product = await response.json();
+        
+        // Display product details
+        displayProductSummary(product, size, type, shape, quantity);
+        
+        // Create a checkout session
+        const checkoutItems = [{
+          productId,
+          quantity: parseInt(quantity, 10),
+          size,
+          type,
+          shape
+        }];
+        
+        const sessionResponse = await fetch(`${host}/api/static-checkout/create-session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ items: checkoutItems })
+        });
+        
+        if (!sessionResponse.ok) {
+          const errorData = await sessionResponse.json();
+          throw new Error(errorData.message || 'Failed to create checkout session');
+        }
+        
+        const sessionData = await sessionResponse.json();
+        
+        // Redirect to Stripe Checkout
+        const stripe = Stripe(sessionData.publicKey);
+        stripe.redirectToCheckout({
+          sessionId: sessionData.sessionId
+        }).then(function (result) {
+          if (result.error) {
+            showError(result.error.message);
+          }
+        });
+        
+      } catch (error) {
+        console.error('Checkout error:', error);
+        showError('An error occurred during checkout: ' + error.message);
+      }
+    });
+    
+    function displayProductSummary(product, size, type, shape, quantity) {
+      const summaryElement = document.getElementById('product-summary');
+      const totalElement = document.getElementById('total-price');
+      const loadingElement = document.getElementById('loading');
+      const checkoutContent = document.getElementById('checkout-content');
+      
+      // Get option details
+      const sizeOption = size ? product.sizes.find(s => s.id === size) : null;
+      const typeOption = type ? product.types.find(t => t.id === type) : null;
+      const shapeOption = shape ? product.shapes.find(s => s.id === shape) : null;
+      
+      // Calculate price
+      let basePrice = product.basePrice;
+      if (sizeOption && sizeOption.price) basePrice += parseFloat(sizeOption.price);
+      if (typeOption && typeOption.price) basePrice += parseFloat(typeOption.price);
+      if (shapeOption && shapeOption.price) basePrice += parseFloat(shapeOption.price);
+      
+      const totalPrice = basePrice * quantity;
+      
+      // Create HTML for product summary
+      summaryElement.innerHTML = `
+        <div class="product-info">
+          <img src="${product.image}" alt="${product.name}" class="product-image">
+          <div class="product-details">
+            <h3>${product.name}</h3>
+            <p class="product-price">$${basePrice.toFixed(2)} each</p>
+            <div class="options-summary">
+              ${quantity > 1 ? `<p>Quantity: ${quantity}</p>` : ''}
+              ${sizeOption ? `<p class="product-option">Size: ${sizeOption.label}</p>` : ''}
+              ${typeOption ? `<p class="product-option">Type: ${typeOption.label}</p>` : ''}
+              ${shapeOption ? `<p class="product-option">Shape: ${shapeOption.label}</p>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      totalElement.innerHTML = `Total: $${totalPrice.toFixed(2)}`;
+      
+      // Hide loading and show content
+      loadingElement.style.display = 'none';
+      checkoutContent.style.display = 'block';
+    }
+    
+    function showError(message) {
+      const errorContainer = document.getElementById('error-container');
+      const loadingElement = document.getElementById('loading');
+      
+      errorContainer.textContent = message;
+      errorContainer.style.display = 'block';
+      loadingElement.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
