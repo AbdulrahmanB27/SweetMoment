@@ -26,6 +26,7 @@
       // Single Page Apps for GitHub Pages
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
+      // Modified for repository-based GitHub Pages
       (function(l) {
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
@@ -36,6 +37,11 @@
           );
         }
       }(window.location))
+    </script>
+    <script>
+      // Set the base URL for the site to work with GitHub Pages repository structure
+      window.repositoryName = 'SweetMoment';
+      document.write('<base href="/' + window.repositoryName + '/" />');
     </script>
 </head>
 <body>
