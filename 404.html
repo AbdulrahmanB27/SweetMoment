@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <title>Sweet Moment Chocolates</title>
   
-  <!-- Resource path fixing for GitHub Pages -->
+  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs first -->
+  <script src="resource-path-fixer.js"></script>
+  
+  <!-- Backup path fixing for GitHub Pages -->
   <script src="github-paths.js"></script>
   
-  <!-- Default base path that may be overridden by github-paths.js -->
+  <!-- Default base path that may be overridden by path fixer scripts -->
   <base href="/SweetMoment/">
   
   <script type="text/javascript">
@@ -17,23 +20,90 @@
     // Modified for repository-based GitHub Pages 
     var pathSegmentsToKeep = "1"; // Will be replaced with 0 or 1 based on domain type
     
-    // Wait a moment for github-paths.js to initialize if needed
-    setTimeout(function() {
+    // Create a better fallback redirection that works more reliably
+    function redirectToHome() {
       var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    }, 50); // Small delay to ensure path fixing happens first
+      var repoName = '';
+      
+      // Try to get repository name from URL if on GitHub Pages
+      if (l.hostname.includes('github.io')) {
+        repoName = l.pathname.split('/')[1] || '';
+      }
+      
+      // Calculate baseUrl differently based on whether we're on GitHub Pages or custom domain
+      var baseUrl = '';
+      if (repoName) {
+        baseUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + repoName;
+        console.log('GitHub Pages detected, redirecting to: ' + baseUrl);
+      } else {
+        baseUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+        console.log('Custom domain detected, redirecting to: ' + baseUrl);
+      }
+      
+      // Extract the path without the repository name if on GitHub Pages
+      var currentPath = l.pathname;
+      if (repoName) {
+        currentPath = '/' + l.pathname.split('/').slice(2).join('/');
+      }
+      
+      // Now build the SPA-compatible redirection URL
+      var redirectUrl = baseUrl + '/?/' + 
+                        currentPath.slice(1).replace(/&/g, '~and~') +
+                        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                        l.hash;
+      
+      console.log('Redirecting to: ' + redirectUrl);
+      window.location.replace(redirectUrl);
+    }
+    
+    // Try the standard SPA GitHub Pages redirection first
+    try {
+      // Wait a moment for path fixer scripts to initialize
+      setTimeout(function() {
+        var l = window.location;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + parseInt(pathSegmentsToKeep)).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(parseInt(pathSegmentsToKeep)).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      }, 50);
+      
+      // Fallback if the first attempt fails
+      setTimeout(function() {
+        // If we're still on the 404 page after 1 second, try the fallback
+        if (window.location.pathname.includes('/404') || 
+            window.location.pathname.endsWith('/404.html')) {
+          redirectToHome();
+        }
+      }, 1000);
+    } catch (e) {
+      console.error('Error in SPA redirection:', e);
+      redirectToHome(); // Use fallback in case of error
+    }
   </script>
 </head>
 <body>
   <div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
     <h2>Redirecting...</h2>
     <p>You'll be redirected to the home page in a moment.</p>
+    <p><a href="index.html" id="manual-link">Click here if you are not redirected automatically</a></p>
+    <script>
+      // Update manual link with correct repository path if on GitHub Pages
+      document.addEventListener('DOMContentLoaded', function() {
+        var manualLink = document.getElementById('manual-link');
+        if (manualLink) {
+          var repoName = '';
+          if (window.location.hostname.includes('github.io')) {
+            repoName = window.location.pathname.split('/')[1] || '';
+            if (repoName) {
+              manualLink.href = '/' + repoName + '/index.html';
+            }
+          }
+        }
+      });
+    </script>
   </div>
 </body>
 </html>
