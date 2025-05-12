@@ -6,6 +6,7 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    // Use relative paths for GitHub Pages compatibility
     publicPath: './'
   },
   module: {
@@ -35,7 +36,12 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
+      // Add GitHub Pages compatibility by injecting the base tag
+      templateParameters: {
+        // Add base href tag for GitHub Pages compatibility
+        baseHref: '/SweetMoment/'
+      }
     })
   ],
   devServer: {
