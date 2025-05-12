@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
   <title>Sweet Moment Chocolates</title>
+  
+  <!-- Resource path fixing for GitHub Pages -->
+  <script src="github-paths.js"></script>
+  
+  <!-- Default base path that may be overridden by github-paths.js -->
+  <base href="/SweetMoment/">
+  
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
     // MIT License
     // https://github.com/rafgraph/spa-github-pages
-    // This script takes the current url and converts the path and query
-    // string into just a query string, and then redirects the browser
-    // to the new url with only a query string and hash fragment
+    // Modified for repository-based GitHub Pages 
+    var pathSegmentsToKeep = "1"; // Will be replaced with 0 or 1 based on domain type
     
-    // This needs to be 1 for GitHub project pages (username.github.io/repo-name)
-    // and 0 for GitHub user pages (username.github.io) or custom domains
-    var pathSegmentsToKeep = 1;
-    
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
+    // Wait a moment for github-paths.js to initialize if needed
+    setTimeout(function() {
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    }, 50); // Small delay to ensure path fixing happens first
   </script>
 </head>
 <body>
-  <h2>Redirecting...</h2>
+  <div style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+    <h2>Redirecting...</h2>
+    <p>You'll be redirected to the home page in a moment.</p>
+  </div>
 </body>
 </html>

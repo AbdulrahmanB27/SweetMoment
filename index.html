@@ -4,9 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates</title>
-  <!-- Setting base href for GitHub Pages project repository -->
+  
+  <!-- Resource path fixing for GitHub Pages -->
+  <script src="github-paths.js"></script>
+  
+  <!-- Default base path that may be overridden by github-paths.js -->
   <base href="/SweetMoment/">
+  
+  <!-- Stylesheet with explicit path that will be fixed by github-paths.js if needed -->
   <link rel="stylesheet" href="style.css">
+  
   <!-- GitHub Pages SPA compatibility -->
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
@@ -22,9 +29,6 @@
         );
       }
     }(window.location))
-    
-    // Define a global variable with the base path for asset loading
-    window.REPO_BASE = "/SweetMoment";
   </script>
 </head>
 <body>
