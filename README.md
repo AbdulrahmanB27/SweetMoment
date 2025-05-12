@@ -1,24 +1,13 @@
-# Sweet Moment - Static Website
+# Sweet Moment Static Site
 
-This is a static version of the Sweet Moment Chocolates website, ready for GitHub Pages deployment.
+This is a static version of the Sweet Moment Chocolates e-commerce site.
 
-## Deployment Instructions
+## Deployment
+The contents of this folder should be deployed directly to GitHub Pages.
+The site is configured for GitHub Pages deployment with the repository name 'SweetMoment'.
 
-### Direct Deployment Method (Recommended)
-1. Create a new GitHub repository named `SweetMoment`
-2. Upload ALL files from this folder to the repository
-3. Go to your repository's Settings > Pages
-4. Under "Build and deployment" > "Source", select "Deploy from a branch"
-5. Select the branch (e.g., `main`) and folder (select `/ (root)`)
-6. Click "Save" and wait for the deployment to complete
-
-### Troubleshooting
-- Make sure your repository name is exactly `SweetMoment` (case-sensitive)
-- Make sure your repository is public or you have GitHub Pages enabled on your account
-- If the site doesn't appear immediately, check the repository settings
-- The site will be available at https://yourusername.github.io/SweetMoment/
-
-## Important Files
-- `.nojekyll` - Prevents GitHub's Jekyll processor from processing your files
-- `404.html` - Provides SPA routing support on GitHub Pages
-- `index.html` - Contains the necessary redirect scripts for GitHub Pages
+## GitHub Pages Configuration
+For proper GitHub Pages deployment:
+1. Make sure you deploy the contents of this folder to the root of your repository
+2. Set up GitHub Pages to deploy from the gh-pages branch
+3. Ensure that the .nojekyll file exists in the root to prevent Jekyll processing

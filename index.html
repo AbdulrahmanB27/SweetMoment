@@ -22,8 +22,9 @@
     }(window.location))
   </script>
 
+    <base href="/SweetMoment/" />
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
+      // Single Page Apps for GitHub Pages or Custom Domain
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
       // Modified for repository-based GitHub Pages
@@ -39,9 +40,20 @@
       }(window.location))
     </script>
     <script>
-      // Set the base URL for the site to work with GitHub Pages repository structure
-      window.repositoryName = 'SweetMoment';
-      document.write('<base href="/' + window.repositoryName + '/" />');
+      // Path fixer only needed for GitHub Pages, not for custom domain
+      
+      // Fix asset paths for GitHub Pages if not already set by base tag
+      window.addEventListener('DOMContentLoaded', function() {
+        const repoPathPrefix = '/SweetMoment/';
+        document.querySelectorAll('script[src], link[rel="stylesheet"]').forEach(function(el) {
+          if (el.src && el.src.startsWith('/') && !el.src.startsWith(repoPathPrefix)) {
+            el.src = repoPathPrefix + el.src.substring(1);
+          } else if (el.href && el.href.startsWith('/') && !el.href.startsWith(repoPathPrefix)) {
+            el.href = repoPathPrefix + el.href.substring(1);
+          }
+        });
+      });
+      
     </script>
 </head>
 <body>
