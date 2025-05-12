@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates</title>
   
-  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs first -->
+  <!-- Emergency CSS Fixer - must run first -->
+  <script src="css-fix.js"></script>
+  
+  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs second -->
   <script src="resource-path-fixer.js"></script>
   
   <!-- Backup path fixing for GitHub Pages -->
@@ -14,23 +17,82 @@
   <!-- Default base path that may be overridden by path fixer scripts -->
   <base href="/SweetMoment/">
   
-  <!-- Stylesheet with path that will be fixed if needed -->
+  <!-- Inline critical CSS to ensure basic styling loads instantly -->
+  <style>
+    /* Critical CSS for basic layout */
+    body, html { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    #root { min-height: 100vh; }
+    .loading-indicator { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      width: 100vw; 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      background: white; 
+      z-index: 9999; 
+      transition: opacity 0.5s;
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  
+  <!-- Multiple stylesheet links with different paths for redundancy -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/SweetMoment/style.css">
   
   <!-- Alternative stylesheet loading as fallback -->
   <script>
+    // Create loading indicator
+    window.addEventListener('DOMContentLoaded', function() {
+      var loadingIndicator = document.createElement('div');
+      loadingIndicator.className = 'loading-indicator';
+      loadingIndicator.innerHTML = '<div class="loading-spinner"></div>';
+      document.body.appendChild(loadingIndicator);
+      
+      // Remove loading indicator when CSS is loaded or after timeout
+      setTimeout(function() {
+        loadingIndicator.style.opacity = '0';
+        setTimeout(function() {
+          if (loadingIndicator.parentNode) {
+            loadingIndicator.parentNode.removeChild(loadingIndicator);
+          }
+        }, 500);
+      }, 2000);
+    });
+    
     // Backup CSS loading mechanism
     document.addEventListener('DOMContentLoaded', function() {
       // If style.css didn't load, try with absolute repository path
       setTimeout(function() {
-        if (document.querySelectorAll('style').length === 0) {
+        if (document.querySelectorAll('style').length <= 1) { // Only count our inline style
           var repositoryName = window.location.pathname.split('/')[1];
           if (repositoryName && window.location.hostname.includes('github.io')) {
-            console.log('Attempting backup CSS loading for ' + repositoryName);
-            var link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = '/' + repositoryName + '/style.css';
-            document.head.appendChild(link);
+            console.log('Attempting additional CSS loading for ' + repositoryName);
+            var cssUrls = [
+              '/' + repositoryName + '/style.css',
+              '/' + repositoryName + '/assets/style.css',
+              '/' + repositoryName + '/css/style.css'
+            ];
+            
+            cssUrls.forEach(function(url) {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = url;
+              document.head.appendChild(link);
+            });
           }
         }
       }, 500);
@@ -56,7 +118,10 @@
 </head>
 <body>
   <div id="root"></div>
+  
+  <!-- Multiple script tags for redundancy -->
   <script src="bundle.js"></script>
+  <script src="/SweetMoment/bundle.js"></script>
   
   <!-- Backup script loading mechanism -->
   <script>
