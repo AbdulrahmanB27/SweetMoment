@@ -81,18 +81,54 @@ function ProductPage() {
     return <div>Product not found</div>;
   }
   
+  // Options display helper function
+  const showOptions = (optionsString, label) => {
+    if (!optionsString) return null;
+    try {
+      const options = JSON.parse(optionsString);
+      if (!options || options.length === 0) return null;
+      
+      return (
+        <div className="product-options">
+          <h3>{label}</h3>
+          <div className="options-list">
+            {options.map((option, index) => (
+              <div key={index} className="option-item">{option.name}</div>
+            ))}
+          </div>
+        </div>
+      );
+    } catch (e) {
+      return null;
+    }
+  };
+
   return (
     <div className="product-page">
       <div className="container">
         <div className="product-details">
           <div className="product-image">
-            <img src={product.image} alt={product.name} />
+            <img src={product.image.startsWith('/') ? product.image.substring(1) : product.image} alt={product.name} />
           </div>
           <div className="product-info">
             <h1>{product.name}</h1>
-            <p className="price">${product.basePrice.toFixed(2)}</p>
+            <p className="price">{'$'}{product.basePrice.toFixed(2)}</p>
             <p className="description">{product.description}</p>
-            <button className="button">Add to Cart</button>
+            
+            {showOptions(product.sizeOptions, 'Available Sizes')}
+            {showOptions(product.typeOptions, 'Chocolate Types')}
+            {showOptions(product.shapeOptions, 'Available Shapes')}
+            
+            {product.allergyInfo && (
+              <div className="allergy-info">
+                <h3>Allergy Information</h3>
+                <p>{product.allergyInfo}</p>
+              </div>
+            )}
+            
+            <div className="static-site-notice">
+              <p>This is a preview version of our site. To purchase this product, please visit our <a href="https://sweetmomentchocolate.com" target="_blank" rel="noopener noreferrer">main website</a>.</p>
+            </div>
           </div>
         </div>
       </div>

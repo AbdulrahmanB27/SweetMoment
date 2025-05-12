@@ -92,7 +92,7 @@ function HomePage() {
             {featuredProducts.map(product => (
               <div key={product.id} className="product-card">
                 <Link to={`/product/${product.id}`}>
-                  <img src={'./'+product.image} alt={product.name} />
+                  <img src={product.image.startsWith('/') ? product.image.substring(1) : product.image} alt={product.name} />
                   <h3>{product.name}</h3>
                   <p className="price">{'$'}{product.basePrice.toFixed(2)}</p>
                 </Link>

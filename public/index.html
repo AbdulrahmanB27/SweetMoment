@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates</title>
-  <link rel="stylesheet" href="./style.css">
+  <!-- Setting base href for GitHub Pages project repository -->
+  <base href="/SweetMoment/">
+  <link rel="stylesheet" href="style.css">
   <!-- GitHub Pages SPA compatibility -->
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
@@ -20,10 +22,13 @@
         );
       }
     }(window.location))
+    
+    // Define a global variable with the base path for asset loading
+    window.REPO_BASE = "/SweetMoment";
   </script>
 </head>
 <body>
   <div id="root"></div>
-  <script src="./bundle.js"></script>
+  <script src="bundle.js"></script>
 </body>
 </html>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
-import './CategoryPage.css';
+import { Link } from 'react-router-dom';
+import './MenuPage.css';
 
-function CategoryPage() {
-  const { id } = useParams();
+function MenuPage() {
   const products = [
   {
     "id": "ClassicChocolate",
@@ -102,35 +101,45 @@ function CategoryPage() {
   }
 ];
   
-  const category = categories.find(c => c.id === id || c.slug === id);
-  const categoryProducts = products.filter(p => p.category === id || 
-                                              p.category === category?.id || 
-                                              p.category === category?.name);
-  
-  if (!category) {
-    return <div>Category not found</div>;
-  }
+  // Group products by category
+  const productsByCategory = categories.map(category => ({
+    ...category,
+    products: products.filter(product => product.category === category.id || product.category === category.name)
+  }));
   
   return (
-    <div className="category-page">
+    <div className="menu-page">
       <div className="container">
-        <h1>{category.name}</h1>
-        {category.description && <p className="category-description">{category.description}</p>}
+        <h1>Our Chocolate Menu</h1>
         
-        <div className="products-grid">
-          {categoryProducts.map(product => (
-            <Link key={product.id} to={`/product/${product.id}`} className="product-card">
-              <div className="product-image">
-                <img src={product.image.startsWith('/') ? product.image.substring(1) : product.image} alt={product.name} />
-              </div>
-              <div className="product-info">
-                <h3>{product.name}</h3>
-                <p className="price">{'$'}{product.basePrice.toFixed(2)}</p>
-                <p className="product-description">{product.description}</p>
-              </div>
-            </Link>
+        <div className="category-navigation">
+          {categories.map(category => (
+            <a key={category.id} href={`#category-${category.id}`} className="category-link">
+              {category.name}
+            </a>
           ))}
         </div>
+        
+        {productsByCategory.map(category => (
+          <div key={category.id} id={`category-${category.id}`} className="category-section">
+            <h2>{category.name}</h2>
+            {category.description && <p className="category-description">{category.description}</p>}
+            
+            <div className="products-grid">
+              {category.products.map(product => (
+                <Link key={product.id} to={`/product/${product.id}`} className="product-card">
+                  <div className="product-image">
+                    <img src={product.image.startsWith('/') ? product.image.substring(1) : product.image} alt={product.name} />
+                  </div>
+                  <div className="product-info">
+                    <h3>{product.name}</h3>
+                    <p className="price">{'$'}{product.basePrice.toFixed(2)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
         
         <div className="static-site-notice">
           <p>This is a preview version of our site. To purchase our products, please visit our <a href="https://sweetmomentchocolate.com" target="_blank" rel="noopener noreferrer">main website</a>.</p>
@@ -140,4 +149,4 @@ function CategoryPage() {
   );
 }
 
-export default CategoryPage;
+export default MenuPage;

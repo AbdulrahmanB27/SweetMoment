@@ -11,7 +11,11 @@
     // This script takes the current url and converts the path and query
     // string into just a query string, and then redirects the browser
     // to the new url with only a query string and hash fragment
-    var pathSegmentsToKeep = 0;
+    
+    // This needs to be 1 for GitHub project pages (username.github.io/repo-name)
+    // and 0 for GitHub user pages (username.github.io) or custom domains
+    var pathSegmentsToKeep = 1;
+    
     var l = window.location;
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
@@ -23,6 +27,6 @@
   </script>
 </head>
 <body>
-  Redirecting...
+  <h2>Redirecting...</h2>
 </body>
 </html>
