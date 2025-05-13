@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates</title>
   
-  <!-- Emergency CSS Fixer - must run first -->
+  <!-- Special AbdulrahmanB27/SweetMoment CSS fix - must run first -->
+  <script src="fix-style-github.js"></script>
+  
+  <!-- Emergency CSS Fixer - runs second -->
   <script src="css-fix.js"></script>
   
-  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs second -->
+  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs third -->
   <script src="resource-path-fixer.js"></script>
   
   <!-- Backup path fixing for GitHub Pages -->
@@ -39,7 +42,7 @@
       width: 50px;
       height: 50px;
       border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db;
+      border-top: 5px solid #9C6644;
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
@@ -47,11 +50,50 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
+    /* Critical styling for key components */
+    .header, header {
+      background-color: #9C6644;
+      color: white; 
+      padding: 20px 0; 
+      text-align: center;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #f9f5f2;
+    }
+    .hero h1 {
+      color: #9C6644;
+      font-size: 36px;
+    }
+    .button {
+      display: inline-block;
+      background-color: #9C6644;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
   </style>
   
   <!-- Multiple stylesheet links with different paths for redundancy -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="/SweetMoment/style.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="/SweetMoment/assets/style.css">
   
   <!-- Alternative stylesheet loading as fallback -->
   <script>
@@ -61,6 +103,16 @@
       loadingIndicator.className = 'loading-indicator';
       loadingIndicator.innerHTML = '<div class="loading-spinner"></div>';
       document.body.appendChild(loadingIndicator);
+      
+      // Handle the unchecked runtime.lastError messages
+      window.addEventListener('error', function(e) {
+        if (e.message && e.message.includes('runtime.lastError')) {
+          // Prevent these errors from being displayed
+          e.stopPropagation();
+          e.preventDefault();
+          return true;
+        }
+      }, true);
       
       // Remove loading indicator when CSS is loaded or after timeout
       setTimeout(function() {
@@ -73,18 +125,39 @@
       }, 2000);
     });
     
-    // Backup CSS loading mechanism
+    // Backup CSS loading mechanism - try multiple paths including raw GitHub content
     document.addEventListener('DOMContentLoaded', function() {
-      // If style.css didn't load, try with absolute repository path
+      // Always try to load from raw GitHub content
+      function tryLoadRawGitHubCSS() {
+        try {
+          var cssUrl = 'https://raw.githubusercontent.com/AbdulrahmanB27/SweetMoment/gh-pages/style.css';
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', cssUrl, true);
+          xhr.onload = function() {
+            if (xhr.status === 200) {
+              var style = document.createElement('style');
+              style.textContent = xhr.responseText;
+              document.head.appendChild(style);
+              console.log('Successfully loaded CSS from raw GitHub content');
+            }
+          };
+          xhr.send();
+        } catch (e) {
+          console.error('Failed to load raw GitHub CSS:', e);
+        }
+      }
+      
+      // Try loading from repository-specific paths
       setTimeout(function() {
-        if (document.querySelectorAll('style').length <= 1) { // Only count our inline style
-          var repositoryName = window.location.pathname.split('/')[1];
-          if (repositoryName && window.location.hostname.includes('github.io')) {
+        if (document.querySelectorAll('style').length <= 2) { // Only count our inline styles
+          var repositoryName = window.location.pathname.split('/')[1] || 'SweetMoment';
+          if (window.location.hostname.includes('github.io') || repositoryName) {
             console.log('Attempting additional CSS loading for ' + repositoryName);
             var cssUrls = [
               '/' + repositoryName + '/style.css',
               '/' + repositoryName + '/assets/style.css',
-              '/' + repositoryName + '/css/style.css'
+              '/' + repositoryName + '/css/style.css',
+              './' + repositoryName + '/style.css'
             ];
             
             cssUrls.forEach(function(url) {
@@ -92,7 +165,11 @@
               link.rel = 'stylesheet';
               link.href = url;
               document.head.appendChild(link);
+              console.log('Added CSS link:', url);
             });
+            
+            // Also try raw GitHub content
+            tryLoadRawGitHubCSS();
           }
         }
       }, 500);
@@ -127,15 +204,109 @@
   <script>
     // Ensure bundle.js is loaded even if the first attempt fails
     window.addEventListener('load', function() {
+      // Complete page processing once loaded
+      console.log('Page loaded - performing final checks');
+      
+      // Try to silence the runtime.lastError messages again
+      window.addEventListener('error', function(e) {
+        if (e && e.message && e.message.includes('runtime.lastError')) {
+          console.log('Blocked runtime.lastError message');
+          e.stopPropagation();
+          e.preventDefault();
+          return true;
+        }
+      }, true);
+      
+      // If we still don't have styles, force apply inline styles to all elements
+      setTimeout(function() {
+        var hasExternalCSS = false;
+        var styleSheets = document.styleSheets;
+        for (var i = 0; i < styleSheets.length; i++) {
+          if (styleSheets[i].href && styleSheets[i].href.includes('style.css')) {
+            hasExternalCSS = true;
+            console.log('External CSS detected: ' + styleSheets[i].href);
+            break;
+          }
+        }
+        
+        if (!hasExternalCSS) {
+          console.log('No external CSS loaded, applying emergency styling');
+          
+          // Force basic styling if no CSS was loaded
+          var style = document.createElement('style');
+          style.textContent = `
+            body, html { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; }
+            header, .header { background-color: #9C6644; color: white; padding: 20px 0; text-align: center; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+            .logo { font-size: 24px; font-weight: bold; }
+            .menu { display: flex; justify-content: center; margin-top: 20px; }
+            .menu a { color: white; margin: 0 15px; text-decoration: none; }
+            .hero { text-align: center; padding: 60px 20px; background-color: #f9f5f2; }
+            .hero h1 { font-size: 36px; color: #9C6644; margin-bottom: 20px; }
+            .hero p { font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
+            .button { display: inline-block; background-color: #9C6644; color: white; padding: 12px 25px; 
+                      border-radius: 4px; text-decoration: none; font-weight: bold; }
+            .products { padding: 60px 20px; text-align: center; }
+            .products h2 { font-size: 32px; color: #9C6644; margin-bottom: 40px; }
+            .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+                           gap: 30px; margin-top: 40px; }
+            .product-card { border: 1px solid #eee; border-radius: 8px; padding: 20px; }
+            .footer { background-color: #333; color: white; padding: 40px 20px; text-align: center; }
+            .footer a { color: white; text-decoration: none; margin: 0 15px; }
+          `;
+          document.head.appendChild(style);
+          
+          // Try to apply styling to elements directly
+          document.querySelectorAll('header, .header').forEach(el => {
+            Object.assign(el.style, {
+              backgroundColor: '#9C6644',
+              color: 'white', 
+              padding: '20px 0',
+              textAlign: 'center'
+            });
+          });
+          
+          document.querySelectorAll('.hero').forEach(el => {
+            Object.assign(el.style, {
+              textAlign: 'center',
+              padding: '60px 20px',
+              backgroundColor: '#f9f5f2'
+            });
+          });
+          
+          document.querySelectorAll('.button').forEach(el => {
+            Object.assign(el.style, {
+              display: 'inline-block',
+              backgroundColor: '#9C6644',
+              color: 'white',
+              padding: '12px 24px',
+              borderRadius: '4px',
+              textDecoration: 'none',
+              fontWeight: 'bold'
+            });
+          });
+        }
+      }, 1000);
+      
+      // Check for React and try to load bundle.js again if needed
       setTimeout(function() {
         if (typeof window.React === 'undefined') {
           console.log('React not detected, attempting backup bundle loading');
-          var repositoryName = window.location.pathname.split('/')[1];
-          if (repositoryName && window.location.hostname.includes('github.io')) {
+          var repositoryName = window.location.pathname.split('/')[1] || 'SweetMoment';
+          
+          var scriptUrls = [
+            '/' + repositoryName + '/bundle.js',
+            '/bundle.js',
+            './bundle.js',
+            'bundle.js'
+          ];
+          
+          scriptUrls.forEach(function(url) {
             var script = document.createElement('script');
-            script.src = '/' + repositoryName + '/bundle.js';
+            script.src = url;
             document.body.appendChild(script);
-          }
+            console.log('Trying to load script from: ' + url);
+          });
         }
       }, 1000);
     });
