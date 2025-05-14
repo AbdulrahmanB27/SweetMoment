@@ -1,0 +1,47 @@
+/* Animations for discount table rows */
+.active-discount-row {
+  background-color: rgba(220, 252, 231, 0.2); /* Light green background for active discounts */
+}
+
+.discount-row-highlight {
+  background-color: rgba(251, 207, 141, 0.25) !important;
+  transition: background-color 0.5s ease;
+}
+
+.discount-row-fade-out {
+  opacity: 0.85;
+  transition: opacity 0.3s ease-out;
+}
+
+.discount-row-fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+/* Animation for moving rows */
+.slide-up {
+  transform: translateY(-100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide-down {
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Framer Motion custom animations */
+@keyframes pulse-highlight {
+  0% { background-color: rgba(251, 207, 141, 0); }
+  50% { background-color: rgba(251, 207, 141, 0.4); }
+  100% { background-color: rgba(251, 207, 141, 0); }
+}
+
+.animate-switch-on {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.animate-switch-off {
+  transform: translateX(0%);
+  transition: transform 0.3s ease-in-out;
+}

@@ -1,0 +1,12 @@
+/* Image error handling for the signature section */
+.signature-img-container.img-error img {
+  display: none;
+}
+
+.signature-img-container.img-error .fallback-image {
+  display: flex;
+}
+
+.fallback-image {
+  display: none;
+}

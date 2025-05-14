@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Moment Chocolates</title>
+  
+  <!-- Handle runtime.lastError messages -->
+  <script>
+    window.addEventListener('error', function(e) {
+      if (e && e.message && e.message.includes('runtime.lastError')) {
+        console.log('Blocked runtime.lastError message');
+        e.stopPropagation();
+        e.preventDefault();
+        return true;
+      }
+    }, true);
+  </script>
+  
+  <!-- Base URL configuration for GitHub Pages -->
+  <script>
+    // GitHub Pages Repository Detection
+    var isGitHub = window.location.hostname.includes('github.io');
+    var repoName = '';
+    
+    if (isGitHub) {
+      repoName = window.location.pathname.split('/')[1] || 'SweetMoment';
+      
+      // Create a base tag if we're on GitHub Pages
+      var baseTag = document.createElement('base');
+      baseTag.href = '/' + repoName + '/';
+      document.head.insertBefore(baseTag, document.head.firstChild);
+      
+      console.log('GitHub Pages detected - set base href: /' + repoName + '/');
+    }
+    
+    // Helper function to fix all resource URLs
+    function fixPath(path) {
+      if (!path || path.startsWith('http') || path.startsWith('data:')) {
+        return path;
+      }
+      if (path.startsWith('/')) {
+        return path;
+      }
+      return (repoName ? '/' + repoName + '/' : '/') + path;
+    }
+  </script>
+  
+  <!-- Include multiple CSS with different paths for maximum compatibility -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/SweetMoment/style.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- Additional CSS loading via JavaScript (most reliable method) -->
+  <script>
+    // Try multiple CSS paths
+    var cssUrls = [
+      'style.css',
+      '/SweetMoment/style.css',
+      './style.css',
+      '/style.css'
+    ];
+    
+    cssUrls.forEach(function(url) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = url;
+      document.head.appendChild(link);
+    });
+    
+    // Also load the CSS directly with fetch and inject as inline style (most reliable)
+    fetch('/SweetMoment/style.css')
+      .then(function(response) {
+        if (!response.ok) {
+          return fetch('style.css');
+        }
+        return response;
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('No CSS file found');
+        }
+        return response.text();
+      })
+      .then(function(cssText) {
+        var style = document.createElement('style');
+        style.textContent = cssText;
+        document.head.appendChild(style);
+        console.log('Injected CSS from fetch');
+      })
+      .catch(function(error) {
+        console.log('Using inline CSS due to error: ' + error.message);
+      });
+  </script>
+  
+  <!-- Inline critical CSS that will always work -->
+  <style>
+    body, html { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    .header { background-color: #9C6644; color: white; padding: 20px 0; text-align: center; }
+    .logo { font-size: 28px; font-weight: bold; }
+    .menu { display: flex; justify-content: center; margin-top: 20px; }
+    .menu a { color: white; margin: 0 15px; text-decoration: none; }
+    .hero { text-align: center; padding: 60px 20px; background-color: #f9f5f2; }
+    .hero h1 { font-size: 42px; color: #9C6644; margin-bottom: 20px; }
+    .hero p { font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
+    .button { display: inline-block; background-color: #9C6644; color: white; padding: 12px 25px; 
+              border-radius: 4px; text-decoration: none; font-weight: bold; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .products { padding: 60px 20px; text-align: center; }
+    .products h2 { font-size: 32px; color: #9C6644; margin-bottom: 40px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+    .product-card { border: 1px solid #eee; border-radius: 8px; padding: 20px; transition: transform 0.3s; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .product-image { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 15px; }
+    .product-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #9C6644; }
+    .product-price { font-weight: bold; font-size: 16px; color: #333; margin-bottom: 15px; }
+    .about { padding: 60px 20px; background-color: #f9f9f9; }
+    .about h2 { font-size: 32px; color: #9C6644; margin-bottom: 20px; text-align: center; }
+    .about p { margin-bottom: 20px; line-height: 1.6; }
+    .contact { padding: 60px 20px; }
+    .contact h2 { font-size: 32px; color: #9C6644; margin-bottom: 20px; text-align: center; }
+    .contact-info { margin-top: 30px; }
+    .footer { background-color: #333; color: white; padding: 40px 20px; text-align: center; }
+    .footer-links { display: flex; justify-content: center; margin-bottom: 20px; }
+    .footer-links a { color: white; margin: 0 15px; text-decoration: none; }
+    .copyright { font-size: 14px; color: #aaa; }
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+      .menu { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">Sweet Moment Chocolates</div>
+      <nav class="menu">
+        <a href="#" class="active">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Experience Life's Sweetest Moments</h1>
+      <p>Curated treats and heartfelt gifts that brighten every day</p>
+      <a href="#products" class="button">Discover Your Moment</a>
+    </div>
+  </section>
+
+  <section id="products" class="products">
+    <div class="container">
+      <h2>Our Delicious Products</h2>
+      <div class="product-grid">
+        <!-- Classic Chocolate -->
+        <div class="product-card">
+          <img src="https://placehold.co/300x200/9C6644/FFFFFF/?text=Classic+Chocolate" alt="Classic Chocolate" class="product-image">
+          <div class="product-title">Classic Chocolate</div>
+          <div class="product-price">$8.00</div>
+          <p>Our signature chocolate blend with smooth, rich flavor.</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+
+        <!-- Caramel Chocolate -->
+        <div class="product-card">
+          <img src="https://placehold.co/300x200/9C6644/FFFFFF/?text=Caramel+Chocolate" alt="Caramel Chocolate" class="product-image">
+          <div class="product-title">Caramel Chocolate</div>
+          <div class="product-price">$15.00</div>
+          <p>A perfect blend of sweet caramel and premium chocolate.</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+
+        <!-- Dubai Bar -->
+        <div class="product-card">
+          <img src="https://placehold.co/300x200/9C6644/FFFFFF/?text=Dubai+Bar" alt="Dubai Bar" class="product-image">
+          <div class="product-title">Dubai Bar</div>
+          <div class="product-price">$5.00</div>
+          <p>A taste of luxury with our premium Dubai chocolate bar.</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+
+        <!-- Signature Collection -->
+        <div class="product-card">
+          <img src="https://placehold.co/300x200/9C6644/FFFFFF/?text=Signature+Collection" alt="Signature Collection" class="product-image">
+          <div class="product-title">Signature Collection</div>
+          <div class="product-price">$10.00</div>
+          <p>Our hand-selected premium chocolates in an elegant box.</p>
+          <a href="#" class="button">View Details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About Sweet Moment Chocolates</h2>
+      <p>At Sweet Moment Chocolates, we believe that life's most precious moments deserve to be celebrated with something special. Our passion for creating premium chocolate treats began over 20 years ago, and we've been crafting moments of joy ever since.</p>
+      <p>Every piece of chocolate we create is made with the finest ingredients, sourced from sustainable farms around the world. Our master chocolatiers combine traditional techniques with innovative flavors to bring you a truly exceptional experience.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you! Whether you have a question about our products, need help with an order, or just want to say hello, our team is here to assist you.</p>
+      <div class="contact-info">
+        <p>Email: info@sweetmomentchocolates.com</p>
+        <p>Phone: (555) 123-4567</p>
+        <p>Address: 123 Chocolate Lane, Sweet City, SC 12345</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Sweet Moment Chocolates. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom script for handling GitHub Pages path issues -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fix all image sources
+      document.querySelectorAll('img').forEach(function(img) {
+        if (img.src && !img.src.startsWith('http') && !img.src.startsWith('data:')) {
+          var oldSrc = img.src;
+          img.src = fixPath(img.src);
+          console.log('Fixed image path: ' + oldSrc + ' → ' + img.src);
+        }
+      });
+      
+      // Fix all anchor links
+      document.querySelectorAll('a').forEach(function(a) {
+        if (a.href && !a.href.startsWith('http') && !a.href.startsWith('#') && !a.href.startsWith('mailto:')) {
+          var oldHref = a.href;
+          a.href = fixPath(a.href);
+          console.log('Fixed link: ' + oldHref + ' → ' + a.href);
+        }
+      });
+      
+      // Apply styles directly to elements for maximum compatibility
+      var headerElements = document.querySelectorAll('header, .header');
+      for (var i = 0; i < headerElements.length; i++) {
+        headerElements[i].style.backgroundColor = '#9C6644';
+        headerElements[i].style.color = 'white';
+        headerElements[i].style.padding = '20px 0';
+        headerElements[i].style.textAlign = 'center';
+      }
+      
+      var heroElements = document.querySelectorAll('.hero');
+      for (var i = 0; i < heroElements.length; i++) {
+        heroElements[i].style.textAlign = 'center';
+        heroElements[i].style.padding = '60px 20px';
+        heroElements[i].style.backgroundColor = '#f9f5f2';
+      }
+      
+      var buttonElements = document.querySelectorAll('.button');
+      for (var i = 0; i < buttonElements.length; i++) {
+        buttonElements[i].style.display = 'inline-block';
+        buttonElements[i].style.backgroundColor = '#9C6644';
+        buttonElements[i].style.color = 'white';
+        buttonElements[i].style.padding = '12px 25px';
+        buttonElements[i].style.borderRadius = '4px';
+        buttonElements[i].style.textDecoration = 'none';
+        buttonElements[i].style.fontWeight = 'bold';
+      }
+      
+      console.log('Sweet Moment Static Site loaded successfully!');
+    });
+  </script>
+</body>
+</html>

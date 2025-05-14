@@ -1,0 +1,70 @@
+.hero-text {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-image-loaded .hero-text {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Swipe effect styling */
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.swipe-container img {
+  transition: transform 0.3s ease-out;
+}
+
+.swipe-container.swiping img {
+  transition: none;
+}
+
+/* Cursor styles for mouse interaction */
+.swipe-container {
+  cursor: grab;
+}
+
+.swipe-container.swiping {
+  cursor: grabbing;
+}
+
+/* Swipe indicators */
+.swipe-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  z-index: 30;
+}
+
+.swipe-indicator-text {
+  color: white;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.swipe-indicator-dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.swipe-indicator-dot.active {
+  background-color: white;
+  transform: scale(1.2);
+}

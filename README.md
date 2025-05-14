@@ -1,42 +1,19 @@
-# Sweet Moment Chocolates React Static Site
+# Sweet Moment Static Site
 
-This is a complete static version of the Sweet Moment Chocolates React website.
+This is a static version of the Sweet Moment website generated on 5/14/2025, 6:31:21 PM.
 
-## Setup for GitHub Pages
+## Deployment Instructions
 
-1. Push these files to a new repository on GitHub
-2. Enable GitHub Pages in the repository settings
-3. Configure Pages to deploy from the main branch
+1. Extract all files from this ZIP archive
+2. Deploy to a static hosting service like GitHub Pages
+3. For GitHub Pages:
+   - Create a new repository on GitHub
+   - Push these files to the repository
+   - Go to Settings > Pages and select the main branch for deployment
 
-## How This Works
+## Configuration
 
-This package contains a complete static build of the React application.
-It includes:
+- Base URL: /SweetMoment/
+- Generated: 2025-05-14T18:31:21.275Z
 
-- The compiled HTML, CSS, and JavaScript files
-- All assets (images, fonts, etc.)
-- Static data files to replace dynamic API calls
-
-## Included Pages
-
-- Home
-- Menu
-- Products
-- About
-- Contact
-- Faq
-- Terms
-- Privacy
-
-## Excluded Features
-
-- AdminPanel
-- Checkout
-- Cart
-- Orders
-- Account
-- Login
-- CustomOrders
-- SocialMedia
-
-Generated on: 2025-05-14T17:39:24.269Z
+For more details, see the GITHUB_PAGES_DEPLOYMENT_GUIDE.md file.

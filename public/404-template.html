@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sweet Moment Chocolates</title>
+  
+  <!-- Emergency CSS Fixer - must run first -->
+  <script src="css-fix.js"></script>
+  
+  <!-- Enhanced Resource Path Fixing for GitHub Pages - runs second -->
+  <script src="resource-path-fixer.js"></script>
+  
+  <!-- Backup path fixing for GitHub Pages -->
+  <script src="github-paths.js"></script>
+  
+  <!-- Default base path that may be overridden by path fixer scripts -->
+  <base href="##BASE_HREF##">
+  
+  <!-- Inline styles for better user experience -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .redirect-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 40px;
+      max-width: 90%;
+      width: 500px;
+    }
+    h2 {
+      color: #9C6644; /* Using Sweet Moment chocolate brown color */
+      margin-top: 0;
+    }
+    .redirect-spinner {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(156,102,68,0.3);
+      border-radius: 50%;
+      border-top-color: #9C6644;
+      animation: spin 1s ease-in-out infinite;
+      margin: 20px 0;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    a {
+      color: #9C6644;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  
+  <script type="text/javascript">
+    // Get repository name for use throughout the script
+    var repoName = '';
+    if (window.location.hostname.includes('github.io')) {
+      var pathParts = window.location.pathname.split('/');
+      if (pathParts.length > 1) {
+        repoName = pathParts[1];
+        console.log('GitHub Pages repository detected:', repoName);
+      }
+    }
+    
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    // Modified for repository-based GitHub Pages 
+    var pathSegmentsToKeep = "##PATH_SEGMENTS##"; // Will be replaced with 0 or 1 based on domain type
+    
+    // Create a better fallback redirection that works more reliably
+    function redirectToHome() {
+      var l = window.location;
+      
+      // Calculate baseUrl differently based on whether we're on GitHub Pages or custom domain
+      var baseUrl = '';
+      if (repoName) {
+        baseUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + repoName;
+        console.log('GitHub Pages detected, redirecting to:', baseUrl);
+      } else {
+        baseUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+        console.log('Custom domain detected, redirecting to:', baseUrl);
+      }
+      
+      // Extract the path without the repository name if on GitHub Pages
+      var currentPath = l.pathname;
+      if (repoName) {
+        currentPath = '/' + l.pathname.split('/').slice(2).join('/');
+      }
+      
+      // Now build the SPA-compatible redirection URL
+      var redirectUrl = baseUrl + '/?/' + 
+                        currentPath.slice(1).replace(/&/g, '~and~') +
+                        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                        l.hash;
+      
+      console.log('Redirecting to:', redirectUrl);
+      window.location.replace(redirectUrl);
+    }
+    
+    // Try multiple redirection strategies
+    function tryRedirect() {
+      try {
+        // Primary SPA GitHub Pages redirection
+        var l = window.location;
+        var pathSegments = parseInt(pathSegmentsToKeep || "1");
+        
+        var redirectPath = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                          l.pathname.split('/').slice(0, 1 + pathSegments).join('/') + '/?/' +
+                          l.pathname.slice(1).split('/').slice(pathSegments).join('/').replace(/&/g, '~and~') +
+                          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                          l.hash;
+                         
+        console.log('Attempting primary redirect to:', redirectPath);
+        window.location.replace(redirectPath);
+        
+        // Fallback with a timeout
+        setTimeout(function() {
+          if (window.location.pathname.includes('/404') || window.location.pathname.endsWith('/404.html')) {
+            console.log('Primary redirect failed, using fallback');
+            redirectToHome();
+          }
+        }, 1000);
+      } catch (e) {
+        console.error('Error in SPA redirection:', e);
+        redirectToHome(); // Use fallback in case of error
+      }
+    }
+    
+    // Small delay to let script loading complete
+    setTimeout(tryRedirect, 100);
+  </script>
+</head>
+<body>
+  <div class="redirect-container">
+    <h2>Sweet Moment Chocolates</h2>
+    <p>We're redirecting you to our home page...</p>
+    <div class="redirect-spinner"></div>
+    <p><a href="index.html" id="manual-link">Click here if you are not redirected automatically</a></p>
+    <script>
+      // Update manual link with correct repository path if on GitHub Pages
+      document.addEventListener('DOMContentLoaded', function() {
+        var manualLink = document.getElementById('manual-link');
+        if (manualLink && repoName) {
+          manualLink.href = '/' + repoName + '/index.html';
+          console.log('Manual link updated to:', manualLink.href);
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
