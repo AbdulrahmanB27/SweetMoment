@@ -29,10 +29,77 @@ interface StaticAppProps {
   staticData?: any;
 }
 
+/**
+ * Get repository name from URL or configuration
+ */
+function detectRepositoryName(): string {
+  // Check window.REPO_NAME (from scripts)
+  if (typeof window !== 'undefined' && window.REPO_NAME) {
+    return window.REPO_NAME;
+  }
+  
+  // Try to detect from GitHub Pages URL
+  if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    if (pathSegments.length > 0) {
+      return pathSegments[0];
+    }
+  }
+  
+  // Default fallback
+  return 'sweet-moment';
+}
+
+/**
+ * Check and fix duplicate repository paths in hash URLs
+ */
+function fixDuplicateRepositoryPath() {
+  const hash = window.location.hash;
+  if (!hash || hash === '#/') return;
+  
+  const repoName = detectRepositoryName();
+  const lowerHash = hash.toLowerCase();
+  const lowerRepoName = repoName.toLowerCase();
+  
+  // Check if hash path starts with the repository name
+  // This would match patterns like #/SweetMoment/ 
+  const hashPath = hash.substring(1); // Remove # character
+  if (hashPath.toLowerCase().startsWith('/' + lowerRepoName + '/')) {
+    console.warn(`[StaticApp] Detected duplicate repository segment in URL hash: ${hash}`);
+    
+    // Fix the path by removing the repository name
+    const correctedPath = '#' + hashPath.substring(repoName.length + 1);
+    console.log(`[StaticApp] Correcting hash path: ${hash} → ${correctedPath}`);
+    
+    // Replace the current URL without reloading
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(
+        null, 
+        document.title, 
+        window.location.pathname + correctedPath + window.location.search
+      );
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 const StaticApp: React.FC<StaticAppProps> = ({ staticData }) => {
   useEffect(() => {
-    // Log static app initialization
-    console.log("[StaticApp] Initializing with hash-based routing for GitHub Pages compatibility");
+    // Version check
+    const routerVersion = window.ROUTER_FIX_VERSION || 'unknown';
+    console.log(`[StaticApp] Initializing with hash-based routing for GitHub Pages compatibility (Router v${routerVersion})`);
+    
+    // Get repository name
+    const repoName = detectRepositoryName();
+    console.log(`[StaticApp] Detected repository name: ${repoName}`);
+    
+    // Check for duplicate repository path in URL hash and fix if needed
+    const pathFixed = fixDuplicateRepositoryPath();
+    if (pathFixed) {
+      console.log("[StaticApp] URL has been corrected to remove duplicate repository name");
+    }
     
     // Count page refreshes to detect and prevent refresh loops
     const refreshCount = sessionStorage.getItem('refreshCount');

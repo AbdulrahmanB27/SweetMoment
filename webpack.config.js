@@ -6,7 +6,8 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/SweetMoment/', // ✅ Correct path for GitHub Pages repo name
+    // Use relative paths for GitHub Pages compatibility
+    publicPath: './'
   },
   module: {
     rules: [
@@ -16,33 +17,38 @@ export default {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
-        },
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        type: 'asset/resource',
-      },
-    ],
+        type: 'asset/resource'
+      }
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-    }),
+      // Add GitHub Pages compatibility by injecting the base tag
+      templateParameters: {
+        // Add base href tag for GitHub Pages compatibility
+        baseHref: '/SweetMoment/'
+      }
+    })
   ],
   devServer: {
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, 'public')
     },
-    port: 3000,
-  },
+    port: 3000
+  }
 };

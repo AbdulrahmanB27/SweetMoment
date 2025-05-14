@@ -50,22 +50,25 @@
 
   <script>
     (function() {
-      // Optimized GitHub Pages 404 redirect handler v5.0 
-      // (Auto-detects repository name and supports hash-based routing)
+      // Enhanced GitHub Pages 404 redirect handler v6.0 
+      // (Aggressive repository path sanitization)
       
       // Log redirection
-      console.log("[404 Redirect] Initializing...");
+      console.log("[404 Redirect] Enhanced handler v6.0 initializing...");
       
       // Get the current path and clean it
       var path = window.location.pathname;
+      
+      // Known repository name variations (case insensitive)
+      var REPO_VARIANTS = ['sweet-moment', 'SweetMoment', 'sweetmoment', 'sweet_moment', 'Sweet-Moment'];
       
       // Function to detect repository name from URL
       function detectRepoName() {
         // If on GitHub Pages, try to extract from the URL
         if (window.location.hostname.indexOf('github.io') !== -1) {
-          const pathParts = path.split('/');
-          if (pathParts.length >= 2 && pathParts[1] !== '') {
-            return pathParts[1]; // The repo name is the first path segment
+          const pathParts = path.split('/').filter(function(part) { return part !== ''; });
+          if (pathParts.length > 0) {
+            return pathParts[0]; // The repo name is the first path segment
           }
         }
         return "##REPO_NAME##"; // Default value, will be replaced during build
@@ -74,20 +77,43 @@
       var repoName = detectRepoName();
       console.log("[404 Redirect] Detected repository name: " + repoName);
       
-      // Handle GitHub Pages repository prefix if present
-      if (path.indexOf('/' + repoName + '/') === 0) {
-        path = path.replace('/' + repoName, '');
+      // Clean the repository name from all paths
+      function cleanPath(inputPath) {
+        if (!inputPath) return '/';
+        
+        var cleanedPath = inputPath;
+        
+        // First, handle the actual repository name
+        if (cleanedPath.indexOf('/' + repoName + '/') === 0) {
+          cleanedPath = cleanedPath.replace('/' + repoName, '');
+        }
+        
+        // Then check all variants of the repository name (case insensitive)
+        for (var i = 0; i < REPO_VARIANTS.length; i++) {
+          var variant = REPO_VARIANTS[i];
+          
+          // Create a case-insensitive RegExp to match the repo name
+          var repoRegExp = new RegExp('\\/' + variant + '\\/', 'i');
+          
+          if (repoRegExp.test(cleanedPath)) {
+            console.warn("[404 Redirect] Detected repository variant in path: " + variant);
+            // Use the actual variant that was found in the string
+            var foundVariant = cleanedPath.match(repoRegExp)[0].replace(/\//g, '');
+            cleanedPath = cleanedPath.replace(new RegExp('\\/' + foundVariant + '\\/', 'i'), '/');
+          }
+        }
+        
+        // If path is empty or just a slash, set to root
+        if (cleanedPath === '' || cleanedPath === '/') {
+          cleanedPath = '/';
+        }
+        
+        return cleanedPath;
       }
       
-      // If path is empty, set to root
-      if (path === '') path = '/';
-      
-      // Special handling to prevent /SweetMoment/ from being duplicated in hash URLs 
-      // Check if the path starts with the repository name itself
-      if (path.indexOf('/' + repoName + '/') === 0) {
-        console.warn("[404 Redirect] Detected repository name in path segment, removing duplicate");
-        path = path.replace('/' + repoName, '');
-      }
+      // Clean the path
+      path = cleanPath(path);
+      console.log("[404 Redirect] Cleaned path: " + path);
       
       // Preserve query parameters if any
       var queryString = window.location.search || '';
@@ -100,13 +126,30 @@
         redirectUrl += '/' + repoName;
       }
       
-      // Add hash path for SPA routing
+      // Add hash path for SPA routing (ensure path starts with a slash)
+      if (path.charAt(0) !== '/') {
+        path = '/' + path;
+      }
+      
       redirectUrl += '/#' + path + queryString;
       
       console.log("[404 Redirect] Redirecting to: " + redirectUrl);
       
-      // Redirect to the home page with hash routing
-      window.location.replace(redirectUrl);
+      // Check for endless redirect loops
+      var redirectCount = sessionStorage.getItem('redirectCount') || 0;
+      redirectCount = parseInt(redirectCount, 10) + 1;
+      sessionStorage.setItem('redirectCount', redirectCount);
+      
+      if (redirectCount > 5) {
+        console.error("[404 Redirect] Detected possible redirect loop (count: " + redirectCount + ")");
+        // Force redirect to the homepage as a fallback
+        window.location.replace(window.location.origin + '/' + repoName + '/#/');
+        // Clear the count to allow future redirects
+        sessionStorage.removeItem('redirectCount');
+      } else {
+        // Normal redirect
+        window.location.replace(redirectUrl);
+      }
     })();
   </script>
 </body>
