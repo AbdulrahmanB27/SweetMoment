@@ -15,7 +15,13 @@
     
     // Static data will be injected here during build
     window.STATIC_DATA = <!-- STATIC_DATA_PLACEHOLDER -->;
+    
+    // Flag to indicate this is a fixed version with router fixes
+    window.STATIC_SITE_ROUTER_FIXED = true;
   </script>
+  
+  <!-- GitHub Pages router fix (must be loaded early) -->
+  <script src="router-fix.js"></script>
 </head>
 <body>
   <div id="root"></div>
