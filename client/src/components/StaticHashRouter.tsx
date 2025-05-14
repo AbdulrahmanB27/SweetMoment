@@ -21,43 +21,106 @@ declare global {
 // Custom hook to use hash-based location
 /**
  * Get repository name from window global or detect from URL
+ * Enhanced version with multiple detection strategies
  */
 function getRepoName(): string | null {
-  // Try to get from window global (set in enhanced-router-fix.js)
+  // 1. Try to get from window global (set in enhanced-router-fix.js)
   if (typeof window !== 'undefined' && window.REPO_NAME) {
     return window.REPO_NAME;
   }
   
-  // Try to detect from URL if on GitHub Pages
+  // 2. Try to detect from URL if on GitHub Pages
   if (typeof window !== 'undefined' && window.location.hostname.includes('github.io')) {
-    const pathParts = window.location.pathname.split('/');
-    if (pathParts.length >= 2 && pathParts[1] !== '') {
-      return pathParts[1]; // Return the first path segment
+    const pathParts = window.location.pathname.split('/').filter(part => part.length > 0);
+    if (pathParts.length >= 1) {
+      return pathParts[0]; // Return the first path segment
     }
   }
   
-  // Default repository name
-  return 'sweet-moment';
+  // 3. Try to extract from the referrer if available
+  if (typeof document !== 'undefined' && document.referrer) {
+    try {
+      const referrerUrl = new URL(document.referrer);
+      if (referrerUrl.hostname.includes('github.io')) {
+        const pathParts = referrerUrl.pathname.split('/').filter(part => part.length > 0);
+        if (pathParts.length >= 1) {
+          return pathParts[0];
+        }
+      }
+    } catch (e) {
+      console.error('[StaticHashRouter] Error parsing referrer:', e);
+    }
+  }
+  
+  // 4. Check for common repository name variants in the URL hash 
+  if (typeof window !== 'undefined' && window.location.hash) {
+    const hash = window.location.hash;
+    const repoVariants = ['SweetMoment', 'sweet-moment', 'sweetmoment', 'Sweet-Moment'];
+    
+    for (const variant of repoVariants) {
+      if (hash.includes('/' + variant + '/')) {
+        console.log(`[StaticHashRouter] Detected repo name '${variant}' in hash`);
+        return variant;
+      }
+    }
+  }
+  
+  // 5. Default to null - don't provide a hardcoded value
+  // This forces the router to not attempt path cleaning unless we're positive about the repo name
+  return null;
 }
 
 /**
  * Clean path by removing duplicate repository name segments
+ * Enhanced version with support for multiple repository variants
  * This fixes issues like /SweetMoment/product/1 when the repo is already SweetMoment
  */
 function cleanHashPath(path: string): string {
+  // If the path is missing or invalid, just return it
+  if (!path) return path;
+  
+  // Get the repository name from multiple sources
   const repoName = getRepoName();
-  if (!repoName) return path;
   
-  // Convert to lowercase for case-insensitive matching
-  const lowerPath = path.toLowerCase();
-  const lowerRepoName = repoName.toLowerCase();
+  // Define all possible repository name variants (case insensitive)
+  const repoVariants = ['SweetMoment', 'sweet-moment', 'sweetmoment', 'Sweet-Moment'];
   
-  // Check if path starts with /repoName/
-  if (lowerPath.startsWith('/' + lowerRepoName + '/')) {
-    console.log(`[StaticHashRouter] Cleaning path by removing repository prefix: ${path} -> ${path.substring(repoName.length + 1)}`);
-    return path.substring(repoName.length + 1);
+  // If we found a specific repo name, prioritize checking that first
+  if (repoName) {
+    // Convert to lowercase for case-insensitive matching
+    const lowerPath = path.toLowerCase();
+    const lowerRepoName = repoName.toLowerCase();
+    
+    // Check if path starts with /repoName/
+    if (lowerPath.startsWith('/' + lowerRepoName + '/')) {
+      console.log(`[StaticHashRouter] Cleaning path - removing detected repo prefix: ${path} -> ${path.substring(repoName.length + 1)}`);
+      return path.substring(repoName.length + 1);
+    }
   }
   
+  // Try all known repository name variants if we didn't clean with the detected name
+  const lowerPath = path.toLowerCase();
+  for (const variant of repoVariants) {
+    const lowerVariant = variant.toLowerCase();
+    if (lowerPath.startsWith('/' + lowerVariant + '/')) {
+      const cleanedPath = path.substring(variant.length + 1);
+      console.log(`[StaticHashRouter] Cleaning path - removing variant ${variant}: ${path} -> ${cleanedPath}`);
+      return cleanedPath;
+    }
+  }
+  
+  // Check for SweetMoment specifically anywhere in the URL (not just at the start)
+  // This handles cases where the path might have been partially cleaned
+  for (const variant of repoVariants) {
+    const variantPattern = new RegExp(`\\/${variant}\\/`, 'i');
+    if (variantPattern.test(path)) {
+      const cleanedPath = path.replace(variantPattern, '/');
+      console.log(`[StaticHashRouter] Found repo name in middle of path: ${path} -> ${cleanedPath}`);
+      return cleanedPath;
+    }
+  }
+  
+  // Path doesn't need cleaning
   return path;
 }
 

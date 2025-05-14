@@ -27,11 +27,43 @@
     window.USE_HASH_ROUTER = true;
   </script>
   
-  <!-- Special fix for duplicate repository segments in URL (must be loaded first) -->
+  <!-- MAXIMUM FORCE PATH FIX (v4.0) - Most aggressive handling of URLs - must be loaded first -->
   <script src="duplicate-path-fix.js"></script>
   
-  <!-- Enhanced GitHub Pages router fix v5.0 (must be loaded early) -->
+  <!-- Enhanced GitHub Pages router fix v5.0 (fallback for any URL issues not caught above) -->
   <script src="enhanced-router-fix.js"></script>
+  
+  <script>
+    // Periodic path check - final safety measure
+    (function() {
+      // Run after a short delay to ensure page has loaded
+      setTimeout(function() {
+        // Check for SweetMoment in the current URL hash and clean if needed
+        if (window.location.hash && window.location.hash.toLowerCase().includes('/sweetmoment/')) {
+          console.warn('[EmergencyFix] Detected repository name in hash after all checks!');
+          
+          // Get the path after SweetMoment
+          const lowerHash = window.location.hash.toLowerCase();
+          const sweetMomentIndex = lowerHash.indexOf('/sweetmoment/');
+          
+          if (sweetMomentIndex >= 0) {
+            // Extract path after SweetMoment (add 12 for the length of "/sweetmoment")
+            const nextSlashIndex = lowerHash.indexOf('/', sweetMomentIndex + 12);
+            const pathAfterRepo = nextSlashIndex > 0 
+              ? window.location.hash.substring(nextSlashIndex)
+              : '/'; 
+            
+            // Construct clean URL
+            const cleanHash = '#' + pathAfterRepo;
+            
+            // Force-replace the hash with clean version
+            console.log('[EmergencyFix] Forcing path update: ' + window.location.hash + ' → ' + cleanHash);
+            window.location.hash = cleanHash;
+          }
+        }
+      }, 300);
+    })();
+  </script>
 </head>
 <body>
   <div id="root"></div>
