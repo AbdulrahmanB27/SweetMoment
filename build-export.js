@@ -123,6 +123,6 @@ window.$RefreshSig$ = () => (type) => type;</script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx?v=YCW159kS5reR3PsPjUPOC"></script>
+    <script type="module" src="/src/main.tsx?v=P-cq62CtW2AVlZzs4DhHM"></script>
   </body>
 </html>
