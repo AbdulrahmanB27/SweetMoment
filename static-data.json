@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sweet Moment Chocolates</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-    h1 { color: #6b3f23; }
-    .products { display: flex; flex-wrap: wrap; gap: 20px; }
-    .product { border: 1px solid #ddd; padding: 10px; border-radius: 5px; width: 200px; }
-    .footer { margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
-  </style>
-</head>
-<body>
-  <h1>Sweet Moment Chocolates</h1>
-  <p>Welcome to our handcrafted chocolate collection.</p>
-  
-  <h2>Our Products</h2>
-  <div class="products" id="products">
-    <!-- Products will be added here by JavaScript -->
-  </div>
-  
-  <div class="footer">
-    <p>© 2025 Sweet Moment Chocolates</p>
-    <p>This is a static version of the website</p>
-  </div>
-
-  <script>
-    // Static data
-    const data = {
+{
   "siteCustomization": {
     "navigationSettings": "{\"menuDropdownEnabled\":false}",
     "sizeCustomization": "{\"imageUrl\":\"\",\"title\":\"Size Options\",\"description\":\"Choose from our selection of premium packaging sizes\"}",
@@ -344,22 +314,4 @@
   ],
   "categories": [],
   "generatedAt": "2025-05-14T03:41:38.228Z"
-};
-    
-    // Populate products
-    const productsContainer = document.getElementById('products');
-    if (data.products && Array.isArray(data.products)) {
-      data.products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.className = 'product';
-        productDiv.innerHTML = `
-          <h3>${product.name}</h3>
-          <p>${product.description || ''}</p>
-          <p><strong>Price:</strong> $${(product.basePrice / 100).toFixed(2)}</p>
-        `;
-        productsContainer.appendChild(productDiv);
-      });
-    }
-  </script>
-</body>
-</html>
+}

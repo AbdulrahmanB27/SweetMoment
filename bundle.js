@@ -1,1 +1,0 @@
-console.log("Static React site loaded");

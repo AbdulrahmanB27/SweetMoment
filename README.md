@@ -1,21 +1,13 @@
-# Sweet Moment Static Site
+# Sweet Moment Chocolates Static Site
 
-This is a static version of the Sweet Moment Chocolates website.
+This is a statically generated version of the Sweet Moment Chocolates website.
 
-## Deployment Instructions
+## Setup
 
-### GitHub Pages
+1. Push these files to a new repository on GitHub
+2. Enable GitHub Pages in the repository settings
+3. Configure Pages to deploy from the main branch
 
-If deploying to GitHub Pages:
+## Generated on
 
-1. Make sure you have the repository already created on GitHub
-2. Push this directory to the `gh-pages` branch of your repository
-3. Enable GitHub Pages in your repository settings
-4. Your site will be available at `https://yourusername.github.io/SweetMoment/`
-
-### Custom Domain
-
-If using a custom domain:
-
-1. Add a CNAME file with your domain name
-2. Configure your DNS settings to point to GitHub Pages
+2025-05-14T03:41:43.972Z
