@@ -6,75 +6,45 @@
   <title>Sweet Moment Chocolates</title>
   <script type="text/javascript">
     /**
-     * Improved 404 handler for GitHub Pages SPA navigation
-     * Modified from the original spa-github-pages approach to prevent URL corruption
-     * 
-     * This script improves upon the URL handling to avoid the common ?/&/~and~ corruption pattern
+     * Ultra simplified 404 handler for GitHub Pages
+     * This uses the simplest possible approach to avoid any complexity
      */
     
-    // This needs to be 1 for GitHub project pages (username.github.io/repo-name)
-    // and 0 for GitHub user pages (username.github.io) or custom domains
-    var pathSegmentsToKeep = 1;
-    
-    /**
-     * Get the repository name for proper redirection
-     */
-    function getRepoName() {
-      var pathSegments = window.location.pathname.split('/').filter(function(segment) {
-        return segment.length > 0;
-      });
+    // Simple redirect straight to the index
+    function simpleRedirect() {
+      // Just redirect to the repo root, no fancy path handling
+      var repo = "SweetMoment"; // Default
       
-      if (pathSegments.length > 0) {
-        return pathSegments[0];
+      // Try to detect repo from URL if possible
+      var pathParts = window.location.pathname.split('/').filter(function(p) { return p; });
+      if (pathParts.length > 0) {
+        repo = pathParts[0];
       }
       
-      // Default fallback if we can't detect the repo name
-      return "SweetMoment";
+      // Redirect directly to the root
+      var rootUrl = '/' + repo + '/';
+      console.log("404 handler: Redirecting to root:", rootUrl);
+      
+      // Perform direct navigation to avoid any state issues
+      window.location.href = rootUrl;
     }
     
-    /**
-     * Clean redirect to prevent URL corruption
-     */
-    function safeRedirect() {
-      var l = window.location;
-      var repoName = getRepoName();
-      
-      // Get path segments after the repo name (if any)
-      var pathSegments = l.pathname.split('/').filter(function(segment) {
-        return segment.length > 0;
-      });
-      
-      // Remove repo name from path segments if present
-      if (pathSegments.length > 0 && pathSegments[0] === repoName) {
-        pathSegments = pathSegments.slice(1);
-      }
-      
-      // Always use hash-based routing for maximum compatibility
-      var redirectPath;
-      if (pathSegments.length > 0) {
-        // Clean approach - redirect to root + hash-based path
-        redirectPath = '/' + repoName + '/#/' + pathSegments.join('/');
-      } else {
-        // No path segments, use hash-based root path
-        redirectPath = '/' + repoName + '/#/';
-      }
-      
-      // Perform the safe redirect
-      console.log("404 handler: Redirecting to:", redirectPath);
-      window.location.replace(redirectPath);
-    }
-    
-    // Execute the redirection
-    safeRedirect();
+    // Immediately redirect
+    simpleRedirect();
   </script>
 </head>
 <body>
   <h2>Redirecting to Sweet Moment...</h2>
-  <p>If you are not redirected automatically, <a id="manual-redirect" href="/">click here</a>.</p>
+  <p>If you are not redirected automatically, <a id="direct-link" href="/">click here</a>.</p>
   
   <script>
-    // Update the manual redirect link to use hash-based routing
-    document.getElementById('manual-redirect').href = '/' + getRepoName() + '/#/';
+    // Set direct link to repo root
+    var repo = "SweetMoment";
+    var pathParts = window.location.pathname.split('/').filter(function(p) { return p; });
+    if (pathParts.length > 0) {
+      repo = pathParts[0];
+    }
+    document.getElementById('direct-link').href = '/' + repo + '/';
   </script>
 </body>
 </html>

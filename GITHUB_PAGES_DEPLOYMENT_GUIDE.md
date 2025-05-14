@@ -61,21 +61,20 @@ This guide provides detailed instructions for deploying the Sweet Moment static 
 3. Publish the repository to GitHub
 4. Enable GitHub Pages as described in Option 1, step 6
 
-## Enhanced URL Protection for GitHub Pages
+## Simplified GitHub Pages Navigation Solution
 
-This package includes a comprehensive set of fixes for the common GitHub Pages SPA routing issues:
+This package includes a simplified, more reliable approach to handling URLs on GitHub Pages:
 
-1. **Enhanced Router Fix (v4.0)**: A JavaScript solution that actively prevents URL corruption
-2. **Improved 404.html Handler**: A better implementation that avoids the problematic `?/&/~and~` pattern
-3. **Hash-Based Routing**: Uses `/#/` routes which are more compatible with GitHub Pages
+1. **Direct Routing Approach**: We've switched to a more direct approach that prioritizes simplicity
+2. **Root-First Navigation**: All 404s and error scenarios go straight to the site root
+3. **Invisible Refresh Detection**: Special handling for stealth refresh loops
 
 ### What URL Issues Are Fixed:
 
-- **Infinite Redirect Loops**: Prevents the URL from continuously adding `/~and~/` segments
-- **Malformed URL Parameters**: Detects and fixes URLs like `?/&/~and~/~and~/`
-- **Repository Path Duplication**: Cleans up repeated repository names in the URL path
-- **404 Redirect Corruption**: Improved 404 page that uses a safer redirect approach
-- **Encoding Problems**: Fixes URL encoding issues that can break navigation
+- **Infinite Redirect Loops**: Immediately redirects to site root instead of trying complex URL fixes
+- **Invisible Page Refreshing**: Detects and breaks stealth refresh loops
+- **Any URL Corruption**: Simplifies by always navigating to the site root when problems occur
+- **404 Navigation**: Ultra-simplified 404 page that just takes you to the site home page
 
 ## If You Still Experience URL Corruption:
 
@@ -93,14 +92,14 @@ This package includes a comprehensive set of fixes for the common GitHub Pages S
 3. Refresh the page on different routes to ensure the routing works correctly
 4. Check the browser console for any errors
 
-## Important Note About Router Configuration
+## Important Note About Our Simplified Approach
 
-The enhanced router fix is specifically designed to work with wouter and similar client-side routers on GitHub Pages. The key improvements in this version:
+Our new navigation strategy focuses on simplicity rather than complexity:
 
-1. **Early Intervention**: Detects and fixes URL corruption before it causes page refreshes
-2. **Critical Pattern Detection**: Specifically targets the problematic `?/&/~and~/` pattern
-3. **Force Reload Protection**: Will force a clean reload in extreme corruption cases
-4. **Regular Expression Based Cleanup**: More sophisticated pattern matching for various URL corruption types
+1. **Direct Approach**: Instead of trying to fix complex URL issues, we immediately go to a known good state
+2. **Invisible Loop Detection**: Counts rapid page refreshes to detect and break invisible refresh loops
+3. **Failsafe Design**: All error conditions result in a simple redirect to the site root
+4. **No Complex URL Manipulation**: Avoids creating new URL corruption by using minimal URL handling
 
 ## Additional Resources
 

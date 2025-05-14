@@ -74,18 +74,18 @@
   }
   
   /**
-   * Force a clean reload to a specific page using hash-based routing
+   * Force a clean reload to a specific page
    * This is a last resort for severe URL corruption cases
    */
   function forceCleanReload() {
     const repoName = getRepoNameFromCurrentURL();
-    // Always use hash-based routing for maximum compatibility
-    const cleanHashUrl = '/' + repoName + '/#/';
+    // Go directly to the site root
+    const rootUrl = '/' + repoName + '/';
     
-    console.warn("[Enhanced Router Fix] Forcing clean reload with hash-based URL:", cleanHashUrl);
+    console.warn("[Enhanced Router Fix] Forcing clean reload to site root:", rootUrl);
     
-    // Use replace to prevent adding to browser history
-    window.location.replace(cleanHashUrl);
+    // Use href for a complete reset of browser state
+    window.location.href = rootUrl;
   }
   
   /**
@@ -118,17 +118,14 @@
         
         // If we've refreshed rapidly 3 times in a row, assume we're in a stealth loop
         if (currentCount >= 3) {
-          console.warn("[Enhanced Router Fix] CRITICAL: Detected invisible refresh loop, forcing hash-based navigation");
+          console.warn("[Enhanced Router Fix] CRITICAL: Detected invisible refresh loop");
           window.sessionStorage.removeItem("refreshCount");
           window.sessionStorage.removeItem("lastRefreshTime");
           window.sessionStorage.removeItem("initialUrl");
           
-          // Force clean reload with hash-based URL format
-          const repoName = getRepoNameFromCurrentURL();
-          const cleanHashUrl = '/' + repoName + '/#/';
-          
-          console.log("[Enhanced Router Fix] Redirecting to hash-based URL:", cleanHashUrl);
-          window.location.replace(cleanHashUrl);
+          // Simply force a reload to the site root - no fancy URL handling
+          console.log("[Enhanced Router Fix] Redirecting to site root");
+          forceCleanReload();
           isFixingUrl = false;
           return;
         }
