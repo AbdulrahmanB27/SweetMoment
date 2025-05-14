@@ -49,14 +49,14 @@
         pathSegments = pathSegments.slice(1);
       }
       
-      // If we have a path, use it, otherwise go to root
+      // Always use hash-based routing for maximum compatibility
       var redirectPath;
       if (pathSegments.length > 0) {
-        // Clean approach - redirect to root + path
+        // Clean approach - redirect to root + hash-based path
         redirectPath = '/' + repoName + '/#/' + pathSegments.join('/');
       } else {
-        // No path segments, just go to root
-        redirectPath = '/' + repoName;
+        // No path segments, use hash-based root path
+        redirectPath = '/' + repoName + '/#/';
       }
       
       // Perform the safe redirect
@@ -73,8 +73,8 @@
   <p>If you are not redirected automatically, <a id="manual-redirect" href="/">click here</a>.</p>
   
   <script>
-    // Update the manual redirect link
-    document.getElementById('manual-redirect').href = '/' + getRepoName();
+    // Update the manual redirect link to use hash-based routing
+    document.getElementById('manual-redirect').href = '/' + getRepoName() + '/#/';
   </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # Sweet Moment Static Site
 
-This is a static version of the Sweet Moment website generated on 5/14/2025, 9:31:16 PM.
+This is a static version of the Sweet Moment website generated on 5/14/2025, 9:39:55 PM.
 
 ## Deployment Instructions
 
@@ -25,6 +25,6 @@ If you encounter any URL issues, make sure that the `enhanced-router-fix.js` scr
 ## Configuration
 
 - Base URL: /SweetMoment/
-- Generated: 2025-05-14T21:31:16.706Z
+- Generated: 2025-05-14T21:39:55.719Z
 
 For more details, see the GITHUB_PAGES_DEPLOYMENT_GUIDE.md file.

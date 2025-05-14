@@ -74,6 +74,21 @@
   }
   
   /**
+   * Force a clean reload to a specific page using hash-based routing
+   * This is a last resort for severe URL corruption cases
+   */
+  function forceCleanReload() {
+    const repoName = getRepoNameFromCurrentURL();
+    // Always use hash-based routing for maximum compatibility
+    const cleanHashUrl = '/' + repoName + '/#/';
+    
+    console.warn("[Enhanced Router Fix] Forcing clean reload with hash-based URL:", cleanHashUrl);
+    
+    // Use replace to prevent adding to browser history
+    window.location.replace(cleanHashUrl);
+  }
+  
+  /**
    * Detect and fix common URL corruption patterns
    */
   function fixURLCorruption() {
@@ -84,6 +99,46 @@
     isFixingUrl = true;
     const currentTime = Date.now();
     const currentPath = window.location.pathname;
+    
+    // CRITICAL FIX - STEALTH REFRESH LOOP DETECTION
+    // Check if page is in a refresh loop without visible URL changes
+    if (window.sessionStorage.getItem("refreshCount") === null) {
+      window.sessionStorage.setItem("refreshCount", "1");
+      window.sessionStorage.setItem("lastRefreshTime", Date.now().toString());
+      window.sessionStorage.setItem("initialUrl", window.location.href);
+    } else {
+      const currentCount = parseInt(window.sessionStorage.getItem("refreshCount"), 10);
+      const lastRefreshTime = parseInt(window.sessionStorage.getItem("lastRefreshTime"), 10);
+      const initialUrl = window.sessionStorage.getItem("initialUrl");
+      const timeDiff = Date.now() - lastRefreshTime;
+      
+      // If refreshing rapidly (less than 1.5 seconds between refreshes)
+      if (timeDiff < 1500) {
+        window.sessionStorage.setItem("refreshCount", (currentCount + 1).toString());
+        
+        // If we've refreshed rapidly 3 times in a row, assume we're in a stealth loop
+        if (currentCount >= 3) {
+          console.warn("[Enhanced Router Fix] CRITICAL: Detected invisible refresh loop, forcing hash-based navigation");
+          window.sessionStorage.removeItem("refreshCount");
+          window.sessionStorage.removeItem("lastRefreshTime");
+          window.sessionStorage.removeItem("initialUrl");
+          
+          // Force clean reload with hash-based URL format
+          const repoName = getRepoNameFromCurrentURL();
+          const cleanHashUrl = '/' + repoName + '/#/';
+          
+          console.log("[Enhanced Router Fix] Redirecting to hash-based URL:", cleanHashUrl);
+          window.location.replace(cleanHashUrl);
+          isFixingUrl = false;
+          return;
+        }
+      } else {
+        // Reset counter if enough time has passed between refreshes
+        window.sessionStorage.setItem("refreshCount", "1");
+      }
+      
+      window.sessionStorage.setItem("lastRefreshTime", Date.now().toString());
+    }
     
     try {
       // CRITICAL FIX: Check for the exact problematic pattern shown by user
@@ -108,8 +163,8 @@
         // If conditions are right for an infinite loop, force a page reload as a last resort
         // This only happens on the most severe corruption
         if (window.location.search.includes('~and~/~and~/')) {
-          console.warn("[Enhanced Router Fix] Multiple nested corruptions detected, forcing page reload");
-          window.location.href = cleanRepoPath;
+          console.warn("[Enhanced Router Fix] Multiple nested corruptions detected, forcing hash-based reload");
+          forceCleanReload();
           return;
         }
         
