@@ -82,6 +82,13 @@
       // If path is empty, set to root
       if (path === '') path = '/';
       
+      // Special handling to prevent /SweetMoment/ from being duplicated in hash URLs 
+      // Check if the path starts with the repository name itself
+      if (path.indexOf('/' + repoName + '/') === 0) {
+        console.warn("[404 Redirect] Detected repository name in path segment, removing duplicate");
+        path = path.replace('/' + repoName, '');
+      }
+      
       // Preserve query parameters if any
       var queryString = window.location.search || '';
       

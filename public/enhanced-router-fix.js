@@ -1,20 +1,50 @@
 /**
- * Enhanced GitHub Pages Router Fix v4.0
+ * Enhanced GitHub Pages Router Fix v5.0
  * 
  * This script fixes GitHub Pages routing issues with SPAs by using hash-based routing.
  * It also detects and breaks refresh loops to ensure a stable browsing experience.
+ * Added special handling for duplicate repository segments in hash paths.
  */
 
 (function() {
   // Set repository name - must match GitHub repository name exactly (case-sensitive)
   window.REPO_NAME = "SweetMoment";
   
+  // Function to detect repository name from URL if available
+  function detectRepoName() {
+    // If on GitHub Pages, try to extract from the URL
+    if (window.location.hostname.indexOf('github.io') !== -1) {
+      const pathParts = window.location.pathname.split('/');
+      if (pathParts.length >= 2 && pathParts[1] !== '') {
+        return pathParts[1]; // The repo name is the first path segment
+      }
+    }
+    return window.REPO_NAME; // Fall back to configured name
+  }
+  
+  // Try to detect repo name from URL first
+  const detectedRepoName = detectRepoName();
+  if (detectedRepoName && detectedRepoName !== window.REPO_NAME) {
+    console.log("[Router Fix] Detected repository name from URL: " + detectedRepoName);
+    window.REPO_NAME = detectedRepoName;
+  }
+  
   // Enable hash router for GitHub Pages
   window.USE_HASH_ROUTER = true;
   
   // Log script initialization
-  console.log("[Router Fix] Enhanced GitHub Pages Router Fix v4.0 initialized");
+  console.log("[Router Fix] Enhanced GitHub Pages Router Fix v5.0 initialized");
   console.log("[Router Fix] Using repository name: " + window.REPO_NAME);
+  
+  // *** Special fix for duplicate repository segments in URLs ***
+  // This fixes the /SweetMoment/#/SweetMoment/... issue
+  if (window.location.hash && window.location.hash.indexOf('/' + window.REPO_NAME + '/') === 1) {
+    console.warn("[Router Fix] Detected duplicate repository segment in hash URL, fixing");
+    const fixedHash = window.location.hash.replace('/#/' + window.REPO_NAME + '/', '/#/');
+    console.log("[Router Fix] Corrected hash URL: " + fixedHash);
+    window.location.replace(window.location.origin + window.location.pathname + fixedHash);
+    return;
+  }
   
   // Detect if this is GitHub Pages or has hash routing explicitly enabled
   var isGitHubPages = 
