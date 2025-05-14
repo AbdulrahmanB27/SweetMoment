@@ -6,8 +6,15 @@
  */
 
 (function() {
+  // Set repository name - must match GitHub repository name exactly (case-sensitive)
+  window.REPO_NAME = "SweetMoment";
+  
+  // Enable hash router for GitHub Pages
+  window.USE_HASH_ROUTER = true;
+  
   // Log script initialization
   console.log("[Router Fix] Enhanced GitHub Pages Router Fix v4.0 initialized");
+  console.log("[Router Fix] Using repository name: " + window.REPO_NAME);
   
   // Detect if this is GitHub Pages or has hash routing explicitly enabled
   var isGitHubPages = 

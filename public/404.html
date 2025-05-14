@@ -50,29 +50,15 @@
 
   <script>
     (function() {
-      // Optimized GitHub Pages 404 redirect handler v5.0 
-      // (Auto-detects repository name and supports hash-based routing)
+      // Optimized GitHub Pages 404 redirect handler v4.0 
+      // (Optimized for hash-based routing)
       
       // Log redirection
       console.log("[404 Redirect] Initializing...");
       
       // Get the current path and clean it
       var path = window.location.pathname;
-      
-      // Function to detect repository name from URL
-      function detectRepoName() {
-        // If on GitHub Pages, try to extract from the URL
-        if (window.location.hostname.indexOf('github.io') !== -1) {
-          const pathParts = path.split('/');
-          if (pathParts.length >= 2 && pathParts[1] !== '') {
-            return pathParts[1]; // The repo name is the first path segment
-          }
-        }
-        return "##REPO_NAME##"; // Default value, will be replaced during build
-      }
-      
-      var repoName = detectRepoName();
-      console.log("[404 Redirect] Detected repository name: " + repoName);
+      var repoName = "SweetMoment"; // Updated to match exact repository name (case-sensitive)
       
       // Handle GitHub Pages repository prefix if present
       if (path.indexOf('/' + repoName + '/') === 0) {
