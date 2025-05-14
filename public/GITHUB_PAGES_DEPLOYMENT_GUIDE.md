@@ -7,7 +7,8 @@ This guide provides detailed instructions for deploying the Sweet Moment static 
 1. Extract all files from the ZIP archive to a local directory
 2. Verify that the following files are present in the root directory:
    - `index.html`
-   - `enhanced-router-fix.js`
+   - `enhanced-router-fix.js` (v4.0 - with severe URL corruption protection)
+   - `404.html` (improved version that prevents redirect loops)
    - `.nojekyll` (this file prevents GitHub Pages from using Jekyll processing)
 
 ## Creating a GitHub Repository
@@ -60,24 +61,30 @@ This guide provides detailed instructions for deploying the Sweet Moment static 
 3. Publish the repository to GitHub
 4. Enable GitHub Pages as described in Option 1, step 6
 
-## Troubleshooting URL Issues
+## Enhanced URL Protection for GitHub Pages
 
-The package includes an enhanced router fix (v3.0) that prevents URL corruption issues that commonly occur when deploying Single Page Applications (SPAs) with client-side routing to GitHub Pages.
+This package includes a comprehensive set of fixes for the common GitHub Pages SPA routing issues:
 
-### If you experience URL corruption:
+1. **Enhanced Router Fix (v4.0)**: A JavaScript solution that actively prevents URL corruption
+2. **Improved 404.html Handler**: A better implementation that avoids the problematic `?/&/~and~` pattern
+3. **Hash-Based Routing**: Uses `/#/` routes which are more compatible with GitHub Pages
 
-1. Ensure that `enhanced-router-fix.js` is properly included in your HTML file before any other scripts
-2. Check that the repository name in the HTML matches your actual GitHub repository name
-3. Verify that the `<base href="/YOUR-REPO-NAME/">` tag is present in the `<head>` section of your HTML
-4. Clear your browser cache and reload the page
+### What URL Issues Are Fixed:
 
-### Common URL Corruption Patterns Fixed:
+- **Infinite Redirect Loops**: Prevents the URL from continuously adding `/~and~/` segments
+- **Malformed URL Parameters**: Detects and fixes URLs like `?/&/~and~/~and~/`
+- **Repository Path Duplication**: Cleans up repeated repository names in the URL path
+- **404 Redirect Corruption**: Improved 404 page that uses a safer redirect approach
+- **Encoding Problems**: Fixes URL encoding issues that can break navigation
 
-- `/~and~/` segments appearing in URLs
-- Repository name duplication in paths
-- Endless page refreshing
-- Double slashes in URLs
-- Query parameter encoding issues
+## If You Still Experience URL Corruption:
+
+1. Clear your browser cache and cookies completely
+2. Try accessing the site in an incognito/private browsing window
+3. Make sure both `enhanced-router-fix.js` and the improved `404.html` are correctly deployed
+4. Enable browser developer tools and check the console for any warnings from the router fix
+5. Try manually triggering the fix by running `window.fixGitHubPagesUrl()` in the browser console
+6. If the issue persists, try using the URL pattern `/#/your-page` instead of `/your-page`
 
 ## Testing Your Deployment
 
@@ -86,28 +93,19 @@ The package includes an enhanced router fix (v3.0) that prevents URL corruption 
 3. Refresh the page on different routes to ensure the routing works correctly
 4. Check the browser console for any errors
 
-## Manual Router Fix Implementation
+## Important Note About Router Configuration
 
-If you need to manually implement the router fix in your own project:
+The enhanced router fix is specifically designed to work with wouter and similar client-side routers on GitHub Pages. The key improvements in this version:
 
-1. Include this script in your HTML before any other scripts:
-   ```html
-   <script>
-     // Set up global configuration
-     window.REPO_NAME = 'SweetMoment'; // Change to your repository name
-   </script>
-   <script src="enhanced-router-fix.js"></script>
-   ```
-
-2. Add a base tag in the head section:
-   ```html
-   <base href="/SweetMoment/"> <!-- Change to your repository name -->
-   ```
+1. **Early Intervention**: Detects and fixes URL corruption before it causes page refreshes
+2. **Critical Pattern Detection**: Specifically targets the problematic `?/&/~and~/` pattern
+3. **Force Reload Protection**: Will force a clean reload in extreme corruption cases
+4. **Regular Expression Based Cleanup**: More sophisticated pattern matching for various URL corruption types
 
 ## Additional Resources
 
 - [GitHub Pages Documentation](https://docs.github.com/en/pages)
 - [Single Page Applications on GitHub Pages](https://github.blog/2016-08-17-simpler-github-pages-publishing/)
-- [Creating a 404.html for SPA routing](https://github.blog/2016-08-22-publish-your-project-documentation-with-github-pages/)
+- [Handling Client-Side Routing with GitHub Pages](https://create-react-app.dev/docs/deployment/#notes-on-client-side-routing)
 
 For any further assistance, contact the Sweet Moment development team.

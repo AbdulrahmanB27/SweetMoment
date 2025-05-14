@@ -5,28 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates</title>
   <script type="text/javascript">
-    // Single Page Apps for GitHub Pages
-    // MIT License
-    // https://github.com/rafgraph/spa-github-pages
-    // This script takes the current url and converts the path and query
-    // string into just a query string, and then redirects the browser
-    // to the new url with only a query string and hash fragment
+    /**
+     * Improved 404 handler for GitHub Pages SPA navigation
+     * Modified from the original spa-github-pages approach to prevent URL corruption
+     * 
+     * This script improves upon the URL handling to avoid the common ?/&/~and~ corruption pattern
+     */
     
     // This needs to be 1 for GitHub project pages (username.github.io/repo-name)
     // and 0 for GitHub user pages (username.github.io) or custom domains
     var pathSegmentsToKeep = 1;
     
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
+    /**
+     * Get the repository name for proper redirection
+     */
+    function getRepoName() {
+      var pathSegments = window.location.pathname.split('/').filter(function(segment) {
+        return segment.length > 0;
+      });
+      
+      if (pathSegments.length > 0) {
+        return pathSegments[0];
+      }
+      
+      // Default fallback if we can't detect the repo name
+      return "SweetMoment";
+    }
+    
+    /**
+     * Clean redirect to prevent URL corruption
+     */
+    function safeRedirect() {
+      var l = window.location;
+      var repoName = getRepoName();
+      
+      // Get path segments after the repo name (if any)
+      var pathSegments = l.pathname.split('/').filter(function(segment) {
+        return segment.length > 0;
+      });
+      
+      // Remove repo name from path segments if present
+      if (pathSegments.length > 0 && pathSegments[0] === repoName) {
+        pathSegments = pathSegments.slice(1);
+      }
+      
+      // If we have a path, use it, otherwise go to root
+      var redirectPath;
+      if (pathSegments.length > 0) {
+        // Clean approach - redirect to root + path
+        redirectPath = '/' + repoName + '/#/' + pathSegments.join('/');
+      } else {
+        // No path segments, just go to root
+        redirectPath = '/' + repoName;
+      }
+      
+      // Perform the safe redirect
+      console.log("404 handler: Redirecting to:", redirectPath);
+      window.location.replace(redirectPath);
+    }
+    
+    // Execute the redirection
+    safeRedirect();
   </script>
 </head>
 <body>
-  <h2>Redirecting...</h2>
+  <h2>Redirecting to Sweet Moment...</h2>
+  <p>If you are not redirected automatically, <a id="manual-redirect" href="/">click here</a>.</p>
+  
+  <script>
+    // Update the manual redirect link
+    document.getElementById('manual-redirect').href = '/' + getRepoName();
+  </script>
 </body>
 </html>

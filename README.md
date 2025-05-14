@@ -1,6 +1,6 @@
 # Sweet Moment Static Site
 
-This is a static version of the Sweet Moment website generated on 5/14/2025, 9:04:45 PM.
+This is a static version of the Sweet Moment website generated on 5/14/2025, 9:31:16 PM.
 
 ## Deployment Instructions
 
@@ -11,14 +11,20 @@ This is a static version of the Sweet Moment website generated on 5/14/2025, 9:0
    - Push these files to the repository
    - Go to Settings > Pages and select the main branch for deployment
 
-## Router Fix Implemented
+## Enhanced Router Fix Implemented
 
-This static version includes a router-fix.js script that prevents URL corruption issues on GitHub Pages. 
-The fix addresses the "/~and~/" URL issue that can occur with the wouter router when deployed on GitHub Pages.
+This static version includes an enhanced router fix (v3.0) that prevents URL corruption issues on GitHub Pages:
+
+- Prevents the infinite "/~and~/" URL corruption issue that occurs with the wouter router
+- Stops endless page refreshing and URL mangling
+- Handles multiple URL corruption patterns automatically
+- Works with browser navigation and history properly
+
+If you encounter any URL issues, make sure that the `enhanced-router-fix.js` script is properly loaded in your HTML.
 
 ## Configuration
 
 - Base URL: /SweetMoment/
-- Generated: 2025-05-14T21:04:45.788Z
+- Generated: 2025-05-14T21:31:16.706Z
 
 For more details, see the GITHUB_PAGES_DEPLOYMENT_GUIDE.md file.

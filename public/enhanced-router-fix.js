@@ -5,7 +5,10 @@
  * on GitHub Pages, specifically preventing the infinite appending of
  * "/~and~/" segments and preventing excessive refreshing.
  * 
- * @version 3.0.0
+ * Version 4.0 includes critical fixes for severe URL corruption patterns
+ * like "?/&/~and~/~and~/" that can cause infinite page refreshing.
+ * 
+ * @version 4.0.0
  * @author SweetMoment Development Team
  */
 
@@ -26,7 +29,7 @@
   
   // Initialize with a notice in the console
   if (CONFIG.DEBUG_MODE) {
-    console.log("[Enhanced Router Fix] Initializing v3.0.0");
+    console.log("[Enhanced Router Fix] Initializing v4.0.0");
   }
   
   // Run the fix only on GitHub Pages or when forced for testing
@@ -83,6 +86,37 @@
     const currentPath = window.location.pathname;
     
     try {
+      // CRITICAL FIX: Check for the exact problematic pattern shown by user
+      // This handles specifically the ?/&/~and~/~and~/ pattern that's causing infinite refreshes
+      if (window.location.search && (
+          window.location.search.includes('?/&/~and~') || 
+          window.location.search.includes('?/~and~') ||
+          window.location.search.includes('/?/&/')
+      )) {
+        if (CONFIG.DEBUG_MODE) console.log("[Enhanced Router Fix] Detected critical URL corruption pattern:", window.location.search);
+        
+        // This is a severe issue, completely reset to the repository root
+        const cleanRepoPath = '/' + getRepoNameFromCurrentURL();
+        console.warn("[Enhanced Router Fix] Severe URL corruption detected - resetting to:", cleanRepoPath);
+        
+        // Force URL reset and prevent loops
+        window.history.replaceState(null, document.title, cleanRepoPath);
+        lastCleanedPath = cleanRepoPath;
+        fixCount++;
+        lastFixTime = Date.now();
+        
+        // If conditions are right for an infinite loop, force a page reload as a last resort
+        // This only happens on the most severe corruption
+        if (window.location.search.includes('~and~/~and~/')) {
+          console.warn("[Enhanced Router Fix] Multiple nested corruptions detected, forcing page reload");
+          window.location.href = cleanRepoPath;
+          return;
+        }
+        
+        isFixingUrl = false;
+        return; // Exit early after this emergency fix
+      }
+      
       // Prevent excessive fixes in a short time period to prevent loops
       if (currentTime - lastFixTime < 200 && fixCount > MAX_FIXES) {
         console.warn(`[Enhanced Router Fix] Too many fixes (${fixCount}) in a short time period, pausing fix attempts`);
@@ -297,5 +331,5 @@
     }
   }
   
-  console.log("[Enhanced Router Fix] GitHub Pages router fix v3.0.0 installed successfully");
+  console.log("[Enhanced Router Fix] GitHub Pages router fix v4.0.0 installed successfully");
 })();
