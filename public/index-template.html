@@ -19,12 +19,15 @@
     // Static data will be injected here during build
     window.STATIC_DATA = <!-- STATIC_DATA_PLACEHOLDER -->;
     
-    // Flag to indicate this is a fixed version with enhanced router fixes (v3.0)
+    // Flag to indicate this is a fixed version with enhanced router fixes (v4.0)
     window.STATIC_SITE_ROUTER_FIXED = true;
-    window.ROUTER_FIX_VERSION = '3.0';
+    window.ROUTER_FIX_VERSION = '4.0';
+    
+    // Use hash routing instead of browser routing for GitHub Pages compatibility
+    window.USE_HASH_ROUTER = true;
   </script>
   
-  <!-- Enhanced GitHub Pages router fix v3.0 (must be loaded early) -->
+  <!-- Enhanced GitHub Pages router fix v4.0 (must be loaded early) -->
   <script src="enhanced-router-fix.js"></script>
 </head>
 <body>

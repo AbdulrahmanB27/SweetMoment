@@ -3,48 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sweet Moment Chocolates</title>
-  <script type="text/javascript">
-    /**
-     * Ultra simplified 404 handler for GitHub Pages
-     * This uses the simplest possible approach to avoid any complexity
-     */
-    
-    // Simple redirect straight to the index
-    function simpleRedirect() {
-      // Just redirect to the repo root, no fancy path handling
-      var repo = "SweetMoment"; // Default
-      
-      // Try to detect repo from URL if possible
-      var pathParts = window.location.pathname.split('/').filter(function(p) { return p; });
-      if (pathParts.length > 0) {
-        repo = pathParts[0];
-      }
-      
-      // Redirect directly to the root
-      var rootUrl = '/' + repo + '/';
-      console.log("404 handler: Redirecting to root:", rootUrl);
-      
-      // Perform direct navigation to avoid any state issues
-      window.location.href = rootUrl;
+  <title>Sweet Moment Chocolates - Redirecting...</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f8f5f0;
+      color: #5c4033;
     }
-    
-    // Immediately redirect
-    simpleRedirect();
-  </script>
+    .redirect-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #8b5a2b;
+    }
+    .logo {
+      max-width: 180px;
+      margin-bottom: 20px;
+    }
+    .spinner {
+      margin: 20px auto;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(139, 90, 43, 0.1);
+      border-radius: 50%;
+      border-top-color: #8b5a2b;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <h2>Redirecting to Sweet Moment...</h2>
-  <p>If you are not redirected automatically, <a id="direct-link" href="/">click here</a>.</p>
-  
+  <div class="redirect-container">
+    <h1>Sweet Moment Chocolates</h1>
+    <p>Redirecting you to the homepage...</p>
+    <div class="spinner"></div>
+  </div>
+
   <script>
-    // Set direct link to repo root
-    var repo = "SweetMoment";
-    var pathParts = window.location.pathname.split('/').filter(function(p) { return p; });
-    if (pathParts.length > 0) {
-      repo = pathParts[0];
-    }
-    document.getElementById('direct-link').href = '/' + repo + '/';
+    (function() {
+      // Optimized GitHub Pages 404 redirect handler v4.0 
+      // (Optimized for hash-based routing)
+      
+      // Log redirection
+      console.log("[404 Redirect] Initializing...");
+      
+      // Get the current path and clean it
+      var path = window.location.pathname;
+      var repoName = "sweet-moment"; // Default repo name, will be updated during build
+      
+      // Handle GitHub Pages repository prefix if present
+      if (path.indexOf('/' + repoName + '/') === 0) {
+        path = path.replace('/' + repoName, '');
+      }
+      
+      // If path is empty, set to root
+      if (path === '') path = '/';
+      
+      // Preserve query parameters if any
+      var queryString = window.location.search || '';
+      
+      // Create redirect URL with hash for SPA routing
+      var redirectUrl = window.location.origin;
+      
+      // Add repository name if needed (for GitHub Pages)
+      if (window.location.hostname.indexOf('github.io') !== -1) {
+        redirectUrl += '/' + repoName;
+      }
+      
+      // Add hash path for SPA routing
+      redirectUrl += '/#' + path + queryString;
+      
+      console.log("[404 Redirect] Redirecting to: " + redirectUrl);
+      
+      // Redirect to the home page with hash routing
+      window.location.replace(redirectUrl);
+    })();
   </script>
 </body>
 </html>
