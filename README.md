@@ -1,6 +1,6 @@
 # Sweet Moment Static Site
 
-This is a static version of the Sweet Moment website generated on 5/14/2025, 6:50:08 PM.
+This is a static version of the Sweet Moment website generated on 5/14/2025, 8:47:52 PM.
 
 ## Deployment Instructions
 
@@ -18,7 +18,7 @@ The fix addresses the "/~and~/" URL issue that can occur with the wouter router 
 
 ## Configuration
 
-- Base URL: /SweetMoment/
-- Generated: 2025-05-14T18:50:08.012Z
+- Base URL: /
+- Generated: 2025-05-14T20:47:52.453Z
 
 For more details, see the GITHUB_PAGES_DEPLOYMENT_GUIDE.md file.
