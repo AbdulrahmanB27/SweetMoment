@@ -11,80 +11,65 @@
   <!-- Inline styles -->
   <link rel="stylesheet" href="assets/index.css">
   
-  <!-- Enhanced GitHub Pages SPA Routing Fix v2.0 -->
+  <!-- Enhanced GitHub Pages SPA 404 Router Script -->
   <script type="text/javascript">
-    // Single Page Apps for GitHub Pages - Enhanced Version
-    // Modified to handle repository name duplication issues
+    // GitHub Pages 404 Redirect Handler
+    // Enhanced version to handle various routing scenarios
     (function() {
-      // Set up important variables
+      // Configuration
       window.REPO_NAME = "SweetMoment";
       window.IS_CUSTOM_DOMAIN = false;
       window.USE_HASH_ROUTER = true;
       
+      console.log("[404 Router] Handling 404 on " + window.location.pathname);
+      
       // Detect if we're on GitHub Pages
       var isGitHubPages = window.location.hostname.indexOf('github.io') !== -1;
       
-      console.log("[Router Fix] Initializing with repo: " + window.REPO_NAME);
-      console.log("[Router Fix] Is GitHub Pages: " + isGitHubPages);
-      console.log("[Router Fix] Using custom domain: " + window.IS_CUSTOM_DOMAIN);
+      // Handle the 404 case
+      var pathSegments = window.location.pathname.split('/');
+      var cleanPath = '';
       
-      // Special fix for duplicate repository segments in URLs
-      // This fixes the /SweetMoment/#/SweetMoment/... issue
-      if (window.location.hash && window.location.hash.indexOf('/#/' + window.REPO_NAME + '/') === 0) {
-        console.warn("[Router Fix] Detected duplicate repository segment in hash URL");
-        const fixedHash = window.location.hash.replace('/#/' + window.REPO_NAME + '/', '/#/');
-        console.log("[Router Fix] Correcting URL: " + window.location.hash + " → " + fixedHash);
-        window.location.replace(
-          window.location.protocol + '//' + 
-          window.location.hostname + 
-          (window.location.port ? ':' + window.location.port : '') +
-          window.location.pathname + fixedHash
-        );
-        return;
-      }
-      
-      // Handle direct navigation without hash (for GitHub Pages)
       if (isGitHubPages && !window.IS_CUSTOM_DOMAIN) {
-        if (!window.location.hash && window.location.pathname.indexOf('/' + window.REPO_NAME) === 0) {
-          // If this is a direct navigation to a subpath without hash
-          if (window.location.pathname !== '/' + window.REPO_NAME + '/' && 
-              window.location.pathname !== '/' + window.REPO_NAME) {
-            // Extract path after repo name and redirect to hash route
-            var path = window.location.pathname.replace('/' + window.REPO_NAME, '');
-            console.log("[Router Fix] Converting direct path to hash route: " + path);
-            window.location.replace(
-              window.location.protocol + '//' + 
-              window.location.hostname + 
-              (window.location.port ? ':' + window.location.port : '') +
-              '/' + window.REPO_NAME + '/#' + path +
-              window.location.search
-            );
+        // On GitHub Pages project site
+        
+        if (pathSegments.length >= 2) {
+          // Get path after the repository name segment
+          // Find the repo name in the path
+          var repoIndex = pathSegments.indexOf(window.REPO_NAME);
+          if (repoIndex !== -1 && repoIndex < pathSegments.length - 1) {
+            // Extract everything after the repo name
+            cleanPath = '/' + pathSegments.slice(repoIndex + 1).join('/');
+          } else {
+            // Fallback - assume repo is first segment
+            cleanPath = '/' + pathSegments.slice(2).join('/');
           }
         }
-      }
-      
-      // Handle potential refresh loops
-      var refreshAttempts = sessionStorage.getItem('refreshAttempts') || 0;
-      if (refreshAttempts > 5) {
-        console.error("[Router Fix] Detected potential refresh loop, breaking cycle");
-        sessionStorage.setItem('refreshAttempts', '0');
-        // Force navigation to home page
-        if (window.location.hash !== '#/') {
-          window.location.replace(
-            window.location.protocol + '//' + 
-            window.location.hostname + 
-            (window.location.port ? ':' + window.location.port : '') +
-            window.location.pathname.split('/').slice(0, -1).join('/') + 
-            '/#/'
-          );
+        
+        // Special handling for duplicate repo name in path
+        if (cleanPath.startsWith('/' + window.REPO_NAME + '/')) {
+          console.warn("[404 Router] Detected duplicate repository segment in path, fixing");
+          cleanPath = cleanPath.replace('/' + window.REPO_NAME + '/', '/');
         }
       } else {
-        sessionStorage.setItem('refreshAttempts', parseInt(refreshAttempts) + 1);
-        // Reset counter after 5 seconds of successful page load
-        setTimeout(function() {
-          sessionStorage.setItem('refreshAttempts', '0');
-        }, 5000);
+        // For custom domains or local development
+        cleanPath = window.location.pathname;
       }
+      
+      console.log("[404 Router] Clean path: " + cleanPath);
+      
+      // Create the root path where the app is hosted
+      var rootPath = isGitHubPages && !window.IS_CUSTOM_DOMAIN 
+        ? '/' + window.REPO_NAME + '/'
+        : '/';
+        
+      // Redirect to the hash-based route
+      window.location.replace(
+        window.location.origin + 
+        rootPath + 
+        '#' + (cleanPath || '/') +
+        window.location.search
+      );
     })();
   </script>
   
