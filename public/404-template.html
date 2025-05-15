@@ -6,7 +6,7 @@
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sweet Moment Chocolates - Redirecting...</title>
+  <title><!-- SITE_TITLE_PLACEHOLDER --> - Redirecting...</title>
   <style>
     body {
       font-family: sans-serif;
@@ -49,12 +49,24 @@
     // Emergency fix that runs immediately
     (function() {
       function emergencyClean() {
-        if (window.location.hash && (
-            window.location.hash.toLowerCase().includes('/sweetmoment/') || 
-            window.location.hash.toLowerCase().includes('/sweet-moment/')
-        )) {
-          console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
-          window.location.hash = '#/';
+        // Get repo name (try all possible sources)
+        const repoName = window.REPO_BASE?.replace(/^\/|\/$/g, '') || '';
+        
+        if (window.location.hash && repoName) {
+          // Create variants of repo name for checking
+          const repoNameLower = repoName.toLowerCase();
+          const dashVersion = repoNameLower.replace(/\s+/g, '-');
+          const noSpaceVersion = repoNameLower.replace(/\s+/g, '');
+          
+          // Check for any variant in the URL
+          if (
+            window.location.hash.toLowerCase().includes('/' + repoNameLower + '/') || 
+            window.location.hash.toLowerCase().includes('/' + dashVersion + '/') ||
+            window.location.hash.toLowerCase().includes('/' + noSpaceVersion + '/')
+          ) {
+            console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
+            window.location.hash = '#/';
+          }
         }
       }
       
@@ -70,7 +82,7 @@
 </head>
 <body>
   <div class="redirect-container">
-    <h1>Sweet Moment Chocolates</h1>
+    <h1><!-- SITE_TITLE_PLACEHOLDER --></h1>
     <p>Redirecting you to the homepage...</p>
     <div class="spinner"></div>
   </div>
@@ -86,19 +98,45 @@
       // Get the current path and clean it
       var path = window.location.pathname;
       
-      // Known repository name variations (case insensitive)
-      var REPO_VARIANTS = ['sweet-moment', 'SweetMoment', 'sweetmoment', 'sweet_moment', 'Sweet-Moment'];
+      // Configuration set by the build system
+      window.REPO_BASE = '<!-- REPO_BASE_PLACEHOLDER -->'; // Will be replaced during build
       
-      // Function to detect repository name from URL
+      // Known repository name variations (case insensitive) - will include the user's custom repo name
+      var REPO_VARIANTS = ['<!-- REPO_VARIANTS_PLACEHOLDER -->'];
+      
+      // Function to detect repository name from multiple sources
       function detectRepoName() {
+        // First check if the repository base is configured
+        if (window.REPO_BASE) {
+          var configuredRepo = window.REPO_BASE.replace(/^\/|\/$/g, '');
+          if (configuredRepo) {
+            console.log("[404 Redirect] Using configured repository name:", configuredRepo);
+            return configuredRepo;
+          }
+        }
+        
         // If on GitHub Pages, try to extract from the URL
         if (window.location.hostname.indexOf('github.io') !== -1) {
           const pathParts = path.split('/').filter(function(part) { return part !== ''; });
           if (pathParts.length > 0) {
+            console.log("[404 Redirect] Detected repository from URL path:", pathParts[0]);
             return pathParts[0]; // The repo name is the first path segment
           }
         }
-        return "##REPO_NAME##"; // Default value, will be replaced during build
+        
+        // As a last resort, try to get it from the base tag
+        var baseTag = document.querySelector('base');
+        if (baseTag && baseTag.href) {
+          var baseUrl = baseTag.href;
+          var basePathMatch = baseUrl.match(/\/([^\/]+)\/$/);
+          if (basePathMatch && basePathMatch[1]) {
+            console.log("[404 Redirect] Detected repository from base tag:", basePathMatch[1]);
+            return basePathMatch[1];
+          }
+        }
+        
+        // Default fallback, will be replaced during build
+        return "<!-- REPO_NAME_PLACEHOLDER -->";
       }
       
       var repoName = detectRepoName();

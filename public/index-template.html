@@ -6,8 +6,8 @@
   
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sweet Moment Chocolates</title>
-  <meta name="description" content="Experience luxury handcrafted chocolates from Sweet Moment - the perfect gift for any occasion." />
+  <title><!-- SITE_TITLE_PLACEHOLDER --></title>
+  <meta name="description" content="<!-- SITE_DESCRIPTION_PLACEHOLDER -->" />
   <!-- STATIC_CSS_PLACEHOLDER -->
   <!-- STATIC_METADATA_PLACEHOLDER -->
   <script>
@@ -18,6 +18,7 @@
     
     // GitHub Pages repository name detection (for router fix)
     window.REPO_NAME = '<!-- REPO_NAME_PLACEHOLDER -->'; // Will be filled during build
+    window.REPO_BASE = '<!-- REPO_BASE_PLACEHOLDER -->'; // Will be filled during build with the actual base URL
     
     // Static data will be injected here during build
     window.STATIC_DATA = <!-- STATIC_DATA_PLACEHOLDER -->;
@@ -35,12 +36,24 @@
     // Emergency fix that runs immediately
     (function() {
       function emergencyClean() {
-        if (window.location.hash && (
-            window.location.hash.toLowerCase().includes('/sweetmoment/') || 
-            window.location.hash.toLowerCase().includes('/sweet-moment/')
-        )) {
-          console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
-          window.location.hash = '#/';
+        // Get repo name (try all possible sources)
+        const repoName = window.REPO_NAME || window.REPO_BASE?.replace(/^\/|\/$/g, '') || '';
+        
+        if (window.location.hash && repoName) {
+          // Create variants of repo name for checking
+          const repoNameLower = repoName.toLowerCase();
+          const dashVersion = repoNameLower.replace(/\s+/g, '-');
+          const noSpaceVersion = repoNameLower.replace(/\s+/g, '');
+          
+          // Check for any variant in the URL
+          if (
+            window.location.hash.toLowerCase().includes('/' + repoNameLower + '/') || 
+            window.location.hash.toLowerCase().includes('/' + dashVersion + '/') ||
+            window.location.hash.toLowerCase().includes('/' + noSpaceVersion + '/')
+          ) {
+            console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
+            window.location.hash = '#/';
+          }
         }
       }
       
@@ -65,28 +78,63 @@
     (function() {
       // Run after a short delay to ensure page has loaded
       setTimeout(function() {
-        // Check for SweetMoment in the current URL hash and clean if needed
-        if (window.location.hash && window.location.hash.toLowerCase().includes('/sweetmoment/')) {
+        // Get repo name (try all possible sources)
+        const repoName = window.REPO_NAME || window.REPO_BASE?.replace(/^\/|\/$/g, '') || '';
+        
+        if (!repoName) {
+          console.warn('[EmergencyFix] No repository name available, skipping hash URL check');
+          return;
+        }
+        
+        // Create variants of repo name for checking
+        const repoNameLower = repoName.toLowerCase();
+        const dashVersion = repoNameLower.replace(/\s+/g, '-');
+        const noSpaceVersion = repoNameLower.replace(/\s+/g, '');
+        
+        // Check if any variant of the repository name is in the hash URL
+        const lowerHash = window.location.hash.toLowerCase();
+        
+        // Create pattern strings to look for - e.g., "/reponame/"
+        const patterns = [
+          '/' + repoNameLower + '/',
+          '/' + dashVersion + '/',
+          '/' + noSpaceVersion + '/'
+        ];
+        
+        // Find the first match
+        let repoPattern = null;
+        let matchIndex = -1;
+        
+        for (const pattern of patterns) {
+          const index = lowerHash.indexOf(pattern);
+          if (index >= 0) {
+            repoPattern = pattern;
+            matchIndex = index;
+            break;
+          }
+        }
+        
+        // If we found a match, fix the URL
+        if (matchIndex >= 0 && repoPattern) {
           console.warn('[EmergencyFix] Detected repository name in hash after all checks!');
           
-          // Get the path after SweetMoment
-          const lowerHash = window.location.hash.toLowerCase();
-          const sweetMomentIndex = lowerHash.indexOf('/sweetmoment/');
+          // Calculate the pattern length (including the slashes)
+          const patternLength = repoPattern.length;
           
-          if (sweetMomentIndex >= 0) {
-            // Extract path after SweetMoment (add 12 for the length of "/sweetmoment")
-            const nextSlashIndex = lowerHash.indexOf('/', sweetMomentIndex + 12);
-            const pathAfterRepo = nextSlashIndex > 0 
-              ? window.location.hash.substring(nextSlashIndex)
-              : '/'; 
-            
-            // Construct clean URL
-            const cleanHash = '#' + pathAfterRepo;
-            
-            // Force-replace the hash with clean version
-            console.log('[EmergencyFix] Forcing path update: ' + window.location.hash + ' → ' + cleanHash);
-            window.location.hash = cleanHash;
-          }
+          // Find next slash after the repository pattern
+          const nextSlashIndex = lowerHash.indexOf('/', matchIndex + patternLength);
+          
+          // Extract path after repository
+          const pathAfterRepo = nextSlashIndex > 0 
+            ? window.location.hash.substring(nextSlashIndex)
+            : '/'; 
+          
+          // Construct clean URL
+          const cleanHash = '#' + pathAfterRepo;
+          
+          // Force-replace the hash with clean version
+          console.log('[EmergencyFix] Forcing path update: ' + window.location.hash + ' → ' + cleanHash);
+          window.location.hash = cleanHash;
         }
       }, 300);
     })();

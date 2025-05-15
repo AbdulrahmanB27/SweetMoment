@@ -7,18 +7,40 @@
 (function() {
   console.log('[NuclearFix] Initializing absolute path fix v5.0');
   
+  // Set repository base from build configuration
+  window.REPO_BASE = '<!-- REPO_BASE_PLACEHOLDER -->';
+  
   // Detect when we're on GitHub Pages
   const isGitHubPages = window.location.hostname.includes('github.io');
   
-  // Detect repository name from URL
+  // Detect repository name from URL or configuration
   function getRepoName() {
+    // First check if the repository name is set in window configuration (from template)
+    if (window.REPO_BASE) {
+      return window.REPO_BASE.replace(/^\/|\/$/g, ''); // Remove leading/trailing slashes
+    }
+    
+    // Then try to detect from URL if on GitHub Pages
     if (window.location.hostname.includes('github.io')) {
       const pathSegments = window.location.pathname.split('/').filter(Boolean);
       if (pathSegments.length > 0) {
         return pathSegments[0];
       }
     }
-    return 'sweet-moment'; // Fallback default
+    
+    // As a last resort, try to get it from the base tag
+    const baseTag = document.querySelector('base');
+    if (baseTag && baseTag.href) {
+      const baseUrl = baseTag.href;
+      const basePathMatch = baseUrl.match(/\/([^\/]+)\/$/);
+      if (basePathMatch && basePathMatch[1]) {
+        return basePathMatch[1];
+      }
+    }
+    
+    // No repository name could be detected
+    console.warn('[NuclearFix] Could not detect repository name, using empty default');
+    return '';
   }
   
   // Extract the actual repo name
@@ -156,12 +178,21 @@
   
   // Emergency absolute fallback fix for the most common issue
   function emergencyClean() {
-    if (window.location.hash && (
-        window.location.hash.toLowerCase().includes('/sweetmoment/') || 
-        window.location.hash.toLowerCase().includes('/sweet-moment/')
-    )) {
-      console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
-      window.location.hash = '#/';
+    // Check if we have a repository name to match against
+    if (window.location.hash && repoName) {
+      // Format and check for multiple variants of the repo name
+      const repoNameLower = repoName.toLowerCase();
+      const dashVersion = repoNameLower.replace(/\s+/g, '-');
+      const noSpaceVersion = repoNameLower.replace(/\s+/g, '');
+      
+      if (
+        window.location.hash.toLowerCase().includes('/' + repoNameLower + '/') || 
+        window.location.hash.toLowerCase().includes('/' + dashVersion + '/') ||
+        window.location.hash.toLowerCase().includes('/' + noSpaceVersion + '/')
+      ) {
+        console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
+        window.location.hash = '#/';
+      }
     }
   }
   

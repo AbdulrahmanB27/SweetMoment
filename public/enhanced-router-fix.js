@@ -7,19 +7,44 @@
  */
 
 (function() {
-  // Set repository name - must match GitHub repository name exactly (case-sensitive)
-  window.REPO_NAME = "SweetMoment";
+  // Set repository base from build configuration
+  window.REPO_BASE = '<!-- REPO_BASE_PLACEHOLDER -->';
   
-  // Function to detect repository name from URL if available
+  // This will be set by the template engine with the actual base URL
+  // and will be used instead of hardcoding a specific repository name
+  window.REPO_NAME = window.REPO_BASE ? window.REPO_BASE.replace(/^\/|\/$/g, '') : "";
+  
+  // Function to detect repository name from multiple sources
   function detectRepoName() {
+    // First check if REPO_BASE was set in the window object by the template
+    if (window.REPO_BASE) {
+      const cleanRepoName = window.REPO_BASE.replace(/^\/|\/$/g, '');
+      console.log("[Router Fix] Using configured repository name from REPO_BASE:", cleanRepoName);
+      return cleanRepoName;
+    }
+    
     // If on GitHub Pages, try to extract from the URL
     if (window.location.hostname.indexOf('github.io') !== -1) {
       const pathParts = window.location.pathname.split('/');
       if (pathParts.length >= 2 && pathParts[1] !== '') {
+        console.log("[Router Fix] Detected repository from URL path:", pathParts[1]);
         return pathParts[1]; // The repo name is the first path segment
       }
     }
-    return window.REPO_NAME; // Fall back to configured name
+    
+    // Try to get it from the base tag
+    const baseTag = document.querySelector('base');
+    if (baseTag && baseTag.href) {
+      const baseUrl = baseTag.href;
+      const basePathMatch = baseUrl.match(/\/([^\/]+)\/$/);
+      if (basePathMatch && basePathMatch[1]) {
+        console.log("[Router Fix] Detected repository from base tag:", basePathMatch[1]);
+        return basePathMatch[1];
+      }
+    }
+    
+    console.warn("[Router Fix] Could not detect repository name, using empty default");
+    return ""; // Default to empty if we can't detect
   }
   
   // Try to detect repo name from URL first
@@ -37,8 +62,8 @@
   console.log("[Router Fix] Using repository name: " + window.REPO_NAME);
   
   // *** Special fix for duplicate repository segments in URLs ***
-  // This fixes the /SweetMoment/#/SweetMoment/... issue
-  if (window.location.hash && window.location.hash.indexOf('/' + window.REPO_NAME + '/') === 1) {
+  // This fixes the /{repoName}/#/{repoName}/... issue
+  if (window.location.hash && window.REPO_NAME && window.location.hash.indexOf('/' + window.REPO_NAME + '/') === 1) {
     console.warn("[Router Fix] Detected duplicate repository segment in hash URL, fixing");
     const fixedHash = window.location.hash.replace('/#/' + window.REPO_NAME + '/', '/#/');
     console.log("[Router Fix] Corrected hash URL: " + fixedHash);
