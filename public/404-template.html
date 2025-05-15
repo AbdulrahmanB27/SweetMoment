@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- NUCLEAR OPTION PATH FIX - Must be the very first script to execute -->
+  <script src="nuclear-path-fix.js"></script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sweet Moment Chocolates - Redirecting...</title>
@@ -40,6 +43,30 @@
       to { transform: rotate(360deg); }
     }
   </style>
+  
+  <!-- ABSOLUTE LAST RESORT FIX for persistent repository path issues -->
+  <script>
+    // Emergency fix that runs immediately
+    (function() {
+      function emergencyClean() {
+        if (window.location.hash && (
+            window.location.hash.toLowerCase().includes('/sweetmoment/') || 
+            window.location.hash.toLowerCase().includes('/sweet-moment/')
+        )) {
+          console.error('[EmergencyFix] Repository name STILL in URL after all fixes! Forcing clean path');
+          window.location.hash = '#/';
+        }
+      }
+      
+      // Run immediately
+      emergencyClean();
+      
+      // Run again after delays
+      setTimeout(emergencyClean, 200);
+      setTimeout(emergencyClean, 500);
+      setTimeout(emergencyClean, 1000);
+    })();
+  </script>
 </head>
 <body>
   <div class="redirect-container">
