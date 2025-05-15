@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Moment Chocolates - Order Confirmed</title>
+  <link rel="stylesheet" href="../public/styles/main.css">
+  <style>
+    .success-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--font-family);
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 40px;
+    }
+    .success-header h1 {
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+    .success-header p {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    .order-details {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .order-details h2 {
+      color: var(--color-primary);
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+    .action-button {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    .action-button:hover {
+      background-color: var(--color-primary-dark);
+    }
+  </style>
+</head>
+<body>
+  <div class="success-container">
+    <div class="success-icon">✓</div>
+    <div class="success-header">
+      <h1>Order Confirmed!</h1>
+      <p>Thank you for your purchase. We're preparing your delicious chocolates.</p>
+    </div>
+    
+    <div class="order-details">
+      <h2>Order Summary</h2>
+      <div class="detail-row">
+        <span>Order Number:</span>
+        <span>#SM12345</span>
+      </div>
+      <div class="detail-row">
+        <span>Order Date:</span>
+        <span>5/11/2025</span>
+      </div>
+      <div class="detail-row">
+        <span>Payment Method:</span>
+        <span>Credit Card</span>
+      </div>
+      <div class="detail-row">
+        <span>Shipping Method:</span>
+        <span>Standard Shipping</span>
+      </div>
+      <div class="detail-row">
+        <span><strong>Total:</strong></span>
+        <span><strong>$32.99</strong></span>
+      </div>
+    </div>
+    
+    <p>A confirmation email has been sent to your email address.</p>
+    <p>If you have any questions about your order, please contact us at support@sweetmomentchocolates.com</p>
+    
+    <a href="../index.html" class="action-button">Return to Home</a>
+  </div>
+</body>
+</html>
+    

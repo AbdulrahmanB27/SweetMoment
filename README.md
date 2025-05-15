@@ -1,31 +1,40 @@
-# SweetMoment Static Site
+# Sweet Moment Static Site
 
-This is a static version of the SweetMoment website generated on 5/15/2025, 1:53:03 AM.
+This is a static HTML version of the Sweet Moment website that looks and functions exactly like the main site. Perfect for hosting on GitHub Pages or any static site hosting service.
 
-## Deployment Instructions
+## Structure
+- `index.html` - Home page
+- `menu.html` - Menu page with all products
+- `about.html` - About page
+- `products/` - Directory containing individual product pages
+- `checkout/` - Checkout page that directs to the main site for payment processing
+- `checkout/success.html` - Order confirmation page
+- `public/` - Static assets like images, CSS, and JavaScript
 
-1. Extract all files from this ZIP archive
-2. Deploy to a static hosting service like GitHub Pages
-3. For GitHub Pages:
-   - Create a new repository on GitHub
-   - Push these files to the repository
-   - Go to Settings > Pages and select the main branch for deployment
+## Functionality
+- The static site looks identical to the main site
+- "Add to Cart" buttons and checkout links direct users to the main site seamlessly
+- All product information, pricing, and descriptions match the main site
+- Checkout flow maintains the same look and feel as the main site
 
-## Enhanced Router Fix Implemented
+## Hosting Instructions
 
-This static version includes an enhanced router fix (v3.0) that prevents URL corruption issues on GitHub Pages:
+### GitHub Pages
+1. Create a new repository on GitHub
+2. Upload all these files to the repository
+3. Go to repository Settings > Pages
+4. Select the branch where your files are stored
+5. Click Save
+6. Your site will be published at `https://username.github.io/repository`
 
-- Prevents the infinite "/~and~/" URL corruption issue that occurs with the wouter router
-- Stops endless page refreshing and URL mangling
-- Handles multiple URL corruption patterns automatically
-- Works with browser navigation and history properly
+### Other Hosting Services
+Upload all files to the root directory of your web server.
 
-If you encounter any URL issues, make sure that the `enhanced-router-fix.js` script is properly loaded in your HTML.
+## Updating Content
+To update content, regenerate the static site from the admin panel of the main site whenever your product catalog or site content changes.
 
-## Configuration
-
-- Base URL: /SweetMoment/
-- Repository: SweetMoment
-- Generated: 2025-05-15T01:53:03.055Z
-
-For more details, see the GITHUB_PAGES_DEPLOYMENT_GUIDE.md file.
+## Technical Details
+- No "preview" or "static version" banners - presents as a fully functional site
+- Maintains all visual elements and styling of the main site
+- Checkout redirects to the main site's payment processing for actual transactions
+- All product pages maintain their original appearance
