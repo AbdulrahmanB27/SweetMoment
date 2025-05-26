@@ -1,0 +1,289 @@
+
+/* Sweet Moment Chocolates - Real Website Styles */
+:root {
+  --primary-brown: #8B4513;
+  --secondary-brown: #A0522D;
+  --accent-orange: #FF6B35;
+  --light-brown: #D2B48C;
+  --cream: #F5F5DC;
+  --dark-brown: #5D2E06;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fefefe;
+}
+
+/* Navigation */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.header {
+  background: rgba(139, 69, 19, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-orange);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  margin-bottom: 40px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-orange), #FF8C42);
+  color: white;
+  padding: 18px 36px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(255, 107, 53, 0.4);
+}
+
+/* Featured Products Section */
+.featured-products {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #fefefe 0%, #f8f8f8 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-title h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--primary-brown);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.underline {
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-orange), var(--light-brown));
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Product Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 48px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(139, 69, 19, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(139, 69, 19, 0.05);
+}
+
+.product-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 24px 64px rgba(139, 69, 19, 0.2);
+}
+
+.product-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+.product-content {
+  padding: 32px;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-brown);
+  margin-bottom: 12px;
+}
+
+.product-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-size: 1rem;
+}
+
+.product-price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-orange);
+  margin-bottom: 24px;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown));
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 69, 19, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .hero {
+    height: 80vh;
+  }
+  
+  .featured-products {
+    padding: 80px 0;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .product-content {
+    padding: 24px;
+  }
+}
+
+/* Page-specific styles */
+.page-header {
+  background: var(--primary-brown);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-content {
+  padding: 4rem 0;
+}
