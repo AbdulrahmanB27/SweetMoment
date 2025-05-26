@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Generated: 2025-05-26T17:54:46.870Z -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,81 +10,371 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experience Life's Sweetest Moments</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .hero { background: linear-gradient(135deg, #8B4513, #D2691E); color: white; padding: 80px 20px; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0 0 20px 0; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; }
-        .btn { background: #fff; color: #8B4513; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; }
-        .products { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-        .products h2 { text-align: center; color: #8B4513; margin-bottom: 40px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .product-card { border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center; }
-        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
-        .product-card h3 { color: #8B4513; margin: 15px 0; }
-        .price { font-size: 1.2rem; font-weight: bold; color: #D2691E; }
-        nav { background: #8B4513; padding: 15px; }
-        nav a { color: white; text-decoration: none; margin: 0 20px; }
+        :root {
+            --primary-brown: #8B4513;
+            --secondary-brown: #A0522D;
+            --accent-orange: #D2691E;
+            --light-brown: #CD853F;
+            --cream: #FFF8DC;
+            --dark-text: #2D1810;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6; 
+            color: var(--dark-text);
+            background: #fafafa;
+            overflow-x: hidden;
+        }
+        
+        /* Exact Navigation Styling */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(139, 69, 19, 0.1);
+            color: var(--primary-brown);
+        }
+        
+        /* Hero Section with Actual Images */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(
+                135deg,
+                rgba(139, 69, 19, 0.8) 0%,
+                rgba(160, 82, 45, 0.7) 50%,
+                rgba(210, 105, 30, 0.8) 100%
+            ), url('/uploads/1742773966114-127560992.jpeg?t=1748217810618');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            margin-bottom: 40px;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Exact Button Styling */
+        .btn-primary {
+            background: linear-gradient(135deg, #ffffff, #f8f8f8);
+            color: var(--primary-brown);
+            padding: 18px 36px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+            background: #ffffff;
+        }
+        
+        /* Products Section */
+        .featured-products {
+            padding: 120px 20px;
+            background: linear-gradient(to bottom, #fafafa, #ffffff);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--primary-brown);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-title .underline {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--light-brown));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+        
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 48px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(139, 69, 19, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(139, 69, 19, 0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 24px 64px rgba(139, 69, 19, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-content {
+            padding: 32px;
+            text-align: center;
+        }
+        
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            margin-bottom: 12px;
+        }
+        
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-size: 1rem;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin-bottom: 24px;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown));
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 69, 19, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 16px;
+            }
+            
+            .hero {
+                height: 80vh;
+                background-attachment: scroll;
+            }
+            
+            .featured-products {
+                padding: 80px 20px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .product-content {
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="menu.html">Menu</a>
-        <a href="about.html">About</a>
-        <a href="custom-order.html">Custom Order</a>
-    </nav>
-    
-    <div class="hero">
-        <h1>Experience Life's Sweetest Moments</h1>
-        <p>Curated treats and heartfelt gifts that brighten every day</p>
-        <a href="menu.html" class="btn">Discover Your Moment</a>
-    </div>
-    
-    <div class="products">
-        <h2>Our Featured Products</h2>
-        <div class="product-grid">
-            
-                <div class="product-card">
-                    <img src="uploads/placeholder.jpg" alt="Classic Chocolate">
-                    <h3>Classic Chocolate</h3>
-                    <p>Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
-                    <div class="price">$8</div>
-                    <a href="product-42.html" class="btn" style="display: inline-block; margin-top: 15px;">View Details</a>
-                </div>
-            
-                <div class="product-card">
-                    <img src="uploads/placeholder.jpg" alt="Caramel Chocolate">
-                    <h3>Caramel Chocolate</h3>
-                    <p>Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
-                    <div class="price">$8</div>
-                    <a href="product-44.html" class="btn" style="display: inline-block; margin-top: 15px;">View Details</a>
-                </div>
-            
-                <div class="product-card">
-                    <img src="uploads/placeholder.jpg" alt="Signature Collection">
-                    <h3>Signature Collection</h3>
-                    <p>A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
-                    <div class="price">$10</div>
-                    <a href="product-48.html" class="btn" style="display: inline-block; margin-top: 15px;">View Details</a>
-                </div>
-            
-                <div class="product-card">
-                    <img src="uploads/placeholder.jpg" alt="Dubai Bar">
-                    <h3>Dubai Bar</h3>
-                    <p>A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
-                    <div class="price">$5</div>
-                    <a href="product-47.html" class="btn" style="display: inline-block; margin-top: 15px;">View Details</a>
-                </div>
-            
-                <div class="product-card">
-                    <img src="uploads/placeholder.jpg" alt="Assorted Nuts Chocolate">
-                    <h3>Assorted Nuts Chocolate</h3>
-                    <p>A delightful mix of premium chocolates with assorted nuts from around the world.</p>
-                    <div class="price">$9</div>
-                    <a href="product-46.html" class="btn" style="display: inline-block; margin-top: 15px;">View Details</a>
-                </div>
-            
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Sweet Moment</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="about.html">About</a>
+                <a href="custom-order.html">Custom Order</a>
+            </nav>
         </div>
-    </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Experience Life's Sweetest Moments</h1>
+            <p>Curated treats and heartfelt gifts that brighten every day</p>
+            <a href="menu.html" class="btn-primary">Explore Our Menu</a>
+        </div>
+    </section>
+    
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Products</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="products-grid">
+                
+                    <div class="product-card">
+                        <img src="/SweetMoment/uploads/placeholder.jpg" alt="Classic Chocolate" class="product-image" />
+                        <div class="product-content">
+                            <h3 class="product-title">Classic Chocolate</h3>
+                            <p class="product-description">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
+                            <div class="product-price">From $0.08</div>
+                            <a href="product-42.html" class="btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                
+                    <div class="product-card">
+                        <img src="/SweetMoment/uploads/placeholder.jpg" alt="Caramel Chocolate" class="product-image" />
+                        <div class="product-content">
+                            <h3 class="product-title">Caramel Chocolate</h3>
+                            <p class="product-description">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+                            <div class="product-price">From $0.08</div>
+                            <a href="product-44.html" class="btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                
+                    <div class="product-card">
+                        <img src="/SweetMoment/uploads/placeholder.jpg" alt="Signature Collection" class="product-image" />
+                        <div class="product-content">
+                            <h3 class="product-title">Signature Collection</h3>
+                            <p class="product-description">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
+                            <div class="product-price">From $0.10</div>
+                            <a href="product-48.html" class="btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                
+                    <div class="product-card">
+                        <img src="/SweetMoment/uploads/placeholder.jpg" alt="Dubai Bar" class="product-image" />
+                        <div class="product-content">
+                            <h3 class="product-title">Dubai Bar</h3>
+                            <p class="product-description">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
+                            <div class="product-price">From $0.05</div>
+                            <a href="product-47.html" class="btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                
+                    <div class="product-card">
+                        <img src="/SweetMoment/uploads/placeholder.jpg" alt="Assorted Nuts Chocolate" class="product-image" />
+                        <div class="product-content">
+                            <h3 class="product-title">Assorted Nuts Chocolate</h3>
+                            <p class="product-description">A delightful mix of premium chocolates with assorted nuts from around the world.</p>
+                            <div class="product-price">From $0.09</div>
+                            <a href="product-46.html" class="btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    </section>
 </body>
 </html>
