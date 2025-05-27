@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      // GitHub Pages SPA redirect for React Router
+      (function(){
+        var pathSegmentsToKeep = 1;
+        var l = window.location;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      })();
+    </script>
+    <!-- GitHub Pages compatibility for React app -->
+    <script>
+      // Handle GitHub Pages routing for React Router
+      (function(l) {
+        if (l.search) {
+          var q = {};
+          l.search.slice(1).split('&').forEach(function(v) {
+            var a = v.split('=');
+            q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+          });
+          if (q.p !== undefined) {
+            window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + (q.p || '') +
+              (q.q ? ('?' + q.q) : '') +
+              l.hash
+            );
+          }
+        }
+      }(window.location))
+    </script>
     <style data-vite-theme="" data-inject-first="">:root {
       --background: 0 0% 100%;
 --foreground: 20 14.3% 4.1%;
@@ -396,7 +430,7 @@
         font-family: 'Montserrat', sans-serif;
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-PZLiY9MI.js"></script>
+    <script type="module" crossorigin src="/SweetMoment/assets/index-PZLiY9MI.js"></script>
     <script type="module">"use strict";(()=>{var F="0.0.11";var T={HIGHLIGHT_COLOR:"#0079F2",HIGHLIGHT_BG:"#0079F210",ALLOWED_DOMAIN:".replit.dev"},I={highlighter:{position:"absolute",zIndex:Number.MAX_SAFE_INTEGER-3,boxSizing:"border-box",pointerEvents:"none",border:`2px solid ${T.HIGHLIGHT_COLOR}`,borderRadius:"4px",background:T.HIGHLIGHT_BG,transition:"opacity 0.2s",willChange:"opacity",opacity:"0"},label:{position:"absolute",backgroundColor:T.HIGHLIGHT_COLOR,color:"#FFFFFF",padding:"2px 6px",borderRadius:"4px",fontSize:"12px",fontFamily:"monospace",transform:"translateY(-100%)",marginTop:"-4px",zIndex:Number.MAX_SAFE_INTEGER-2,pointerEvents:"none",opacity:"0"}};function Le(e,n){return e[13]=1,e[14]=n>>8,e[15]=n&255,e[16]=n>>8,e[17]=n&255,e}var ne=112,re=72,oe=89,ie=115,W;function Ne(){let e=new Int32Array(256);for(let n=0;n<256;n++){let t=n;for(let r=0;r<8;r++)t=t&1?3988292384^t>>>1:t>>>1;e[n]=t}return e}function Ie(e){let n=-1;W||(W=Ne());for(let t=0;t<e.length;t++)n=W[(n^e[t])&255]^n>>>8;return n^-1}function xe(e){let n=e.length-1;for(let t=n;t>=4;t--)if(e[t-4]===9&&e[t-3]===ne&&e[t-2]===re&&e[t-1]===oe&&e[t]===ie)return t-3;return 0}function De(e,n,t=!1){let r=new Uint8Array(13);n*=39.3701,r[0]=ne,r[1]=re,r[2]=oe,r[3]=ie,r[4]=n>>>24,r[5]=n>>>16,r[6]=n>>>8,r[7]=n&255,r[8]=r[4],r[9]=r[5],r[10]=r[6],r[11]=r[7],r[12]=1;let s=Ie(r),i=new Uint8Array(4);if(i[0]=s>>>24,i[1]=s>>>16,i[2]=s>>>8,i[3]=s&255,t){let a=xe(e);return e.set(r,a),e.set(i,a+13),e}else{let a=new Uint8Array(4);a[0]=0,a[1]=0,a[2]=0,a[3]=9;let o=new Uint8Array(54);return o.set(e,0),o.set(a,33),o.set(r,37),o.set(i,50),o}}var se="[modern-screenshot]",A=typeof window<"u",_e=A&&"Worker"in window,Me=A&&"atob"in window,Wt=A&&"btoa"in window,j=A?window.navigator?.userAgent:"",ae=j.includes("Chrome"),O=j.includes("AppleWebKit")&&!ae,V=j.includes("Firefox"),He=e=>e&&"__CONTEXT__"in e,Re=e=>e.constructor.name==="CSSFontFaceRule",Pe=e=>e.constructor.name==="CSSImportRule",v=e=>e.nodeType===1,M=e=>typeof e.className=="object",le=e=>e.tagName==="image",Fe=e=>e.tagName==="use",x=e=>v(e)&&typeof e.style<"u"&&!M(e),Oe=e=>e.nodeType===8,ke=e=>e.nodeType===3,N=e=>e.tagName==="IMG",k=e=>e.tagName==="VIDEO",Be=e=>e.tagName==="CANVAS",Ue=e=>e.tagName==="TEXTAREA",$e=e=>e.tagName==="INPUT",We=e=>e.tagName==="STYLE",Ge=e=>e.tagName==="SCRIPT",je=e=>e.tagName==="SELECT",Ve=e=>e.tagName==="SLOT",ze=e=>e.tagName==="IFRAME",qe=(...e)=>console.warn(se,...e);function Xe(e){let n=e?.createElement?.("canvas");return n&&(n.height=n.width=1),!!n&&"toDataURL"in n&&!!n.toDataURL("image/webp").includes("image/webp")}var G=e=>e.startsWith("data:");function ce(e,n){if(e.match(/^[a-z]+:\/\//i))return e;if(A&&e.match(/^\/\//))return window.location.protocol+e;if(e.match(/^[a-z]+:/i)||!A)return e;let t=B().implementation.createHTMLDocument(),r=t.createElement("base"),s=t.createElement("a");return t.head.appendChild(r),t.body.appendChild(s),n&&(r.href=n),s.href=e,s.href}function B(e){return(e&&v(e)?e?.ownerDocument:e)??window.document}var U="http://www.w3.org/2000/svg";function Ye(e,n,t){let r=B(t).createElementNS(U,"svg");return r.setAttributeNS(null,"width",e.toString()),r.setAttributeNS(null,"height",n.toString()),r.setAttributeNS(null,"viewBox",`0 0 ${e} ${n}`),r}function Je(e,n){let t=new XMLSerializer().serializeToString(e);return n&&(t=t.replace(/[\u0000-\u0008\v\f\u000E-\u001F\uD800-\uDFFF\uFFFE\uFFFF]/gu,"")),`data:image/svg+xml;charset=utf-8,${encodeURIComponent(t)}`}async function Ke(e,n="image/png",t=1){try{return await new Promise((r,s)=>{e.toBlob(i=>{i?r(i):s(new Error("Blob is null"))},n,t)})}catch(r){if(Me)return Qe(e.toDataURL(n,t));throw r}}function Qe(e){let[n,t]=e.split(","),r=n.match(/data:(.+);/)?.[1]??void 0,s=window.atob(t),i=s.length,a=new Uint8Array(i);for(let o=0;o<i;o+=1)a[o]=s.charCodeAt(o);return new Blob([a],{type:r})}function ue(e,n){return new Promise((t,r)=>{let s=new FileReader;s.onload=()=>t(s.result),s.onerror=()=>r(s.error),s.onabort=()=>r(new Error(`Failed read blob to ${n}`)),n==="dataUrl"?s.readAsDataURL(e):n==="arrayBuffer"&&s.readAsArrayBuffer(e)})}var Ze=e=>ue(e,"dataUrl"),et=e=>ue(e,"arrayBuffer");function L(e,n){let t=B(n).createElement("img");return t.decoding="sync",t.loading="eager",t.src=e,t}function D(e,n){return new Promise(t=>{let{timeout:r,ownerDocument:s,onError:i,onWarn:a}=n??{},o=typeof e=="string"?L(e,B(s)):e,c=null,d=null;function l(){t(o),c&&clearTimeout(c),d?.()}if(r&&(c=setTimeout(l,r)),k(o)){let u=o.currentSrc||o.src;if(!u)return o.poster?D(o.poster,n).then(t):l();if(o.readyState>=2)return l();let h=l,f=g=>{a?.("Failed video load",u,g),i?.(g),l()};d=()=>{o.removeEventListener("loadeddata",h),o.removeEventListener("error",f)},o.addEventListener("loadeddata",h,{once:!0}),o.addEventListener("error",f,{once:!0})}else{let u=le(o)?o.href.baseVal:o.currentSrc||o.src;if(!u)return l();let h=async()=>{if(N(o)&&"decode"in o)try{await o.decode()}catch(g){a?.("Failed to decode image, trying to render anyway",o.dataset.originalSrc||u,g)}l()},f=g=>{a?.("Failed image load",o.dataset.originalSrc||u,g),l()};if(N(o)&&o.complete)return h();d=()=>{o.removeEventListener("load",h),o.removeEventListener("error",f)},o.addEventListener("load",h,{once:!0}),o.addEventListener("error",f,{once:!0})}})}async function tt(e,n){x(e)&&(N(e)||k(e)?await D(e,n):await Promise.all(["img","video"].flatMap(t=>Array.from(e.querySelectorAll(t)).map(r=>D(r,n)))))}var de=function(){let n=0,t=()=>`0000${(Math.random()*36**4<<0).toString(36)}`.slice(-4);return()=>(n+=1,`u${t()}${n}`)}();function he(e){return e?.split(",").map(n=>n.trim().replace(/"|'/g,"").toLowerCase()).filter(Boolean)}var J=0;function nt(e){let n=`${se}[#${J}]`;return J++,{time:t=>e&&console.time(`${n} ${t}`),timeEnd:t=>e&&console.timeEnd(`${n} ${t}`),warn:(...t)=>e&&qe(...t)}}function rt(e){return{cache:e?"no-cache":"force-cache"}}async function z(e,n){return He(e)?e:ot(e,{...n,autoDestruct:!0})}async function ot(e,n){let{scale:t=1,workerUrl:r,workerNumber:s=1}=n||{},i=!!n?.debug,a=n?.features??!0,o=e.ownerDocument??(A?window.document:void 0),c=e.ownerDocument?.defaultView??(A?window:void 0),d=new Map,l={width:0,height:0,quality:1,type:"image/png",scale:t,backgroundColor:null,style:null,filter:null,maximumCanvasSize:0,timeout:3e4,progress:null,debug:i,fetch:{requestInit:rt(n?.fetch?.bypassingCache),placeholderImage:"data:image/png;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",bypassingCache:!1,...n?.fetch},fetchFn:null,font:{},drawImageInterval:100,workerUrl:null,workerNumber:s,onCloneNode:null,onEmbedNode:null,onCreateForeignObjectSvg:null,includeStyleProperties:null,autoDestruct:!1,...n,__CONTEXT__:!0,log:nt(i),node:e,ownerDocument:o,ownerWindow:c,dpi:t===1?null:96*t,svgStyleElement:ge(o),svgDefsElement:o?.createElementNS(U,"defs"),svgStyles:new Map,defaultComputedStyles:new Map,workers:[...Array.from({length:_e&&r&&s?s:0})].map(()=>{try{let f=new Worker(r);return f.onmessage=async g=>{let{url:m,result:p}=g.data;p?d.get(m)?.resolve?.(p):d.get(m)?.reject?.(new Error(`Error receiving message from worker: ${m}`))},f.onmessageerror=g=>{let{url:m}=g.data;d.get(m)?.reject?.(new Error(`Error receiving message from worker: ${m}`))},f}catch(f){return l.log.warn("Failed to new Worker",f),null}}).filter(Boolean),fontFamilies:new Map,fontCssTexts:new Map,acceptOfImage:`${[Xe(o)&&"image/webp","image/svg+xml","image/*","*/*"].filter(Boolean).join(",")};q=0.8`,requests:d,drawImageCount:0,tasks:[],features:a,isEnable:f=>f==="restoreScrollPosition"?typeof a=="boolean"?!1:a[f]??!1:typeof a=="boolean"?a:a[f]??!0};l.log.time("wait until load"),await tt(e,{timeout:l.timeout,onWarn:l.log.warn}),l.log.timeEnd("wait until load");let{width:u,height:h}=it(e,l);return l.width=u,l.height=h,l}function ge(e){if(!e)return;let n=e.createElement("style"),t=n.ownerDocument.createTextNode(`
 .______background-clip--text {
   background-clip: text;

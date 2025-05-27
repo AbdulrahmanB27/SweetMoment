@@ -3669,7 +3669,15 @@ async function createCompleteFrameworkExport(repoName = "sweet-moment-chocolates
       throw new Error("No dist folder found after build");
     }
     console.log("\u{1F4C1} Copying complete production build with all frameworks...");
-    fs.cpSync(distPath, outputDir, { recursive: true });
+    const publicPath = path.join(distPath, "public");
+    if (fs.existsSync(publicPath)) {
+      fs.cpSync(publicPath, outputDir, { recursive: true });
+      console.log("\u2705 Moved index.html to root for GitHub Pages");
+    }
+    const serverBundle = path.join(distPath, "index.js");
+    if (fs.existsSync(serverBundle)) {
+      fs.cpSync(serverBundle, path.join(outputDir, "server.js"));
+    }
     console.log("\u{1F5BC}\uFE0F Copying all images and assets...");
     const uploadsSource = path.join(process.cwd(), "uploads");
     const uploadsTarget = path.join(outputDir, "uploads");
@@ -3738,24 +3746,46 @@ async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDo
   const mainHtmlPath = path.join(outputDir, "index.html");
   if (fs.existsSync(mainHtmlPath)) {
     let mainHtml = fs.readFileSync(mainHtmlPath, "utf8");
-    mainHtml = mainHtml.replace(
-      "<script>",
-      `<script>
-      // 404 page SPA redirect for GitHub Pages
-      var segmentCount = ${customDomain ? "0" : "1"};
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=' +
-        l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    </script>
-    <script>`
+    const notFoundHtml = mainHtml.replace(
+      "<head>",
+      `<head>
+    <script>
+      // GitHub Pages SPA redirect for React Router
+      (function(){
+        var pathSegmentsToKeep = ${customDomain ? "0" : "1"};
+        var l = window.location;
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+          l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      })();
+    </script>`
     );
-    fs.writeFileSync(path.join(outputDir, "404.html"), mainHtml);
-    console.log("\u2705 Created 404.html for SPA routing");
+    fs.writeFileSync(path.join(outputDir, "404.html"), notFoundHtml);
+    console.log("\u2705 Created 404.html for React Router compatibility");
+    let indexHtml = fs.readFileSync(mainHtmlPath, "utf8");
+    indexHtml = indexHtml.replace(
+      "<head>",
+      `<head>
+    <script>
+      // Handle GitHub Pages SPA routing
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>`
+    );
+    fs.writeFileSync(mainHtmlPath, indexHtml);
+    console.log("\u2705 Updated index.html for React Router compatibility");
   }
   console.log("\u{1F389} All framework files processed - React components and Framer Motion animations preserved!");
 }
