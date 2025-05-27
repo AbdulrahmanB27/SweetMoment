@@ -3740,6 +3740,21 @@ async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDo
       }(window.location))
     </script>`
     );
+    if (htmlFile === "index.html") {
+      const assetsDir = path.join(outputDir, "assets");
+      if (fs.existsSync(assetsDir)) {
+        const jsFiles = fs.readdirSync(assetsDir).filter((file) => file.endsWith(".js"));
+        const mainJsFile = jsFiles.find((file) => file.startsWith("index-")) || jsFiles[0];
+        if (mainJsFile && !content.includes(`src="/assets/${mainJsFile}"`)) {
+          content = content.replace(
+            "</body>",
+            `    <script type="module" crossorigin src="/assets/${mainJsFile}"></script>
+  </body>`
+          );
+          console.log(`\u2705 Added React bundle reference: ${mainJsFile}`);
+        }
+      }
+    }
     fs.writeFileSync(filePath, content);
     console.log(`\u2705 Processed ${htmlFile} - React and Framer Motion preserved`);
   }
