@@ -9532,9 +9532,9 @@ async function registerRoutes(app2) {
   }
   console.log("React Static Site Generator routes registered successfully");
   app2.get("/api/download-static-site", (req, res) => {
-    const zipPath = path5.join(process.cwd(), "sweet-moment-chocolates-static.zip");
+    const zipPath = path5.join(process.cwd(), "sweet-moment-static-working.tar.gz");
     if (fs5.existsSync(zipPath)) {
-      res.download(zipPath, "sweet-moment-chocolates-static.zip");
+      res.download(zipPath, "sweet-moment-chocolates-complete.tar.gz");
     } else {
       res.status(404).json({ error: "Static site package not found" });
     }
