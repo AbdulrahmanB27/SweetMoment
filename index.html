@@ -5,150 +5,222 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweet Moment Chocolates - Premium Handcrafted Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
+    
+    <!-- React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Georgia', serif; line-height: 1.6; color: #333; background: #fff; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        header { background: #8B4513; color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        /* Header Styles */
+        header { background: #8B4513; color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.8rem; font-weight: bold; text-decoration: none; color: white; }
         nav ul { list-style: none; display: flex; gap: 2rem; }
         nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.3s; }
         nav a:hover { background: rgba(255,255,255,0.2); }
         
-        .hero { background: linear-gradient(135deg, #8B4513, #D2691E); color: white; padding: 4rem 0; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
-        .btn { display: inline-block; background: white; color: #8B4513; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold; transition: transform 0.3s; }
-        .btn:hover { transform: translateY(-2px); }
+        /* Hero Section */
+        .hero { background: linear-gradient(135deg, #8B4513, #D2691E); color: white; padding: 6rem 0; text-align: center; position: relative; overflow: hidden; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn { display: inline-block; background: white; color: #8B4513; padding: 1.2rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
         
-        .products { padding: 4rem 0; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #8B4513; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .product-card { background: white; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); padding: 2rem; text-align: center; transition: transform 0.3s; }
-        .product-card:hover { transform: translateY(-10px); }
-        .product-name { font-size: 1.5rem; color: #8B4513; margin-bottom: 1rem; font-weight: bold; }
-        .product-price { font-size: 1.8rem; color: #D2691E; font-weight: bold; margin: 1rem 0; }
-        .product-description { color: #666; margin-bottom: 1.5rem; }
+        /* Products Section */
+        .products { padding: 5rem 0; background: #f8f9fa; }
+        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 1rem; color: #8B4513; }
+        .section-subtitle { text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 2rem; }
+        .product-card { background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 2.5rem; text-align: center; transition: all 0.3s; border: 1px solid #eee; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .product-image { width: 100%; height: 200px; background: linear-gradient(45deg, #8B4513, #D2691E); border-radius: 10px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; background-size: cover; background-position: center; }
+        .product-name { font-size: 1.6rem; color: #8B4513; margin-bottom: 1rem; font-weight: bold; }
+        .product-price { font-size: 2rem; color: #D2691E; font-weight: bold; margin: 1rem 0; }
+        .product-description { color: #666; margin-bottom: 2rem; line-height: 1.6; }
         
-        .about { background: #f8f9fa; padding: 4rem 0; }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-        .about-text h2 { color: #8B4513; margin-bottom: 1rem; }
+        /* About Section */
+        .about { padding: 5rem 0; }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-text h2 { color: #8B4513; margin-bottom: 1.5rem; font-size: 2.5rem; }
+        .about-text p { margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7; }
+        .about-image { background: linear-gradient(45deg, #8B4513, #D2691E); height: 350px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; text-align: center; }
         
-        footer { background: #8B4513; color: white; padding: 2rem 0; text-align: center; }
+        /* Contact Section */
+        .contact { background: #f8f9fa; padding: 5rem 0; }
+        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
+        .contact h2 { color: #8B4513; margin-bottom: 1rem; font-size: 2.5rem; }
+        .contact h3 { color: #8B4513; margin-bottom: 1rem; font-size: 1.5rem; }
+        .contact p { margin-bottom: 1rem; font-size: 1.1rem; }
         
+        /* Footer */
+        footer { background: #8B4513; color: white; padding: 3rem 0; text-align: center; }
+        footer p { margin-bottom: 0.5rem; }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
             .header-content { flex-direction: column; gap: 1rem; }
             nav ul { flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
             .products-grid { grid-template-columns: 1fr; }
             .about-content { grid-template-columns: 1fr; }
+            .section-title { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">Sweet Moment Chocolates</a>
-                <nav>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Experience Life's Sweetest Moments</h1>
-            <p>Curated treats and heartfelt gifts that brighten every day</p>
-            <a href="#products" class="btn">Discover Our Collection</a>
-        </div>
-    </section>
-
-    <section id="products" class="products">
-        <div class="container">
-            <h2 class="section-title">Our Premium Chocolate Collection</h2>
-            <div class="products-grid">
-                
-                <div class="product-card">
-                    <h3 class="product-name">Classic Chocolate</h3>
-                    <div class="product-price">$0.08</div>
-                    <p class="product-description">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
-                    <a href="#contact" class="btn">Order Now</a>
-                </div>
-                
-                <div class="product-card">
-                    <h3 class="product-name">Caramel Chocolate</h3>
-                    <div class="product-price">$0.08</div>
-                    <p class="product-description">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
-                    <a href="#contact" class="btn">Order Now</a>
-                </div>
-                
-                <div class="product-card">
-                    <h3 class="product-name">Signature Collection</h3>
-                    <div class="product-price">$0.10</div>
-                    <p class="product-description">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
-                    <a href="#contact" class="btn">Order Now</a>
-                </div>
-                
-                <div class="product-card">
-                    <h3 class="product-name">Dubai Bar</h3>
-                    <div class="product-price">$0.05</div>
-                    <p class="product-description">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
-                    <a href="#contact" class="btn">Order Now</a>
-                </div>
-                
-                <div class="product-card">
-                    <h3 class="product-name">Assorted Nuts Chocolate</h3>
-                    <div class="product-price">$0.09</div>
-                    <p class="product-description">A delightful mix of premium chocolates with assorted nuts from around the world.</p>
-                    <a href="#contact" class="btn">Order Now</a>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About Sweet Moment Chocolates</h2>
-                    <p>Located in the heart of Herndon, Virginia, Sweet Moment Chocolates brings you the finest handcrafted chocolate experience. Our master chocolatiers use premium ingredients sourced from around the world to create unforgettable treats for life's special moments.</p>
-                    <p>From our classic collections to our signature Dubai-inspired bars, each piece is crafted with passion and attention to detail that makes every bite a moment to remember.</p>
-                </div>
-                <div class="about-image">
-                    <div style="background: linear-gradient(45deg, #8B4513, #D2691E); height: 300px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
-                        Premium Chocolate Craftsmanship
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" style="padding: 4rem 0;">
-        <div class="container">
-            <h2 class="section-title">Visit Our Store</h2>
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <h3 style="color: #8B4513; margin-bottom: 1rem;">Discovery Square</h3>
-                <p>13720 Atlantis St<br>Herndon, VA 20171</p>
-                <p style="margin-top: 1rem;">Experience our handcrafted chocolates in person or place your custom orders.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Sweet Moment Chocolates. All rights reserved.</p>
-            <p>Discovery Square, Herndon, VA 20170 | (703) 555-0123</p>
-        </div>
-    </footer>
+    <div id="root"></div>
+    
+    <script>
+        // Embedded product data with current website information
+        window.STATIC_DATA = {
+            products: [{"id":"42","name":"Classic Chocolate","description":"Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.","image":"/uploads/1742792807445-327362076.jpeg","rating":0,"reviewCount":0,"basePrice":8,"category":"classic","featured":true,"inventory":100,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small Box\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"medium\",\"label\":\"Medium Box\",\"price\":700,\"quantity\":10,\"boxTypeId\":2},{\"id\":\"large\",\"label\":\"Large Box\",\"price\":1900,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":true,"displayOrder":10,"visible":true,"createdAt":"2025-03-20T16:10:15.402Z","sizes":[{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"8.00","price":8,"path":"/menu/classic-chocolate"},{"id":"44","name":"Caramel Chocolate","description":"Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.","image":"/uploads/1743291047091-28168151.jpeg","rating":0,"reviewCount":0,"basePrice":8,"category":"caramel","featured":false,"inventory":90,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small Box\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"medium\",\"label\":\"Medium Box\",\"price\":700,\"quantity\":10,\"boxTypeId\":2},{\"id\":\"large\",\"label\":\"Large Box\",\"price\":1900,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"caramel","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":true,"displayOrder":20,"visible":true,"createdAt":"2025-03-20T16:21:18.492Z","sizes":[{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"8.00","price":8,"path":"/menu/caramel-chocolate","badge":"premium"},{"id":"48","name":"Signature Collection","description":"A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.","image":"","rating":0,"reviewCount":0,"basePrice":10,"category":"premium","featured":false,"inventory":100,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"large\",\"label\":\"Large\",\"price\":2000,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":null,"shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":30,"visible":true,"createdAt":"2025-04-10T21:03:51.112Z","sizes":[{"id":"small","label":"Small","price":0,"quantity":5,"boxTypeId":1},{"id":"large","label":"Large","price":20,"quantity":25,"boxTypeId":3}],"types":[],"formattedPrice":"10.00","price":10,"path":"/menu/signature-collection"},{"id":"47","name":"Dubai Bar","description":"A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.","image":"","rating":0,"reviewCount":0,"basePrice":5,"category":"classic","featured":false,"inventory":100,"sizeOptions":null,"typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark\",\"price\":200}]","shapeOptions":"[{\"id\":\"rectangular\",\"label\":\"Rectangular\",\"price\":0},{\"id\":\"curved\",\"label\":\"Curved\",\"price\":0}]","shapesEnabled":true,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":40,"visible":true,"createdAt":"2025-04-09T23:15:05.242Z","sizes":[],"types":[{"id":"milk","label":"Milk","price":0},{"id":"dark","label":"Dark","price":2}],"formattedPrice":"5.00","price":5,"path":"/menu/dubai-bar"},{"id":"46","name":"Assorted Nuts Chocolate","description":"A delightful mix of premium chocolates with assorted nuts from around the world.","image":"https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80","rating":0,"reviewCount":0,"basePrice":9,"category":"assorted","featured":true,"inventory":80,"sizeOptions":"[{\"id\":\"standard\",\"label\":\"Standard Bag\",\"price\":0,\"quantity\":0}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":50,"visible":true,"createdAt":"2025-03-29T23:59:33.892Z","sizes":[{"id":"standard","label":"Standard Bag","price":0,"quantity":0}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"9.00","price":9,"path":"/menu/assorted-nuts-chocolate"}],
+            hero: {"title":"Experience Life's Sweetest Moments","subtitle":"Curated treats and heartfelt gifts that brighten every day","buttonText":"Discover Your Moment","buttonLink":"/menu","imageUrl":"/uploads/1742773966114-127560992.jpeg?t=1749105704741","images":["/uploads/1742773966114-127560992.jpeg?t=1749105704741","/uploads/1743207809787-339256261.jpeg?t=1749105704741"],"autoplayInterval":5000},
+            generatedAt: '2025-06-05T06:41:53.281Z'
+        };
+        
+        // React components
+        function Header() {
+            return React.createElement('header', null,
+                React.createElement('div', { className: 'container' },
+                    React.createElement('div', { className: 'header-content' },
+                        React.createElement('a', { href: '#home', className: 'logo' }, 'Sweet Moment Chocolates'),
+                        React.createElement('nav', null,
+                            React.createElement('ul', null,
+                                React.createElement('li', null, React.createElement('a', { href: '#home' }, 'Home')),
+                                React.createElement('li', null, React.createElement('a', { href: '#products' }, 'Products')),
+                                React.createElement('li', null, React.createElement('a', { href: '#about' }, 'About')),
+                                React.createElement('li', null, React.createElement('a', { href: '#contact' }, 'Contact'))
+                            )
+                        )
+                    )
+                )
+            );
+        }
+        
+        function Hero() {
+            const { hero } = window.STATIC_DATA;
+            return React.createElement('section', { id: 'home', className: 'hero' },
+                React.createElement('div', { className: 'container' },
+                    React.createElement('div', { className: 'hero-content' },
+                        React.createElement('h1', null, hero.title || 'Experience Life\'s Sweetest Moments'),
+                        React.createElement('p', null, hero.subtitle || 'Curated treats and heartfelt gifts that brighten every day'),
+                        React.createElement('a', { href: '#products', className: 'btn' }, 'Discover Our Collection')
+                    )
+                )
+            );
+        }
+        
+        function ProductCard({ product }) {
+            // Fix price conversion - if basePrice is already in dollars, don't divide by 100
+            let price;
+            if (product.basePrice >= 100) {
+                price = (product.basePrice / 100).toFixed(2);
+            } else {
+                price = product.basePrice ? product.basePrice.toFixed(2) : '0.00';
+            }
+            const imageUrl = product.imageUrl || '/uploads/placeholder.jpg';
+            
+            return React.createElement('div', { className: 'product-card' },
+                React.createElement('div', { 
+                    className: 'product-image',
+                    style: imageUrl !== '/uploads/placeholder.jpg' ? { 
+                        backgroundImage: `url(${imageUrl})`,
+                        color: 'transparent'
+                    } : {}
+                }, imageUrl === '/uploads/placeholder.jpg' ? 'Premium Chocolate' : ''),
+                React.createElement('h3', { className: 'product-name' }, product.name),
+                React.createElement('div', { className: 'product-price' }, '$' + price),
+                React.createElement('p', { className: 'product-description' }, 
+                    product.description || 'Premium handcrafted chocolate made with the finest ingredients.'
+                ),
+                React.createElement('a', { href: '#contact', className: 'btn' }, 'Order Now')
+            );
+        }
+        
+        function Products() {
+            const { products } = window.STATIC_DATA;
+            return React.createElement('section', { id: 'products', className: 'products' },
+                React.createElement('div', { className: 'container' },
+                    React.createElement('h2', { className: 'section-title' }, 'Our Premium Chocolate Collection'),
+                    React.createElement('p', { className: 'section-subtitle' }, 
+                        'Handcrafted with passion using the finest ingredients from around the world'
+                    ),
+                    React.createElement('div', { className: 'products-grid' },
+                        products.map(product => 
+                            React.createElement(ProductCard, { key: product.id, product: product })
+                        )
+                    )
+                )
+            );
+        }
+        
+        function About() {
+            return React.createElement('section', { id: 'about', className: 'about' },
+                React.createElement('div', { className: 'container' },
+                    React.createElement('div', { className: 'about-content' },
+                        React.createElement('div', { className: 'about-text' },
+                            React.createElement('h2', null, 'About Sweet Moment Chocolates'),
+                            React.createElement('p', null, 
+                                'Located in the heart of Herndon, Virginia, Sweet Moment Chocolates brings you the finest handcrafted chocolate experience. Our master chocolatiers use premium ingredients sourced from around the world to create unforgettable treats for life\'s special moments.'
+                            ),
+                            React.createElement('p', null,
+                                'From our classic collections to our signature Dubai-inspired bars, each piece is crafted with passion and attention to detail that makes every bite a moment to remember.'
+                            )
+                        ),
+                        React.createElement('div', { className: 'about-image' },
+                            'Premium Chocolate\nCraftsmanship'
+                        )
+                    )
+                )
+            );
+        }
+        
+        function Contact() {
+            return React.createElement('section', { id: 'contact', className: 'contact' },
+                React.createElement('div', { className: 'container' },
+                    React.createElement('div', { className: 'contact-content' },
+                        React.createElement('h2', null, 'Visit Our Store'),
+                        React.createElement('h3', null, 'Discovery Square'),
+                        React.createElement('p', null, '13720 Atlantis St'),
+                        React.createElement('p', null, 'Herndon, VA 20171'),
+                        React.createElement('p', null, 'Experience our handcrafted chocolates in person or place your custom orders.')
+                    )
+                )
+            );
+        }
+        
+        function Footer() {
+            const { generatedAt } = window.STATIC_DATA;
+            return React.createElement('footer', null,
+                React.createElement('div', { className: 'container' },
+                    React.createElement('p', null, '© 2024 Sweet Moment Chocolates. All rights reserved.'),
+                    React.createElement('p', null, 'Discovery Square, Herndon, VA 20171'),
+                    React.createElement('p', { style: { fontSize: '0.8rem', opacity: '0.7', marginTop: '1rem' } }, 
+                        'Generated: ' + new Date(generatedAt).toLocaleDateString()
+                    )
+                )
+            );
+        }
+        
+        function App() {
+            return React.createElement('div', null,
+                React.createElement(Header),
+                React.createElement(Hero),
+                React.createElement(Products),
+                React.createElement(About),
+                React.createElement(Contact),
+                React.createElement(Footer)
+            );
+        }
+        
+        // Render the app
+        ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    </script>
 </body>
 </html>
