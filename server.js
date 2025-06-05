@@ -9531,6 +9531,7 @@ async function registerRoutes(app2) {
     console.error("Error initializing PostgreSQL storage:", error);
   }
   console.log("React Static Site Generator routes registered successfully");
+  app2.use("/static-site", express5.static(path5.join(process.cwd(), "static-site")));
   app2.get("/api/download-static-site", (req, res) => {
     const zipPath = path5.join(process.cwd(), "sweet-moment-static-working.tar.gz");
     if (fs5.existsSync(zipPath)) {
