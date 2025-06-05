@@ -3640,7 +3640,7 @@ __export(framework_complete_export_exports, {
 import fs from "fs";
 import path from "path";
 import archiver from "archiver";
-async function createCompleteFrameworkExport(repoName = "sweet-moment-chocolates", username = "your-username", customDomain = false) {
+async function createCompleteFrameworkExport(products2, siteCustomization2, repoName = "sweet-moment-chocolates", username = "your-username", customDomain = false) {
   console.log("\u{1F3AF} CREATING COMPLETE FRAMEWORK EXPORT WITH REACT & FRAMER MOTION");
   const outputDir = path.join(process.cwd(), "static-site");
   const zipPath = path.join(process.cwd(), "static-site.zip");
@@ -3686,7 +3686,7 @@ async function createCompleteFrameworkExport(repoName = "sweet-moment-chocolates
       console.log("\u2705 All images and assets copied");
     }
     console.log("\u{1F527} Processing files for GitHub Pages while preserving React and Framer Motion...");
-    await processFrameworkFilesForGitHubPages(outputDir, basePath, customDomain);
+    await processFrameworkFilesForGitHubPages(outputDir, basePath, customDomain, products2, siteCustomization2);
     console.log("\u{1F4E6} Creating download package...");
     const output = fs.createWriteStream(zipPath);
     const archive = archiver("zip", { zlib: { level: 9 } });
@@ -3706,7 +3706,7 @@ async function createCompleteFrameworkExport(repoName = "sweet-moment-chocolates
     throw error;
   }
 }
-async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDomain) {
+async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDomain, products2, siteCustomization2) {
   console.log("\u{1F504} Processing framework files for GitHub Pages compatibility...");
   const htmlFiles = fs.readdirSync(outputDir).filter((file) => file.endsWith(".html"));
   for (const htmlFile of htmlFiles) {
@@ -3741,6 +3741,38 @@ async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDo
     </script>`
     );
     if (htmlFile === "index.html") {
+      const staticDataScript = `
+    <script>
+      // Static data for GitHub Pages - embedded at build time
+      window.__STATIC_DATA__ = {
+        products: ${JSON.stringify(products2)},
+        siteCustomization: ${JSON.stringify(siteCustomization2)}
+      };
+      
+      // Override fetch for static mode
+      const originalFetch = window.fetch;
+      window.fetch = function(url, options) {
+        if (url.includes('/api/products')) {
+          return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve(window.__STATIC_DATA__.products)
+          });
+        }
+        if (url.includes('/api/site-customization')) {
+          return Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve(window.__STATIC_DATA__.siteCustomization)
+          });
+        }
+        // For other API calls, return empty arrays or default responses
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([])
+        });
+      };
+    </script>`;
+      content = content.replace("</head>", `  ${staticDataScript}
+  </head>`);
       const assetsDir = path.join(outputDir, "assets");
       if (fs.existsSync(assetsDir)) {
         const jsFiles = fs.readdirSync(assetsDir).filter((file) => file.endsWith(".js"));
@@ -3754,6 +3786,7 @@ async function processFrameworkFilesForGitHubPages(outputDir, basePath, customDo
           console.log(`\u2705 Added React bundle reference: ${mainJsFile}`);
         }
       }
+      console.log(`\u2705 Embedded static data for ${products2.length} products and site customization`);
     }
     fs.writeFileSync(filePath, content);
     console.log(`\u2705 Processed ${htmlFile} - React and Framer Motion preserved`);
@@ -3843,7 +3876,7 @@ async function exportRealWebsite(repoName = "sweet-moment-chocolates", username 
     console.log(`\u2705 Got current data: ${products2.length} products and site configuration`);
     console.log("\u{1F3AF} Creating complete framework export with React and Framer Motion...");
     const { createCompleteFrameworkExport: createCompleteFrameworkExport2 } = await Promise.resolve().then(() => (init_framework_complete_export(), framework_complete_export_exports));
-    await createCompleteFrameworkExport2(repoName, username, customDomain);
+    await createCompleteFrameworkExport2(products2, siteData, repoName, username, customDomain);
     console.log("\u{1F389} GITHUB PAGES EXPORT COMPLETE!");
   } catch (error) {
     console.error("\u274C Export failed:", error);
@@ -9498,6 +9531,14 @@ async function registerRoutes(app2) {
     console.error("Error initializing PostgreSQL storage:", error);
   }
   console.log("React Static Site Generator routes registered successfully");
+  app2.get("/api/download-static-site", (req, res) => {
+    const zipPath = path5.join(process.cwd(), "sweet-moment-chocolates-static.zip");
+    if (fs5.existsSync(zipPath)) {
+      res.download(zipPath, "sweet-moment-chocolates-static.zip");
+    } else {
+      res.status(404).json({ error: "Static site package not found" });
+    }
+  });
   const httpServer = createServer(app2);
   return httpServer;
 }
