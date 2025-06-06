@@ -6,7 +6,7 @@ This static export was generated from the live website data.
 - 5 authentic chocolate products with current pricing
 - Real business information from Discovery Square, Herndon VA
 - All product images copied from uploads directory
-- Generated: 2025-06-06T02:08:31.867Z
+- Generated: 2025-06-06T04:40:21.410Z
 
 ## To Update This Site
 1. Make changes to your dynamic website
