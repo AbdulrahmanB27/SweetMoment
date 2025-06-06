@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Sweet Moment Chocolates</title>
+    <title>Menu - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
     
     <!-- React and ReactDOM from CDN -->
@@ -92,8 +92,8 @@
                         React.createElement('a', { href: '#home', className: 'logo' }, 'Sweet Moment Chocolates'),
                         React.createElement('nav', null,
                             React.createElement('ul', null,
-                                React.createElement('li', null, React.createElement('a', { href: '#home' }, 'Home')),
-                                React.createElement('li', null, React.createElement('a', { href: 'menu.html' }, 'Products')),
+                                React.createElement('li', null, React.createElement('a', { href: 'index.html' }, 'Home')),
+                                React.createElement('li', null, React.createElement('a', { href: '#products' }, 'Products')),
                                 React.createElement('li', null, React.createElement('a', { href: 'about.html' }, 'About')),
                                 React.createElement('li', null, React.createElement('a', { href: 'contact.html' }, 'Contact'))
                             )
@@ -223,7 +223,8 @@
         ReactDOM.render(
         React.createElement('div', null,
           React.createElement(Header),
-          React.createElement(Hero),
+          React.createElement('div', { style: { paddingTop: '2rem' } }),
+          React.createElement(Products),
           React.createElement(Footer)
         )
       , document.getElementById('root'));
