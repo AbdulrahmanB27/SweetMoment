@@ -5,229 +5,399 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
-    
-    <!-- React and ReactDOM from CDN -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Georgia', serif; line-height: 1.6; color: #333; background: #fff; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        /* Header Styles */
-        header { background: #8B4513; color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: bold; text-decoration: none; color: white; }
-        nav ul { list-style: none; display: flex; gap: 2rem; }
-        nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.3s; }
-        nav a:hover { background: rgba(255,255,255,0.2); }
-        
-        /* Hero Section */
-        .hero { background: linear-gradient(135deg, #8B4513, #D2691E); color: white; padding: 6rem 0; text-align: center; position: relative; overflow: hidden; }
-        .hero-content { position: relative; z-index: 2; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .btn { display: inline-block; background: white; color: #8B4513; padding: 1.2rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
-        
-        /* Products Section */
-        .products { padding: 5rem 0; background: #f8f9fa; }
-        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 1rem; color: #8B4513; }
-        .section-subtitle { text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 2rem; }
-        .product-card { background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 2.5rem; text-align: center; transition: all 0.3s; border: 1px solid #eee; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .product-image { width: 100%; height: 200px; background: linear-gradient(45deg, #8B4513, #D2691E); border-radius: 10px; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; background-size: cover; background-position: center; }
-        .product-name { font-size: 1.6rem; color: #8B4513; margin-bottom: 1rem; font-weight: bold; }
-        .product-price { font-size: 2rem; color: #D2691E; font-weight: bold; margin: 1rem 0; }
-        .product-description { color: #666; margin-bottom: 2rem; line-height: 1.6; }
-        
-        /* About Section */
-        .about { padding: 5rem 0; }
-        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .about-text h2 { color: #8B4513; margin-bottom: 1.5rem; font-size: 2.5rem; }
-        .about-text p { margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.7; }
-        .about-image { background: linear-gradient(45deg, #8B4513, #D2691E); height: 350px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; text-align: center; }
-        
-        /* Contact Section */
-        .contact { background: #f8f9fa; padding: 5rem 0; }
-        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
-        .contact h2 { color: #8B4513; margin-bottom: 1rem; font-size: 2.5rem; }
-        .contact h3 { color: #8B4513; margin-bottom: 1rem; font-size: 1.5rem; }
-        .contact p { margin-bottom: 1rem; font-size: 1.1rem; }
-        
-        /* Footer */
-        footer { background: #8B4513; color: white; padding: 3rem 0; text-align: center; }
-        footer p { margin-bottom: 0.5rem; }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 1rem; }
-            nav ul { flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .about-content { grid-template-columns: 1fr; }
-            .section-title { font-size: 2.2rem; }
+    <meta name="theme-color" content="hsl(25, 37%, 25%)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: 'hsl(0 0% 100%)',
+              foreground: 'hsl(20 14.3% 4.1%)',
+              muted: 'hsl(60 4.8% 95.9%)',
+              'muted-foreground': 'hsl(25 5.3% 44.7%)',
+              popover: 'hsl(0 0% 100%)',
+              'popover-foreground': 'hsl(20 14.3% 4.1%)',
+              card: 'hsl(0 0% 100%)',
+              'card-foreground': 'hsl(20 14.3% 4.1%)',
+              border: 'hsl(20 5.9% 90%)',
+              input: 'hsl(20 5.9% 90%)',
+              primary: {
+                DEFAULT: 'hsl(25, 37%, 25%)',
+                50: 'hsl(25, 37%, 95%)',
+                100: 'hsl(25, 37%, 90%)',
+                200: 'hsl(25, 37%, 80%)',
+                300: 'hsl(25, 37%, 70%)',
+                400: 'hsl(25, 37%, 60%)',
+                500: 'hsl(25, 37%, 50%)',
+                600: 'hsl(25, 37%, 40%)',
+                700: 'hsl(25, 37%, 30%)',
+                800: 'hsl(25, 37%, 20%)',
+                900: 'hsl(25, 37%, 10%)',
+                foreground: 'hsl(24 14% 98%)'
+              },
+              secondary: {
+                DEFAULT: 'hsl(60 4.8% 95.9%)',
+                foreground: 'hsl(24 9.8% 10%)'
+              },
+              accent: {
+                DEFAULT: 'hsl(60 4.8% 95.9%)',
+                foreground: 'hsl(24 9.8% 10%)'
+              },
+              destructive: {
+                DEFAULT: 'hsl(0 84.2% 60.2%)',
+                foreground: 'hsl(60 9.1% 97.8%)'
+              },
+              ring: 'hsl(20 14.3% 4.1%)'
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'Open Sans', 'system-ui', 'sans-serif'],
+              heading: ['Montserrat', 'sans-serif'],
+              body: ['Open Sans', 'sans-serif']
+            },
+            borderRadius: {
+              lg: '0.5rem',
+              md: 'calc(0.5rem - 2px)',
+              sm: 'calc(0.5rem - 4px)'
+            }
+          }
         }
+      }
+    </script>
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 20 14.3% 4.1%;
+        --muted: 60 4.8% 95.9%;
+        --muted-foreground: 25 5.3% 44.7%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 20 14.3% 4.1%;
+        --card: 0 0% 100%;
+        --card-foreground: 20 14.3% 4.1%;
+        --border: 20 5.9% 90%;
+        --input: 20 5.9% 90%;
+        --primary: 25 37% 25%;
+        --primary-foreground: 24 14% 98%;
+        --secondary: 60 4.8% 95.9%;
+        --secondary-foreground: 24 9.8% 10%;
+        --accent: 60 4.8% 95.9%;
+        --accent-foreground: 24 9.8% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 60 9.1% 97.8%;
+        --ring: 20 14.3% 4.1%;
+        --radius: 0.5rem;
+      }
+      
+      * {
+        border-color: hsl(var(--border));
+      }
+      
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
+      }
+      
+      .hero-bg {
+        background: linear-gradient(135deg, hsl(25, 37%, 95%) 0%, hsl(25, 37%, 85%) 100%);
+      }
+      
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      
+      .hero-text {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out;
+      }
+      
+      .hero-image-loaded .hero-text {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      /* Custom button styles matching main site */
+      .btn-primary {
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border-radius: var(--radius);
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+      
+      .btn-primary:hover {
+        background-color: hsl(25, 37%, 20%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      /* Product card styling */
+      .product-card {
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .product-card:hover {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+      
+      /* Navigation styling */
+      .nav-link {
+        color: hsl(var(--foreground));
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+      
+      .nav-link:hover,
+      .nav-link.active {
+        color: hsl(var(--primary));
+      }
+      
+      /* Typography */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      
+      p, span, div {
+        font-family: 'Open Sans', sans-serif;
+        line-height: 1.6;
+      }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gray-50">
+    <!-- Pixel-perfect Navigation matching main site -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-gray-900 font-heading">Sweet Moment Chocolates</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="menu.html" class="nav-link active px-3 py-2 rounded-md text-sm font-medium">Menu</a>
+                        <a href="about.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="contact.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" onclick="toggleMobileMenu()">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+                <a href="index.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="menu.html" class="nav-link active block px-3 py-2 rounded-md text-base font-medium">Menu</a>
+                <a href="about.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="contact.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
     
     <script>
-        // Embedded product data with current website information
-        window.STATIC_DATA = {
-            products: [{"id":"42","name":"Classic Chocolate","description":"Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.","image":"/uploads/1742792807445-327362076.jpeg","rating":0,"reviewCount":0,"basePrice":8,"category":"classic","featured":true,"inventory":100,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small Box\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"medium\",\"label\":\"Medium Box\",\"price\":700,\"quantity\":10,\"boxTypeId\":2},{\"id\":\"large\",\"label\":\"Large Box\",\"price\":1900,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":true,"displayOrder":10,"visible":true,"createdAt":"2025-03-20T16:10:15.402Z","sizes":[{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"8.00","price":8,"path":"/menu/classic-chocolate"},{"id":"44","name":"Caramel Chocolate","description":"Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.","image":"/uploads/1743291047091-28168151.jpeg","rating":0,"reviewCount":0,"basePrice":8,"category":"caramel","featured":false,"inventory":90,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small Box\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"medium\",\"label\":\"Medium Box\",\"price\":700,\"quantity\":10,\"boxTypeId\":2},{\"id\":\"large\",\"label\":\"Large Box\",\"price\":1900,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"caramel","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":true,"displayOrder":20,"visible":true,"createdAt":"2025-03-20T16:21:18.492Z","sizes":[{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"8.00","price":8,"path":"/menu/caramel-chocolate","badge":"premium"},{"id":"48","name":"Signature Collection","description":"A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.","image":"","rating":0,"reviewCount":0,"basePrice":10,"category":"premium","featured":false,"inventory":100,"sizeOptions":"[{\"id\":\"small\",\"label\":\"Small\",\"price\":0,\"quantity\":5,\"boxTypeId\":1},{\"id\":\"large\",\"label\":\"Large\",\"price\":2000,\"quantity\":25,\"boxTypeId\":3}]","typeOptions":null,"shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":30,"visible":true,"createdAt":"2025-04-10T21:03:51.112Z","sizes":[{"id":"small","label":"Small","price":0,"quantity":5,"boxTypeId":1},{"id":"large","label":"Large","price":20,"quantity":25,"boxTypeId":3}],"types":[],"formattedPrice":"10.00","price":10,"path":"/menu/signature-collection"},{"id":"47","name":"Dubai Bar","description":"A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.","image":"","rating":0,"reviewCount":0,"basePrice":5,"category":"classic","featured":false,"inventory":100,"sizeOptions":null,"typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark\",\"price\":200}]","shapeOptions":"[{\"id\":\"rectangular\",\"label\":\"Rectangular\",\"price\":0},{\"id\":\"curved\",\"label\":\"Curved\",\"price\":0}]","shapesEnabled":true,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":40,"visible":true,"createdAt":"2025-04-09T23:15:05.242Z","sizes":[],"types":[{"id":"milk","label":"Milk","price":0},{"id":"dark","label":"Dark","price":2}],"formattedPrice":"5.00","price":5,"path":"/menu/dubai-bar"},{"id":"46","name":"Assorted Nuts Chocolate","description":"A delightful mix of premium chocolates with assorted nuts from around the world.","image":"https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80","rating":0,"reviewCount":0,"basePrice":9,"category":"assorted","featured":true,"inventory":80,"sizeOptions":"[{\"id\":\"standard\",\"label\":\"Standard Bag\",\"price\":0,\"quantity\":0}]","typeOptions":"[{\"id\":\"milk\",\"label\":\"Milk Chocolate\",\"value\":\"milk\",\"price\":0},{\"id\":\"dark\",\"label\":\"Dark Chocolate\",\"value\":\"dark\",\"price\":200}]","shapeOptions":null,"shapesEnabled":false,"mixedTypeEnabled":false,"enableMixedSlider":false,"mixedTypeFee":0,"allergyInfo":"","ingredients":"","salePrice":null,"saleType":"percentage","saleValue":0,"saleActive":false,"saleStartDate":null,"saleEndDate":null,"hasMultipleImages":false,"displayOrder":50,"visible":true,"createdAt":"2025-03-29T23:59:33.892Z","sizes":[{"id":"standard","label":"Standard Bag","price":0,"quantity":0}],"types":[{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}],"formattedPrice":"9.00","price":9,"path":"/menu/assorted-nuts-chocolate"}],
-            hero: {"title":"Experience Life's Sweetest Moments","subtitle":"Curated treats and heartfelt gifts that brighten every day","buttonText":"Discover Your Moment","buttonLink":"/menu","imageUrl":"/uploads/1742773966114-127560992.jpeg?t=1749193266167","images":["/uploads/1742773966114-127560992.jpeg?t=1749193266167","/uploads/1743207809787-339256261.jpeg?t=1749193266167"],"autoplayInterval":5000},
-            generatedAt: '2025-06-06T07:06:39.667Z'
-        };
-        
-        // React components
-        function Header() {
-            return React.createElement('header', null,
-                React.createElement('div', { className: 'container' },
-                    React.createElement('div', { className: 'header-content' },
-                        React.createElement('a', { href: '#home', className: 'logo' }, 'Sweet Moment Chocolates'),
-                        React.createElement('nav', null,
-                            React.createElement('ul', null,
-                                React.createElement('li', null, React.createElement('a', { href: 'index.html' }, 'Home')),
-                                React.createElement('li', null, React.createElement('a', { href: '#products' }, 'Products')),
-                                React.createElement('li', null, React.createElement('a', { href: 'about.html' }, 'About')),
-                                React.createElement('li', null, React.createElement('a', { href: 'contact.html' }, 'Contact'))
-                            )
-                        )
-                    )
-                )
-            );
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
         
-        function Hero() {
-            const { hero } = window.STATIC_DATA;
-            return React.createElement('section', { id: 'home', className: 'hero' },
-                React.createElement('div', { className: 'container' },
-                    React.createElement('div', { className: 'hero-content' },
-                        React.createElement('h1', null, hero.title || 'Experience Life\'s Sweetest Moments'),
-                        React.createElement('p', null, hero.subtitle || 'Curated treats and heartfelt gifts that brighten every day'),
-                        React.createElement('a', { href: '#products', className: 'btn' }, 'Discover Our Collection')
-                    )
-                )
-            );
-        }
-        
-        function ProductCard({ product }) {
-            // Fix price conversion - if basePrice is already in dollars, don't divide by 100
-            let price;
-            if (product.basePrice >= 100) {
-                price = (product.basePrice / 100).toFixed(2);
-            } else {
-                price = product.basePrice ? product.basePrice.toFixed(2) : '0.00';
+        // Image loading handler for hero sections
+        function handleImageLoad(img) {
+            const container = img.closest('.hero-image-container');
+            if (container) {
+                container.classList.add('hero-image-loaded');
             }
-            const imageUrl = product.imageUrl || '/uploads/placeholder.jpg';
+        }
+        
+        // Payment redirect configuration
+        const PAYMENT_REDIRECT = {"enabled":false,"redirectUrl":""};
+        
+        // Handle payment redirect for Order Now buttons
+        function handleOrderButton(event) {
+            if (!PAYMENT_REDIRECT.enabled || !PAYMENT_REDIRECT.redirectUrl) {
+                event.preventDefault();
+                alert('Thank you for your interest! Please contact us to place an order.');
+                return;
+            }
             
-            return React.createElement('div', { className: 'product-card' },
-                React.createElement('div', { 
-                    className: 'product-image',
-                    style: imageUrl !== '/uploads/placeholder.jpg' ? { 
-                        backgroundImage: `url(${imageUrl})`,
-                        color: 'transparent'
-                    } : {}
-                }, imageUrl === '/uploads/placeholder.jpg' ? 'Premium Chocolate' : ''),
-                React.createElement('h3', { className: 'product-name' }, product.name),
-                React.createElement('div', { className: 'product-price' }, '$' + price),
-                React.createElement('p', { className: 'product-description' }, 
-                    product.description || 'Premium handcrafted chocolate made with the finest ingredients.'
-                ),
-                React.createElement('a', { href: '#contact', className: 'btn' }, 'Order Now')
-            );
+            event.preventDefault();
+            const button = event.currentTarget;
+            const productName = button.dataset.productName || '';
+            const productPrice = button.dataset.productPrice || '';
+            const productId = button.dataset.productId || '';
+            
+            // Build payment URL with product details as query parameters
+            const params = new URLSearchParams();
+            if (productName) params.append('product', productName);
+            if (productPrice) params.append('price', productPrice);
+            if (productId) params.append('id', productId);
+            
+            const paymentUrl = PAYMENT_REDIRECT.redirectUrl + (PAYMENT_REDIRECT.redirectUrl.includes('?') ? '&' : '?') + params.toString();
+            
+            // Open in new tab
+            window.open(paymentUrl, '_blank');
         }
         
-        function Products() {
-            const { products } = window.STATIC_DATA;
-            return React.createElement('section', { id: 'products', className: 'products' },
-                React.createElement('div', { className: 'container' },
-                    React.createElement('h2', { className: 'section-title' }, 'Our Premium Chocolate Collection'),
-                    React.createElement('p', { className: 'section-subtitle' }, 
-                        'Handcrafted with passion using the finest ingredients from around the world'
-                    ),
-                    React.createElement('div', { className: 'products-grid' },
-                        products.map(product => 
-                            React.createElement(ProductCard, { key: product.id, product: product })
-                        )
-                    )
-                )
-            );
-        }
-        
-        function About() {
-            return React.createElement('section', { id: 'about', className: 'about' },
-                React.createElement('div', { className: 'container' },
-                    React.createElement('div', { className: 'about-content' },
-                        React.createElement('div', { className: 'about-text' },
-                            React.createElement('h2', null, 'About Sweet Moment Chocolates'),
-                            React.createElement('p', null, 
-                                'Located in the heart of Herndon, Virginia, Sweet Moment Chocolates brings you the finest handcrafted chocolate experience. Our master chocolatiers use premium ingredients sourced from around the world to create unforgettable treats for life\'s special moments.'
-                            ),
-                            React.createElement('p', null,
-                                'From our classic collections to our signature Dubai-inspired bars, each piece is crafted with passion and attention to detail that makes every bite a moment to remember.'
-                            )
-                        ),
-                        React.createElement('div', { className: 'about-image' },
-                            'Premium Chocolate\nCraftsmanship'
-                        )
-                    )
-                )
-            );
-        }
-        
-        function Contact() {
-            return React.createElement('section', { id: 'contact', className: 'contact' },
-                React.createElement('div', { className: 'container' },
-                    React.createElement('div', { className: 'contact-content' },
-                        React.createElement('h2', null, 'Visit Our Store'),
-                        React.createElement('h3', null, 'Discovery Square'),
-                        React.createElement('p', null, '13720 Atlantis St'),
-                        React.createElement('p', null, 'Herndon, VA 20171'),
-                        React.createElement('p', null, 'Experience our handcrafted chocolates in person or place your custom orders.')
-                    )
-                )
-            );
-        }
-        
-        function Footer() {
-            const { generatedAt } = window.STATIC_DATA;
-            return React.createElement('footer', null,
-                React.createElement('div', { className: 'container' },
-                    React.createElement('p', null, '© 2024 Sweet Moment Chocolates. All rights reserved.'),
-                    React.createElement('p', null, 'Discovery Square, Herndon, VA 20171'),
-                    React.createElement('p', { style: { fontSize: '0.8rem', opacity: '0.7', marginTop: '1rem' } }, 
-                        'Generated: ' + new Date(generatedAt).toLocaleDateString()
-                    )
-                )
-            );
-        }
-        
-        function App() {
-            return React.createElement('div', null,
-                React.createElement(Header),
-                React.createElement(Hero),
-                React.createElement(Products),
-                React.createElement(About),
-                React.createElement(Contact),
-                React.createElement(Footer)
-            );
-        }
-        
-        // Render the app
-        ReactDOM.render(
-        React.createElement('div', null,
-          React.createElement(Header),
-          React.createElement('div', { style: { paddingTop: '2rem' } }),
-          React.createElement(Products),
-          React.createElement(Footer)
-        )
-      , document.getElementById('root'));
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroImages = document.querySelectorAll('.hero-image');
+            heroImages.forEach(img => {
+                if (img.complete) {
+                    handleImageLoad(img);
+                } else {
+                    img.addEventListener('load', () => handleImageLoad(img));
+                }
+            });
+            
+            // Attach payment redirect to all order buttons
+            const orderButtons = document.querySelectorAll('[data-product-name]');
+            orderButtons.forEach(button => {
+                button.addEventListener('click', handleOrderButton);
+            });
+        });
     </script>
+
+    <!-- Main Content -->
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h1 class="text-4xl font-bold text-center text-gray-900 mb-12">Our Menu</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="/uploads/1742792807445-327362076.jpeg" alt="Classic Chocolate" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Classic Chocolate</h3>
+                        <p class="text-gray-600 mb-4">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">$0.08</span>
+                            <a href="product-42.html" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors inline-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="/uploads/1743291047091-28168151.jpeg" alt="Caramel Chocolate" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Caramel Chocolate</h3>
+                        <p class="text-gray-600 mb-4">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">$0.08</span>
+                            <a href="product-44.html" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors inline-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="uploads/placeholder.jpg" alt="Signature Collection" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Signature Collection</h3>
+                        <p class="text-gray-600 mb-4">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">$0.10</span>
+                            <a href="product-48.html" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors inline-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="uploads/placeholder.jpg" alt="Dubai Bar" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Dubai Bar</h3>
+                        <p class="text-gray-600 mb-4">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">$0.05</span>
+                            <a href="product-47.html" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors inline-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Assorted Nuts Chocolate" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Assorted Nuts Chocolate</h3>
+                        <p class="text-gray-600 mb-4">A delightful mix of premium chocolates with assorted nuts from around the world.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">$0.09</span>
+                            <a href="product-46.html" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors inline-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-primary-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Sweet Moment Chocolates</h3>
+                    <p class="text-primary-200">Premium handcrafted chocolates made with love in Herndon, Virginia.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <div class="text-primary-200 space-y-2">
+                        <p>13720 Atlantis St</p>
+                        <p>Herndon, VA 20171</p>
+                        <p>United States</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <div class="text-primary-200 space-y-2">
+                        <p><a href="index.html" class="hover:text-white">Home</a></p>
+                        <p><a href="menu.html" class="hover:text-white">Menu</a></p>
+                        <p><a href="about.html" class="hover:text-white">About</a></p>
+                        <p><a href="contact.html" class="hover:text-white">Contact</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-primary-800 mt-8 pt-8 text-center text-primary-300">
+                <p>&copy; 2024 Sweet Moment Chocolates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

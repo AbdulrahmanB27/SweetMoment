@@ -1,30 +1,25 @@
-# Sweet Moment Chocolates - Multi-Page Static Site
+# Sweet Moment Chocolates - Static Website
 
-This static export was generated from the live website data and includes multiple pages for complete navigation.
+This is a complete static website for Sweet Moment Chocolates, generated from real data.
 
-## Pages Included
-- **index.html** - Home page with hero section
-- **menu.html** - Complete product catalog with all 5 chocolate products
-- **about.html** - Business information and story
-- **contact.html** - Store location and contact details
-- **404.html** - Error page redirects to home
+## Files Included:
+- index.html - Home page with hero section and featured products
+- menu.html - Complete product catalog
+- product-{id}.html - Individual product detail pages (5 pages)
+- about.html - Company information and story
+- contact.html - Contact information and form
+- uploads/ - Real product images
 
-## Current Data Included
-- 5 authentic chocolate products with current pricing
-- Real business information from Discovery Square, Herndon VA
-- All product images copied from uploads directory
-- Multi-page navigation between sections
-- Generated: 2025-06-06T07:06:39.669Z
+## Features:
+- Responsive design using Tailwind CSS
+- Real product data and images
+- Authentic business information for Herndon, VA location
+- Multi-page navigation
+- Professional styling matching the main site
 
-## How to Use
-1. Open index.html in any web browser to view the home page
-2. Use the navigation menu to visit different pages
-3. All pages work offline and load instantly
-4. Images and styling are self-contained
+## Deployment:
+1. Upload all files to your web server
+2. Ensure the uploads folder is accessible
+3. The site will work on any standard web hosting platform
 
-## To Update This Site
-1. Make changes to your dynamic website
-2. Run the static export again to get fresh data
-3. Deploy the new files to GitHub Pages
-
-The static site automatically pulls current data each time it's generated.
+Generated on: 2025-10-19T18:18:08.637Z
