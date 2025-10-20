@@ -281,29 +281,41 @@
                     
                     <div class="mb-8">
                         
-                        <span class="text-4xl font-bold" style="color: #5A3A30;">$10.00</span>
+                        <span class="product-total-price text-4xl font-bold" style="color: #5A3A30;">$10.00</span>
                         
                     </div>
                     
                     
                     <div class="mb-6">
                         <h3 class="font-medium mb-2" style="color: #000;">Size Options</h3>
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="grid grid-cols-3 gap-2" id="size-options">
                             
-                            <div class="border border-[#6F4E37] bg-white rounded-md p-3 flex flex-col items-center"
-                                 style="border-color: #6F4E37; box-shadow: 0 0 0 1px #6F4E37;">
+                            <button 
+                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md selected"
+                                data-size-id="small"
+                                data-price="10.00"
+                                data-base-price="10"
+                                data-option-price="0"
+                                onclick="selectSize(this)"
+                                style="border-color: #6F4E37; box-shadow: 0 0 0 1px #6F4E37; cursor: pointer;">
                                 <span class="font-medium text-sm">Small</span>
                                 <span class="text-xs" style="color: #666;">
                                     5 pcs - $10.00
                                 </span>
-                            </div>
-                            <div class="border border-gray-300 bg-white rounded-md p-3 flex flex-col items-center"
-                                 style="border-color: #d1d5db; ">
+                            </button>
+                            <button 
+                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md "
+                                data-size-id="large"
+                                data-price="30.00"
+                                data-base-price="10"
+                                data-option-price="20"
+                                onclick="selectSize(this)"
+                                style="border-color: #d1d5db;  cursor: pointer;">
                                 <span class="font-medium text-sm">Large</span>
                                 <span class="text-xs" style="color: #666;">
                                     25 pcs - $30.00
                                 </span>
-                            </div>
+                            </button>
                         </div>
                     </div>
                     
@@ -321,6 +333,57 @@
             </div>
         </div>
     </section>
+    
+    <script>
+      // Interactive option selection for product pages
+      let selectedSizePrice = 10;
+      let selectedTypePrice = 0;
+      const basePrice = 10;
+      
+      function selectSize(button) {
+        // Remove selected class from all size options
+        document.querySelectorAll('.size-option').forEach(opt => {
+          opt.classList.remove('selected');
+          opt.style.borderColor = '#d1d5db';
+          opt.style.boxShadow = '';
+        });
+        
+        // Add selected class to clicked option
+        button.classList.add('selected');
+        button.style.borderColor = '#6F4E37';
+        button.style.boxShadow = '0 0 0 1px #6F4E37';
+        
+        // Update selected price
+        selectedSizePrice = parseFloat(button.dataset.price);
+        updateTotalPrice();
+      }
+      
+      function selectType(button) {
+        // Remove selected class from all type options
+        document.querySelectorAll('.type-option').forEach(opt => {
+          opt.classList.remove('selected');
+          opt.style.borderColor = '#d1d5db';
+          opt.style.boxShadow = '';
+        });
+        
+        // Add selected class to clicked option
+        button.classList.add('selected');
+        button.style.borderColor = '#6F4E37';
+        button.style.boxShadow = '0 0 0 1px #6F4E37';
+        
+        // Update selected type price
+        selectedTypePrice = parseFloat(button.dataset.price);
+        updateTotalPrice();
+      }
+      
+      function updateTotalPrice() {
+        const totalPrice = selectedSizePrice + selectedTypePrice;
+        const priceElement = document.querySelector('.product-total-price');
+        if (priceElement) {
+          priceElement.textContent = '$' + totalPrice.toFixed(2);
+        }
+      }
+    </script>
 
 
     <!-- Footer -->
