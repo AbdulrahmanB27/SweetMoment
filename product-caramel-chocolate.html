@@ -18,51 +18,15 @@
             colors: {
               background: 'hsl(0 0% 100%)',
               foreground: 'hsl(20 14.3% 4.1%)',
-              muted: 'hsl(60 4.8% 95.9%)',
-              'muted-foreground': 'hsl(25 5.3% 44.7%)',
-              popover: 'hsl(0 0% 100%)',
-              'popover-foreground': 'hsl(20 14.3% 4.1%)',
-              card: 'hsl(0 0% 100%)',
-              'card-foreground': 'hsl(20 14.3% 4.1%)',
-              border: 'hsl(20 5.9% 90%)',
-              input: 'hsl(20 5.9% 90%)',
               primary: {
                 DEFAULT: 'hsl(25, 37%, 25%)',
-                50: 'hsl(25, 37%, 95%)',
-                100: 'hsl(25, 37%, 90%)',
-                200: 'hsl(25, 37%, 80%)',
-                300: 'hsl(25, 37%, 70%)',
-                400: 'hsl(25, 37%, 60%)',
-                500: 'hsl(25, 37%, 50%)',
-                600: 'hsl(25, 37%, 40%)',
-                700: 'hsl(25, 37%, 30%)',
-                800: 'hsl(25, 37%, 20%)',
-                900: 'hsl(25, 37%, 10%)',
                 foreground: 'hsl(24 14% 98%)'
-              },
-              secondary: {
-                DEFAULT: 'hsl(60 4.8% 95.9%)',
-                foreground: 'hsl(24 9.8% 10%)'
-              },
-              accent: {
-                DEFAULT: 'hsl(60 4.8% 95.9%)',
-                foreground: 'hsl(24 9.8% 10%)'
-              },
-              destructive: {
-                DEFAULT: 'hsl(0 84.2% 60.2%)',
-                foreground: 'hsl(60 9.1% 97.8%)'
-              },
-              ring: 'hsl(20 14.3% 4.1%)'
+              }
             },
             fontFamily: {
               sans: ['Montserrat', 'Open Sans', 'system-ui', 'sans-serif'],
-              heading: ['Montserrat', 'sans-serif'],
-              body: ['Open Sans', 'sans-serif']
-            },
-            borderRadius: {
-              lg: '0.5rem',
-              md: 'calc(0.5rem - 2px)',
-              sm: 'calc(0.5rem - 4px)'
+              montserrat: ['Montserrat', 'sans-serif'],
+              opensans: ['Open Sans', 'sans-serif']
             }
           }
         }
@@ -70,447 +34,302 @@
     </script>
     <style>
       :root {
-        --background: 0 0% 100%;
-        --foreground: 20 14.3% 4.1%;
-        --muted: 60 4.8% 95.9%;
-        --muted-foreground: 25 5.3% 44.7%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 20 14.3% 4.1%;
-        --card: 0 0% 100%;
-        --card-foreground: 20 14.3% 4.1%;
-        --border: 20 5.9% 90%;
-        --input: 20 5.9% 90%;
         --primary: 25 37% 25%;
         --primary-foreground: 24 14% 98%;
-        --secondary: 60 4.8% 95.9%;
-        --secondary-foreground: 24 9.8% 10%;
-        --accent: 60 4.8% 95.9%;
-        --accent-foreground: 24 9.8% 10%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 60 9.1% 97.8%;
-        --ring: 20 14.3% 4.1%;
-        --radius: 0.5rem;
       }
       
       * {
-        border-color: hsl(var(--border));
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
       
       body {
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
+        overflow-x: hidden;
       }
+
+      /* ========== COMPLETE CSS ANIMATIONS FROM index.css ========== */
       
-      .hero-bg {
-        background: linear-gradient(135deg, hsl(25, 37%, 95%) 0%, hsl(25, 37%, 85%) 100%);
+      /* Fade-in-up animation */
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      
-      .card-hover {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Signature glow animation */
+      @keyframes signature-glow {
+        0% { box-shadow: 0 0 0 rgba(228, 201, 118, 0); }
+        15% { box-shadow: 0 0 20px rgba(228, 201, 118, 0.4); }
+        40% { box-shadow: 0 0 35px rgba(228, 201, 118, 0.8); }
+        70% { box-shadow: 0 0 20px rgba(228, 201, 118, 0.6); }
+        100% { box-shadow: 0 0 0 rgba(228, 201, 118, 0); }
       }
-      
-      .card-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+      /* Signature shimmer animation */
+      @keyframes signature-shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
       }
-      
-      .hero-text {
+
+      /* Float subtle animation */
+      @keyframes float-subtle {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+      }
+
+      /* Gold shimmer animation */
+      @keyframes gold-shimmer {
+        0% {
+          color: #E5C976;
+          text-shadow: none;
+        }
+        30% {
+          color: #D4AF37;
+          text-shadow: 0 0 8px rgba(229, 201, 118, 0.6);
+        }
+        70% {
+          color: #E5C976;
+          text-shadow: 0 0 4px rgba(229, 201, 118, 0.3);
+        }
+        100% {
+          color: #E5C976;
+          text-shadow: none;
+        }
+      }
+
+      /* Fade-in-left animation */
+      @keyframes fade-in-left {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Base animation classes */
+      .animate-element {
         opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease-in-out;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
       }
-      
-      .hero-image-loaded .hero-text {
+
+      .animate-visible {
         opacity: 1;
-        visibility: visible;
+        transform: translateY(0);
       }
-      
-      /* Custom button styles matching main site */
-      .btn-primary {
-        background-color: hsl(var(--primary));
-        color: hsl(var(--primary-foreground));
-        border-radius: var(--radius);
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        border: none;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
+
+      /* Enhanced product cards, testimonials, and benefits */
+      .product-card.animate-element,
+      .testimonial-card.animate-element,
+      .benefit-card.animate-element {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
-      
-      .btn-primary:hover {
-        background-color: hsl(25, 37%, 20%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      .product-card.animate-visible,
+      .testimonial-card.animate-visible,
+      .benefit-card.animate-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
-      
-      /* Primary color utilities */
-      .text-primary { color: hsl(25, 37%, 25%) !important; }
-      .text-primary-200 { color: hsl(25, 37%, 80%) !important; }
-      .text-primary-300 { color: hsl(25, 37%, 70%) !important; }
-      .text-primary-600 { color: hsl(25, 37%, 40%) !important; }
-      .text-primary-700 { color: hsl(25, 37%, 30%) !important; }
-      .bg-primary-100 { background-color: hsl(25, 37%, 90%) !important; }
-      .bg-primary-200 { background-color: hsl(25, 37%, 80%) !important; }
-      .bg-primary-600 { background-color: hsl(25, 37%, 40%) !important; }
-      .bg-primary-700 { background-color: hsl(25, 37%, 30%) !important; }
-      .bg-primary-900 { background-color: hsl(25, 37%, 20%) !important; }
-      .border-primary-500 { border-color: hsl(25, 37%, 50%) !important; }
-      .border-primary-600 { border-color: hsl(25, 37%, 40%) !important; }
-      .border-primary-800 { border-color: hsl(25, 37%, 25%) !important; }
-      .hover:bg-primary-700:hover { background-color: hsl(25, 37%, 30%) !important; }
-      .hover:text-primary-600:hover { color: hsl(25, 37%, 40%) !important; }
-      .hover:border-primary-600:hover { border-color: hsl(25, 37%, 40%) !important; }
-      
-      /* Product card styling */
+
+      /* Animation delays for staggered items */
+      .delay-0 { transition-delay: 0s !important; }
+      .delay-1 { transition-delay: 0.1s !important; }
+      .delay-2 { transition-delay: 0.2s !important; }
+      .delay-3 { transition-delay: 0.3s !important; }
+      .delay-4 { transition-delay: 0.4s !important; }
+      .delay-5 { transition-delay: 0.5s !important; }
+      .delay-6 { transition-delay: 0.6s !important; }
+      .delay-7 { transition-delay: 0.7s !important; }
+      .delay-8 { transition-delay: 0.8s !important; }
+
+      /* Product card hover effects */
       .product-card {
-        background: hsl(var(--card));
-        border: 1px solid hsl(var(--border));
-        border-radius: var(--radius);
-        overflow: hidden;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
       }
-      
+
       .product-card:hover {
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
       }
-      
-      /* Navigation styling */
-      .nav-link {
-        color: rgba(255, 255, 255, 0.9);
+
+      .product-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .product-card img {
+        transition: transform 0.3s ease;
+      }
+
+      /* Carousel transition */
+      .carousel-image {
+        transition: opacity 1s ease-in-out;
+      }
+
+      /* Swipe container */
+      .swipe-container {
+        touch-action: pan-y pinch-zoom;
+      }
+
+      .swipe-container.swiping {
+        user-select: none;
+      }
+
+      /* Navigation */
+      nav {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      nav a {
+        color: #5A3A30;
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.2s ease;
+        padding: 0.5rem 1rem;
+        transition: color 0.3s ease;
       }
-      
-      .nav-link:hover,
-      .nav-link.active {
-        color: #fff;
-        background-color: rgba(255, 255, 255, 0.1);
+
+      nav a:hover,
+      nav a.active {
+        color: #E5C976;
       }
-      
-      /* Typography */
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        line-height: 1.2;
+
+      /* Testimonial card styles */
+      .testimonial-card {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
-      
-      p, span, div {
-        font-family: 'Open Sans', sans-serif;
-        line-height: 1.6;
+
+      .star-rating {
+        color: #E5C976;
+        font-size: 1.25rem;
+      }
+
+      /* Signature section button float animation */
+      .signature-button-float {
+        animation: float-subtle 3s ease-in-out infinite;
+      }
+
+      /* Footer styles */
+      footer {
+        background: #5A3A30;
+        color: white;
+        padding: 2rem 1rem;
+      }
+
+      footer a {
+        color: #E5C976;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
       }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Pixel-perfect Navigation matching main site -->
-    <nav class="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-white font-heading">Sweet Moment Chocolates</h1>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="menu.html" class="nav-link active px-3 py-2 rounded-md text-sm font-medium">Menu</a>
-                        <a href="about.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">About</a>
-                        <a href="contact.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Contact</a>
-                    </div>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" onclick="toggleMobileMenu()">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-                <a href="index.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="menu.html" class="nav-link active block px-3 py-2 rounded-md text-base font-medium">Menu</a>
-                <a href="about.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="contact.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+<body>
+    <!-- Navigation -->
+    <nav class="w-full py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: #5A3A30;">Sweet Moment</a>
+            <div class="flex gap-6">
+                <a href="index.html" class="">Home</a>
+                <a href="menu.html" class="">Menu</a>
+                <a href="about.html" class="">About</a>
+                <a href="contact.html" class="">Contact</a>
             </div>
         </div>
     </nav>
-    
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-        
-        // Image loading handler for hero sections
-        function handleImageLoad(img) {
-            const container = img.closest('.hero-image-container');
-            if (container) {
-                container.classList.add('hero-image-loaded');
-            }
-        }
-        
-        // Payment redirect configuration
-        const PAYMENT_REDIRECT = {"enabled":true,"redirectUrl":"https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00"};
-        console.log('Payment redirect settings:', PAYMENT_REDIRECT);
-        
-        // Handle payment redirect for Order Now buttons
-        function handleOrderButton(event) {
-            console.log('Order button clicked!', {
-                enabled: PAYMENT_REDIRECT.enabled,
-                redirectUrl: PAYMENT_REDIRECT.redirectUrl
-            });
-            
-            if (!PAYMENT_REDIRECT.enabled || !PAYMENT_REDIRECT.redirectUrl) {
-                event.preventDefault();
-                console.log('Showing alert because redirect is not enabled or URL is empty');
-                alert('Thank you for your interest! Please contact us to place an order.');
-                return;
-            }
-            
-            event.preventDefault();
-            const button = event.currentTarget;
-            const productName = button.dataset.productName || '';
-            const productPrice = button.dataset.productPrice || '';
-            const productId = button.dataset.productId || '';
-            
-            console.log('Product details:', { productName, productPrice, productId });
-            
-            // Build payment URL with product details as query parameters
-            const params = new URLSearchParams();
-            if (productName) params.append('product', productName);
-            if (productPrice) params.append('price', productPrice);
-            if (productId) params.append('id', productId);
-            
-            const paymentUrl = PAYMENT_REDIRECT.redirectUrl + (PAYMENT_REDIRECT.redirectUrl.includes('?') ? '&' : '?') + params.toString();
-            
-            console.log('Redirecting to:', paymentUrl);
-            // Open in new tab
-            window.open(paymentUrl, '_blank');
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const heroImages = document.querySelectorAll('.hero-image');
-            heroImages.forEach(img => {
-                if (img.complete) {
-                    handleImageLoad(img);
-                } else {
-                    img.addEventListener('load', () => handleImageLoad(img));
-                }
-            });
-            
-            // Attach payment redirect to all order buttons
-            const orderButtons = document.querySelectorAll('[data-product-name]');
-            orderButtons.forEach(button => {
-                button.addEventListener('click', handleOrderButton);
-            });
-        });
-    </script>
 
-    <!-- Main Content -->
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <!-- Product Image -->
-            <div>
-                <img src="uploads/1743291047091-28168151.jpeg" 
-                     alt="Caramel Chocolate" 
-                     class="w-full rounded-lg shadow-xl">
-            </div>
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <a href="menu.html" class="inline-block mb-8 text-lg font-semibold" style="color: #5A3A30;">
+                ← Back to Menu
+            </a>
             
-            <!-- Product Details -->
-            <div>
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">Caramel Chocolate</h1>
-                <div id="display-price" class="text-3xl font-bold text-primary-600 mb-6">$8.00</div>
-                
-                <div class="prose prose-lg mb-8">
-                    <p class="text-gray-600">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <img src="uploads/1743291047091-28168151.jpeg" 
+                         alt="Caramel Chocolate"
+                         class="w-full rounded-lg shadow-lg">
                 </div>
                 
-                
-                <div class="mb-6">
-                    <h3 class="font-medium mb-2 text-gray-900">Size Options</h3>
-                    <div class="grid grid-cols-3 gap-2">
+                <div>
+                    <h1 class="text-4xl font-bold mb-4" style="color: #5A3A30;">Caramel Chocolate</h1>
+                    
+                    <span class="inline-block px-3 py-1 rounded text-sm font-semibold mb-4" style="background: #E5C976; color: #2A1A18;">
+                        PREMIUM
+                    </span>
+                    
+                    <p class="text-lg mb-6" style="color: #5A3A30;">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+                    
+                    <div class="mb-8">
                         
-                        <button
-                            onclick="selectSize('small', 0.00)"
-                            id="size-small"
-                            class="size-option border border-[#6F4E37] ring-1 ring-[#6F4E37] bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
-                            <span class="font-medium text-sm">Small Box</span>
-                            <span class="text-xs text-gray-500">
-                                5 pcs - $8.00
-                            </span>
-                        </button>
-                        
-                        <button
-                            onclick="selectSize('medium', 7.00)"
-                            id="size-medium"
-                            class="size-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
-                            <span class="font-medium text-sm">Medium Box</span>
-                            <span class="text-xs text-gray-500">
-                                10 pcs - $15.00
-                            </span>
-                        </button>
-                        
-                        <button
-                            onclick="selectSize('large', 19.00)"
-                            id="size-large"
-                            class="size-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
-                            <span class="font-medium text-sm">Large Box</span>
-                            <span class="text-xs text-gray-500">
-                                25 pcs - $27.00
-                            </span>
-                        </button>
+                        <span class="text-4xl font-bold" style="color: #5A3A30;">$8.00</span>
                         
                     </div>
-                </div>
-                
-                
-                
-                <div class="mb-8">
-                    <h3 class="font-medium mb-2 text-gray-900">Chocolate Type</h3>
-                    <div class="grid grid-cols-3 gap-2">
-                        
-                        <button
-                            onclick="selectType('milk', 0.00)"
-                            id="type-milk"
-                            class="type-option border border-[#6F4E37] ring-1 ring-[#6F4E37] bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
-                            <span class="font-medium text-sm">Milk Chocolate</span>
-                            <span class="text-xs text-gray-500">$0.00</span>
-                        </button>
-                        
-                        <button
-                            onclick="selectType('dark', 2.00)"
-                            id="type-dark"
-                            class="type-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
-                            <span class="font-medium text-sm">Dark Chocolate</span>
-                            <span class="text-xs text-gray-500">$2.00</span>
-                        </button>
-                        
-                    </div>
-                </div>
-                
-                
-                <script>
-                    // Product data
-                    const basePrice = 8.00;
-                    const sizeOptionsData = [{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}];
-                    const typeOptionsData = [{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}];
                     
-                    // Selected options (initialize with first option)
-                    let selectedSizeId = 'small';
-                    let selectedTypeId = 'milk';
                     
-                    function selectSize(sizeId, sizePrice) {
-                        selectedSizeId = sizeId;
-                        
-                        // Update button styles
-                        document.querySelectorAll('.size-option').forEach(btn => {
-                            btn.style.borderColor = '#d1d5db'; // gray-300
-                            btn.style.boxShadow = 'none';
-                        });
-                        const selectedBtn = document.getElementById('size-' + sizeId);
-                        selectedBtn.style.borderColor = '#6F4E37';
-                        selectedBtn.style.boxShadow = '0 0 0 1px #6F4E37';
-                        
-                        updatePrice();
-                    }
-                    
-                    function selectType(typeId, typePrice) {
-                        selectedTypeId = typeId;
-                        
-                        // Update button styles
-                        document.querySelectorAll('.type-option').forEach(btn => {
-                            btn.style.borderColor = '#d1d5db'; // gray-300
-                            btn.style.boxShadow = 'none';
-                        });
-                        const selectedBtn = document.getElementById('type-' + typeId);
-                        selectedBtn.style.borderColor = '#6F4E37';
-                        selectedBtn.style.boxShadow = '0 0 0 1px #6F4E37';
-                        
-                        updatePrice();
-                    }
-                    
-                    function updatePrice() {
-                        let totalPrice = basePrice;
-                        
-                        // Add size price
-                        if (selectedSizeId) {
-                            const sizeOption = sizeOptionsData.find(s => s.id === selectedSizeId);
-                            if (sizeOption) {
-                                totalPrice += parseFloat(sizeOption.price);
-                            }
-                        }
-                        
-                        // Add type price
-                        if (selectedTypeId) {
-                            const typeOption = typeOptionsData.find(t => t.id === selectedTypeId);
-                            if (typeOption) {
-                                totalPrice += parseFloat(typeOption.price);
-                            }
-                        }
-                        
-                        // Update display
-                        document.getElementById('display-price').textContent = '$' + totalPrice.toFixed(2);
-                    }
-                </script>
-                
-                <div class="space-y-4">
-                    <a href="#" 
-                       class="block w-full bg-primary-600 text-white text-center py-4 px-6 rounded-lg hover:bg-primary-700 transition-colors font-semibold text-lg"
-                       data-product-name="Caramel Chocolate"
-                       data-product-price="8.00"
-                       data-product-id="44">
+                    <a href="https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00" 
+                       class="inline-block px-8 py-4 rounded-md text-lg font-semibold"
+                       style="background: #E5C976; color: #442D29;">
                         Order Now
                     </a>
-                    <a href="menu.html" class="block w-full border-2 border-gray-300 text-gray-700 text-center py-4 px-6 rounded-lg hover:border-primary-600 hover:text-primary-600 transition-colors font-semibold">
-                        ← Back to Menu
-                    </a>
+                    
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
 
     <!-- Footer -->
-    <footer class="bg-primary-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer class="mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Sweet Moment Chocolates</h3>
-                    <p class="text-primary-200">Premium handcrafted chocolates made with love in Herndon, Virginia.</p>
+                    <h3 class="font-bold text-xl mb-4">Sweet Moment Chocolates</h3>
+                    <p class="text-sm opacity-90">Premium handcrafted chocolates made with love and the finest ingredients.</p>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
-                    <div class="text-primary-200 space-y-2">
-                        <p>13720 Atlantis St</p>
-                        <p>Herndon, VA 20171</p>
-                        <p>United States</p>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="flex flex-col gap-2">
+                        <a href="index.html">Home</a>
+                        <a href="menu.html">Menu</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <div class="text-primary-200 space-y-2">
-                        <p><a href="index.html" class="hover:text-white">Home</a></p>
-                        <p><a href="menu.html" class="hover:text-white">Menu</a></p>
-                        <p><a href="about.html" class="hover:text-white">About</a></p>
-                        <p><a href="contact.html" class="hover:text-white">Contact</a></p>
-                    </div>
+                    <h4 class="font-semibold mb-4">Visit Us</h4>
+                    <p class="text-sm opacity-90">
+                        13720 Atlantis St<br>
+                        Herndon, VA 20171<br>
+                        United States
+                    </p>
                 </div>
             </div>
-            <div class="border-t border-primary-800 mt-8 pt-8 text-center text-primary-300">
-                <p>&copy; 2024 Sweet Moment Chocolates. All rights reserved.</p>
+            <div class="border-t border-white/20 pt-6 text-center text-sm opacity-75">
+                <p>&copy; 2025 Sweet Moment Chocolates. All rights reserved.</p>
             </div>
         </div>
     </footer>

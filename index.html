@@ -18,51 +18,15 @@
             colors: {
               background: 'hsl(0 0% 100%)',
               foreground: 'hsl(20 14.3% 4.1%)',
-              muted: 'hsl(60 4.8% 95.9%)',
-              'muted-foreground': 'hsl(25 5.3% 44.7%)',
-              popover: 'hsl(0 0% 100%)',
-              'popover-foreground': 'hsl(20 14.3% 4.1%)',
-              card: 'hsl(0 0% 100%)',
-              'card-foreground': 'hsl(20 14.3% 4.1%)',
-              border: 'hsl(20 5.9% 90%)',
-              input: 'hsl(20 5.9% 90%)',
               primary: {
                 DEFAULT: 'hsl(25, 37%, 25%)',
-                50: 'hsl(25, 37%, 95%)',
-                100: 'hsl(25, 37%, 90%)',
-                200: 'hsl(25, 37%, 80%)',
-                300: 'hsl(25, 37%, 70%)',
-                400: 'hsl(25, 37%, 60%)',
-                500: 'hsl(25, 37%, 50%)',
-                600: 'hsl(25, 37%, 40%)',
-                700: 'hsl(25, 37%, 30%)',
-                800: 'hsl(25, 37%, 20%)',
-                900: 'hsl(25, 37%, 10%)',
                 foreground: 'hsl(24 14% 98%)'
-              },
-              secondary: {
-                DEFAULT: 'hsl(60 4.8% 95.9%)',
-                foreground: 'hsl(24 9.8% 10%)'
-              },
-              accent: {
-                DEFAULT: 'hsl(60 4.8% 95.9%)',
-                foreground: 'hsl(24 9.8% 10%)'
-              },
-              destructive: {
-                DEFAULT: 'hsl(0 84.2% 60.2%)',
-                foreground: 'hsl(60 9.1% 97.8%)'
-              },
-              ring: 'hsl(20 14.3% 4.1%)'
+              }
             },
             fontFamily: {
               sans: ['Montserrat', 'Open Sans', 'system-ui', 'sans-serif'],
-              heading: ['Montserrat', 'sans-serif'],
-              body: ['Open Sans', 'sans-serif']
-            },
-            borderRadius: {
-              lg: '0.5rem',
-              md: 'calc(0.5rem - 2px)',
-              sm: 'calc(0.5rem - 4px)'
+              montserrat: ['Montserrat', 'sans-serif'],
+              opensans: ['Open Sans', 'sans-serif']
             }
           }
         }
@@ -70,437 +34,795 @@
     </script>
     <style>
       :root {
-        --background: 0 0% 100%;
-        --foreground: 20 14.3% 4.1%;
-        --muted: 60 4.8% 95.9%;
-        --muted-foreground: 25 5.3% 44.7%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 20 14.3% 4.1%;
-        --card: 0 0% 100%;
-        --card-foreground: 20 14.3% 4.1%;
-        --border: 20 5.9% 90%;
-        --input: 20 5.9% 90%;
         --primary: 25 37% 25%;
         --primary-foreground: 24 14% 98%;
-        --secondary: 60 4.8% 95.9%;
-        --secondary-foreground: 24 9.8% 10%;
-        --accent: 60 4.8% 95.9%;
-        --accent-foreground: 24 9.8% 10%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 60 9.1% 97.8%;
-        --ring: 20 14.3% 4.1%;
-        --radius: 0.5rem;
       }
       
       * {
-        border-color: hsl(var(--border));
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
       
       body {
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
+        overflow-x: hidden;
       }
+
+      /* ========== COMPLETE CSS ANIMATIONS FROM index.css ========== */
       
-      .hero-bg {
-        background: linear-gradient(135deg, hsl(25, 37%, 95%) 0%, hsl(25, 37%, 85%) 100%);
+      /* Fade-in-up animation */
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      
-      .card-hover {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      /* Signature glow animation */
+      @keyframes signature-glow {
+        0% { box-shadow: 0 0 0 rgba(228, 201, 118, 0); }
+        15% { box-shadow: 0 0 20px rgba(228, 201, 118, 0.4); }
+        40% { box-shadow: 0 0 35px rgba(228, 201, 118, 0.8); }
+        70% { box-shadow: 0 0 20px rgba(228, 201, 118, 0.6); }
+        100% { box-shadow: 0 0 0 rgba(228, 201, 118, 0); }
       }
-      
-      .card-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+      /* Signature shimmer animation */
+      @keyframes signature-shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
       }
-      
-      .hero-text {
+
+      /* Float subtle animation */
+      @keyframes float-subtle {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+        100% { transform: translateY(0px); }
+      }
+
+      /* Gold shimmer animation */
+      @keyframes gold-shimmer {
+        0% {
+          color: #E5C976;
+          text-shadow: none;
+        }
+        30% {
+          color: #D4AF37;
+          text-shadow: 0 0 8px rgba(229, 201, 118, 0.6);
+        }
+        70% {
+          color: #E5C976;
+          text-shadow: 0 0 4px rgba(229, 201, 118, 0.3);
+        }
+        100% {
+          color: #E5C976;
+          text-shadow: none;
+        }
+      }
+
+      /* Fade-in-left animation */
+      @keyframes fade-in-left {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Base animation classes */
+      .animate-element {
         opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease-in-out;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
       }
-      
-      .hero-image-loaded .hero-text {
+
+      .animate-visible {
         opacity: 1;
-        visibility: visible;
+        transform: translateY(0);
       }
-      
-      /* Custom button styles matching main site */
-      .btn-primary {
-        background-color: hsl(var(--primary));
-        color: hsl(var(--primary-foreground));
-        border-radius: var(--radius);
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        border: none;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
+
+      /* Enhanced product cards, testimonials, and benefits */
+      .product-card.animate-element,
+      .testimonial-card.animate-element,
+      .benefit-card.animate-element {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
-      
-      .btn-primary:hover {
-        background-color: hsl(25, 37%, 20%);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      .product-card.animate-visible,
+      .testimonial-card.animate-visible,
+      .benefit-card.animate-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
-      
-      /* Primary color utilities */
-      .text-primary { color: hsl(25, 37%, 25%) !important; }
-      .text-primary-200 { color: hsl(25, 37%, 80%) !important; }
-      .text-primary-300 { color: hsl(25, 37%, 70%) !important; }
-      .text-primary-600 { color: hsl(25, 37%, 40%) !important; }
-      .text-primary-700 { color: hsl(25, 37%, 30%) !important; }
-      .bg-primary-100 { background-color: hsl(25, 37%, 90%) !important; }
-      .bg-primary-200 { background-color: hsl(25, 37%, 80%) !important; }
-      .bg-primary-600 { background-color: hsl(25, 37%, 40%) !important; }
-      .bg-primary-700 { background-color: hsl(25, 37%, 30%) !important; }
-      .bg-primary-900 { background-color: hsl(25, 37%, 20%) !important; }
-      .border-primary-500 { border-color: hsl(25, 37%, 50%) !important; }
-      .border-primary-600 { border-color: hsl(25, 37%, 40%) !important; }
-      .border-primary-800 { border-color: hsl(25, 37%, 25%) !important; }
-      .hover:bg-primary-700:hover { background-color: hsl(25, 37%, 30%) !important; }
-      .hover:text-primary-600:hover { color: hsl(25, 37%, 40%) !important; }
-      .hover:border-primary-600:hover { border-color: hsl(25, 37%, 40%) !important; }
-      
-      /* Product card styling */
+
+      /* Animation delays for staggered items */
+      .delay-0 { transition-delay: 0s !important; }
+      .delay-1 { transition-delay: 0.1s !important; }
+      .delay-2 { transition-delay: 0.2s !important; }
+      .delay-3 { transition-delay: 0.3s !important; }
+      .delay-4 { transition-delay: 0.4s !important; }
+      .delay-5 { transition-delay: 0.5s !important; }
+      .delay-6 { transition-delay: 0.6s !important; }
+      .delay-7 { transition-delay: 0.7s !important; }
+      .delay-8 { transition-delay: 0.8s !important; }
+
+      /* Product card hover effects */
       .product-card {
-        background: hsl(var(--card));
-        border: 1px solid hsl(var(--border));
-        border-radius: var(--radius);
-        overflow: hidden;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
       }
-      
+
       .product-card:hover {
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
       }
-      
-      /* Navigation styling */
-      .nav-link {
-        color: rgba(255, 255, 255, 0.9);
+
+      .product-card:hover img {
+        transform: scale(1.05);
+      }
+
+      .product-card img {
+        transition: transform 0.3s ease;
+      }
+
+      /* Carousel transition */
+      .carousel-image {
+        transition: opacity 1s ease-in-out;
+      }
+
+      /* Swipe container */
+      .swipe-container {
+        touch-action: pan-y pinch-zoom;
+      }
+
+      .swipe-container.swiping {
+        user-select: none;
+      }
+
+      /* Navigation */
+      nav {
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+
+      nav a {
+        color: #5A3A30;
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.2s ease;
+        padding: 0.5rem 1rem;
+        transition: color 0.3s ease;
       }
-      
-      .nav-link:hover,
-      .nav-link.active {
-        color: #fff;
-        background-color: rgba(255, 255, 255, 0.1);
+
+      nav a:hover,
+      nav a.active {
+        color: #E5C976;
       }
-      
-      /* Typography */
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 700;
-        line-height: 1.2;
+
+      /* Testimonial card styles */
+      .testimonial-card {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
-      
-      p, span, div {
-        font-family: 'Open Sans', sans-serif;
-        line-height: 1.6;
+
+      .star-rating {
+        color: #E5C976;
+        font-size: 1.25rem;
+      }
+
+      /* Signature section button float animation */
+      .signature-button-float {
+        animation: float-subtle 3s ease-in-out infinite;
+      }
+
+      /* Footer styles */
+      footer {
+        background: #5A3A30;
+        color: white;
+        padding: 2rem 1rem;
+      }
+
+      footer a {
+        color: #E5C976;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
       }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Pixel-perfect Navigation matching main site -->
-    <nav class="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-white font-heading">Sweet Moment Chocolates</h1>
-                    </div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="nav-link active px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="menu.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Menu</a>
-                        <a href="about.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">About</a>
-                        <a href="contact.html" class="nav-link  px-3 py-2 rounded-md text-sm font-medium">Contact</a>
-                    </div>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" onclick="toggleMobileMenu()">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-                <a href="index.html" class="nav-link active block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="menu.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Menu</a>
-                <a href="about.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="contact.html" class="nav-link  block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+<body>
+    <!-- Navigation -->
+    <nav class="w-full py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold" style="color: #5A3A30;">Sweet Moment</a>
+            <div class="flex gap-6">
+                <a href="index.html" class="active">Home</a>
+                <a href="menu.html" class="">Menu</a>
+                <a href="about.html" class="">About</a>
+                <a href="contact.html" class="">Contact</a>
             </div>
         </div>
     </nav>
-    
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-        
-        // Image loading handler for hero sections
-        function handleImageLoad(img) {
-            const container = img.closest('.hero-image-container');
-            if (container) {
-                container.classList.add('hero-image-loaded');
-            }
-        }
-        
-        // Payment redirect configuration
-        const PAYMENT_REDIRECT = {"enabled":true,"redirectUrl":"https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00"};
-        console.log('Payment redirect settings:', PAYMENT_REDIRECT);
-        
-        // Handle payment redirect for Order Now buttons
-        function handleOrderButton(event) {
-            console.log('Order button clicked!', {
-                enabled: PAYMENT_REDIRECT.enabled,
-                redirectUrl: PAYMENT_REDIRECT.redirectUrl
-            });
-            
-            if (!PAYMENT_REDIRECT.enabled || !PAYMENT_REDIRECT.redirectUrl) {
-                event.preventDefault();
-                console.log('Showing alert because redirect is not enabled or URL is empty');
-                alert('Thank you for your interest! Please contact us to place an order.');
-                return;
-            }
-            
-            event.preventDefault();
-            const button = event.currentTarget;
-            const productName = button.dataset.productName || '';
-            const productPrice = button.dataset.productPrice || '';
-            const productId = button.dataset.productId || '';
-            
-            console.log('Product details:', { productName, productPrice, productId });
-            
-            // Build payment URL with product details as query parameters
-            const params = new URLSearchParams();
-            if (productName) params.append('product', productName);
-            if (productPrice) params.append('price', productPrice);
-            if (productId) params.append('id', productId);
-            
-            const paymentUrl = PAYMENT_REDIRECT.redirectUrl + (PAYMENT_REDIRECT.redirectUrl.includes('?') ? '&' : '?') + params.toString();
-            
-            console.log('Redirecting to:', paymentUrl);
-            // Open in new tab
-            window.open(paymentUrl, '_blank');
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const heroImages = document.querySelectorAll('.hero-image');
-            heroImages.forEach(img => {
-                if (img.complete) {
-                    handleImageLoad(img);
-                } else {
-                    img.addEventListener('load', () => handleImageLoad(img));
-                }
-            });
-            
-            // Attach payment redirect to all order buttons
-            const orderButtons = document.querySelectorAll('[data-product-name]');
-            orderButtons.forEach(button => {
-                button.addEventListener('click', handleOrderButton);
-            });
-        });
-    </script>
 
-    <!-- Main Content -->
     
-    <!-- Hero Section with exact main site styling -->
-    <div class="relative min-h-[80vh] flex items-center justify-center hero-image-container">
-        
-        <div class="absolute inset-0 z-0">
-            <img src="uploads/1742773966114-127560992.jpeg" 
-                 alt="Sweet Moment Chocolates Hero" 
-                 class="w-full h-full object-cover hero-image" 
-                 onload="handleImageLoad(this)">
-            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <!-- Hero Carousel Section -->
+    <section class="w-full relative hero-section">
+        <!-- Mobile Hero -->
+        <div class="block md:hidden w-full" style="height: 85vh;">
+            <div class="relative w-full h-full swipe-container" id="carousel-mobile">
+                
+                <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
+                    <img src="uploads/1742773966114-127560992.jpeg" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                </div>
+                
+                <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
+                    <img src="uploads/1743207809787-339256261.jpeg" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                </div>
+                
+                
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-black opacity-40" style="z-index: 10;"></div>
+                
+                <!-- Content -->
+                <div class="absolute inset-0 flex items-center justify-center" style="z-index: 20;">
+                    <div class="container mx-auto px-4 text-center">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-white mb-5 max-w-xs mx-auto">Experience Life's Sweetest Moments</h1>
+                        <p class="text-sm text-amber-100 mb-8 max-w-xs mx-auto">Curated treats and heartfelt gifts that brighten every day</p>
+                        <a href="https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00" 
+                           class="inline-block px-8 py-3 text-lg font-semibold rounded-md transition-all"
+                           style="background: #D4AF37; color: #2A1A18;">
+                            Discover Your Moment
+                        </a>
+                    </div>
+                </div>
+                
+                
+                <!-- Indicators -->
+                <div class="absolute bottom-8 left-0 right-0 flex justify-center gap-2" style="z-index: 30;">
+                    
+                    <button class="carousel-indicator w-3 h-3 rounded-full transition-all bg-white scale-110" 
+                            data-index="0" 
+                            aria-label="Go to slide 1"></button>
+                    
+                    <button class="carousel-indicator w-3 h-3 rounded-full transition-all bg-white/50" 
+                            data-index="1" 
+                            aria-label="Go to slide 2"></button>
+                    
+                </div>
+                
+            </div>
         </div>
         
-        
-        <div class="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 hero-text">
-            <h1 class="text-4xl md:text-6xl font-bold font-heading mb-6 leading-tight">
-                Experience Life's Sweetest Moments
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto font-body opacity-90">
-                Curated treats and heartfelt gifts that brighten every day
-            </p>
-            <a href="menu.html" class="btn-primary text-lg">
-                Discover Your Moment
-            </a>
+        <!-- Desktop Hero -->
+        <div class="hidden md:block w-full" style="height: 75vh;">
+            <div class="relative w-full h-full swipe-container" id="carousel-desktop">
+                
+                <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
+                    <img src="uploads/1742773966114-127560992.jpeg" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                </div>
+                
+                <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
+                    <img src="uploads/1743207809787-339256261.jpeg" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                </div>
+                
+                
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-black opacity-30" style="z-index: 10;"></div>
+                
+                <!-- Content -->
+                <div class="absolute inset-0 flex items-center" style="z-index: 20;">
+                    <div class="container mx-auto px-8">
+                        <div class="max-w-3xl">
+                            <h1 class="text-5xl lg:text-6xl font-bold text-white mb-5 max-w-xl">Experience Life's Sweetest Moments</h1>
+                            <p class="text-lg text-amber-100 mb-8 max-w-xl">Curated treats and heartfelt gifts that brighten every day</p>
+                            <a href="https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00" 
+                               class="inline-block px-8 py-3 text-lg font-semibold rounded-md transition-all"
+                               style="background: #D4AF37; color: #2A1A18;">
+                                Discover Your Moment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- Indicators -->
+                <div class="absolute bottom-8 left-0 right-0 flex justify-center gap-2" style="z-index: 30;">
+                    
+                    <button class="carousel-indicator w-3 h-3 rounded-full transition-all bg-white scale-110" 
+                            data-index="0" 
+                            aria-label="Go to slide 1"></button>
+                    
+                    <button class="carousel-indicator w-3 h-3 rounded-full transition-all bg-white/50" 
+                            data-index="1" 
+                            aria-label="Go to slide 2"></button>
+                    
+                </div>
+                
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Trust Badges Section -->
+    <section class="py-4" style="background: #F5EEE8; border-top: 1px solid #E8D7C9; border-bottom: 1px solid #E8D7C9;">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="trust-badges">
+                <div class="benefit-card animate-element text-center flex flex-col items-center delay-0">
+                    <svg class="h-8 w-8 mb-2" style="color: #5A3A30;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+                    </svg>
+                    <h3 class="font-semibold" style="color: #5A3A30;">Fast Shipping</h3>
+                </div>
+                
+                <div class="benefit-card animate-element text-center flex flex-col items-center delay-1">
+                    <svg class="h-8 w-8 mb-2" style="color: #5A3A30;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <h3 class="font-semibold" style="color: #5A3A30;">Secure Payment</h3>
+                </div>
+                
+                <div class="benefit-card animate-element text-center flex flex-col items-center delay-2">
+                    <svg class="h-8 w-8 mb-2" style="color: #5A3A30;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                    <h3 class="font-semibold" style="color: #5A3A30;">Premium Quality</h3>
+                </div>
+                
+                <div class="benefit-card animate-element text-center flex flex-col items-center delay-3">
+                    <svg class="h-8 w-8 mb-2" style="color: #5A3A30;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                    </svg>
+                    <h3 class="font-semibold" style="color: #5A3A30;">Gift Ready</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Featured Products Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold font-heading text-gray-900 mb-4">
+    
+    <section class="pt-28 pb-16 md:pb-24 bg-white" id="featured-products">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title animate-element text-3xl md:text-4xl font-bold mb-4" style="color: #5A3A30;">
                     Featured Products
                 </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto font-body">
-                    Discover our most popular handcrafted chocolates, made with premium ingredients and love
+                <p class="section-subtitle animate-element text-lg max-w-3xl mx-auto" style="color: #7D4E2C;">
+                    Our handpicked selection of luxurious chocolates
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 
-                    <div class="product-card card-hover">
-                        <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
-                            <img src="uploads/1742792807445-327362076.jpeg" 
-                                 alt="Classic Chocolate" 
-                                 class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold font-heading text-gray-900 mb-2">
-                                Classic Chocolate
-                            </h3>
-                            <p class="text-gray-600 mb-4 font-body line-clamp-3">
-                                Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-2xl font-bold text-primary">
-                                    $8.00
-                                </span>
-                                <a href="menu.html" class="btn-primary">
-                                    View Details
-                                </a>
+                <div class="product-card animate-element delay-0">
+                    <a href="product-classic-chocolate.html" class="block">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="uploads/1742792807445-327362076.jpeg" 
+                                     alt="Classic Chocolate"
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Classic Chocolate</h3>
+                                <p class="text-sm mb-3" style="color: #7D4E2C;">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        
+                                        <span class="text-lg font-bold" style="color: #5A3A30;">$8.00</span>
+                                        
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
                 
-                    <div class="product-card card-hover">
-                        <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
-                            <img src="uploads/1743291047091-28168151.jpeg" 
-                                 alt="Caramel Chocolate" 
-                                 class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold font-heading text-gray-900 mb-2">
-                                Caramel Chocolate
-                            </h3>
-                            <p class="text-gray-600 mb-4 font-body line-clamp-3">
-                                Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-2xl font-bold text-primary">
-                                    $8.00
-                                </span>
-                                <a href="menu.html" class="btn-primary">
-                                    View Details
-                                </a>
+                <div class="product-card animate-element delay-1">
+                    <a href="product-caramel-chocolate.html" class="block">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="uploads/1743291047091-28168151.jpeg" 
+                                     alt="Caramel Chocolate"
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Caramel Chocolate</h3>
+                                <p class="text-sm mb-3" style="color: #7D4E2C;">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        
+                                        <span class="text-lg font-bold" style="color: #5A3A30;">$8.00</span>
+                                        
+                                    </div>
+                                    
+                                    <span class="text-xs px-2 py-1 rounded" style="background: #E5C976; color: #2A1A18;">
+                                        PREMIUM
+                                    </span>
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
                 
-                    <div class="product-card card-hover">
-                        <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
-                            <img src="uploads/placeholder.jpg" 
-                                 alt="Signature Collection" 
-                                 class="w-full h-64 object-cover transition-transform duration-300 hover:scale-105">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold font-heading text-gray-900 mb-2">
-                                Signature Collection
-                            </h3>
-                            <p class="text-gray-600 mb-4 font-body line-clamp-3">
-                                A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-2xl font-bold text-primary">
-                                    $10.00
-                                </span>
-                                <a href="menu.html" class="btn-primary">
-                                    View Details
-                                </a>
+                <div class="product-card animate-element delay-2">
+                    <a href="product-signature-collection.html" class="block">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="uploads/placeholder.jpg" 
+                                     alt="Signature Collection"
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Signature Collection</h3>
+                                <p class="text-sm mb-3" style="color: #7D4E2C;">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        
+                                        <span class="text-lg font-bold" style="color: #5A3A30;">$10.00</span>
+                                        
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                
+                <div class="product-card animate-element delay-3">
+                    <a href="product-dubai-bar.html" class="block">
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                            <div class="aspect-square overflow-hidden">
+                                <img src="uploads/placeholder.jpg" 
+                                     alt="Dubai Bar"
+                                     class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Dubai Bar</h3>
+                                <p class="text-sm mb-3" style="color: #7D4E2C;">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        
+                                        <span class="text-lg font-bold" style="color: #5A3A30;">$5.00</span>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 
             </div>
             
-            <div class="text-center mt-12">
-                <a href="menu.html" class="btn-primary">
-                    View All Products
+            <div class="text-center mt-16">
+                <a href="menu.html" class="section-button animate-element delay-8 inline-block px-8 py-3 rounded-md font-semibold transition-all"
+                   style="background: #E5C976; color: #442D29;">
+                    View All Collections
                 </a>
             </div>
         </div>
     </section>
+    
 
-    <!-- About Preview Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold font-heading text-gray-900 mb-6">
-                        Crafted with Passion
-                    </h2>
-                    <p class="text-lg text-gray-600 mb-6 font-body">
-                        Located in Herndon, Virginia, Sweet Moment Chocolates has been creating extraordinary 
-                        chocolate experiences with premium ingredients and artisanal techniques.
-                    </p>
-                    <p class="text-gray-600 mb-8 font-body">
-                        Each piece is handcrafted by our master chocolatiers, ensuring every bite delivers 
-                        the perfect balance of flavor and texture.
-                    </p>
-                    <a href="about.html" class="btn-primary">
-                        Learn More About Us
-                    </a>
+    <!-- Signature Collection Section -->
+    
+    <section class="py-12 overflow-hidden" style="background: #5A3A30; color: white;">
+        <div class="container mx-auto px-4" id="signature-section">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <!-- Image -->
+                <div class="md:w-1/2 flex items-center justify-center">
+                    <div class="w-full max-w-md mx-auto md:mx-0 animate-element">
+                        
+                        <img src="uploads/1744075563796-815996067.jpeg" 
+                             alt="Signature Collection" 
+                             class="w-full h-auto rounded-lg shadow-lg object-cover"
+                             style="min-height: 300px;">
+                        
+                    </div>
                 </div>
-                <div class="relative">
-                    
-                    <img src="uploads/1743207809787-339256261.jpeg" 
-                         alt="Our Chocolate Making Process" 
-                         class="rounded-lg shadow-xl w-full h-96 object-cover">
-                    
+                
+                <!-- Content -->
+                <div class="md:w-1/2 space-y-5 px-4 md:px-0">
+                    <h2 class="animate-element text-3xl md:text-4xl font-bold">
+                        Chocolate For Any Occasion
+                    </h2>
+                    <p class="animate-element text-base md:text-lg max-w-2xl">
+                        Experience our finest handcrafted selection, created by our master chocolatier using premium ingredients sourced from around the world. A perfect gift for those special moments.
+                    </p>
+                    <p class="animate-element font-medium text-sm md:text-base" style="color: #E5C976;">
+                        Luxury At Your Fingertips
+                    </p>
+                    <div class="pt-2 animate-element signature-button-float">
+                        <a href="/custom-order" 
+                           class="inline-block px-8 py-2.5 rounded-md font-semibold transition-all"
+                           style="background: #E5C976; color: #442D29;">
+                            Custom Order
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    
+
+    <!-- Testimonials Section -->
+    
+    <section class="pt-28 pb-16 md:pb-24" style="background: #F5EEE8;" id="testimonials-section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title animate-element text-3xl md:text-4xl font-bold mb-4" style="color: #5A3A30;">
+                    What Our Customers Say
+                </h2>
+                <p class="section-subtitle animate-element text-lg max-w-3xl mx-auto" style="color: #7D4E2C;">
+                    Discover why chocolate lovers choose Sweet Moment
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                
+                <div class="testimonial-card animate-element delay-0 bg-white p-6 rounded-lg shadow-md">
+                    <div class="star-rating mb-3" style="color: #E5C976;">
+                        ★★★★★
+                    </div>
+                    <p class="text-sm mb-4" style="color: #6F4E37;">One of the best handmade chocolates I've ever tasted!</p>
+                    <div class="flex items-center gap-3">
+                        
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                             style="background: #8D6142;">
+                            S
+                        </div>
+                        
+                        <div class="flex-1">
+                            <h4 class="font-semibold" style="color: #000;">Saud A.</h4>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-element delay-1 bg-white p-6 rounded-lg shadow-md">
+                    <div class="star-rating mb-3" style="color: #E5C976;">
+                        ★★★★★
+                    </div>
+                    <p class="text-sm mb-4" style="color: #6F4E37;">These chocolates make the perfect gift. The packaging is exquisite and the quality is unmatched.</p>
+                    <div class="flex items-center gap-3">
+                        
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                             style="background: #8D6142;">
+                            M
+                        </div>
+                        
+                        <div class="flex-1">
+                            <h4 class="font-semibold" style="color: #000;">Moath A.</h4>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-element delay-2 bg-white p-6 rounded-lg shadow-md">
+                    <div class="star-rating mb-3" style="color: #E5C976;">
+                        ★★★★★
+                    </div>
+                    <p class="text-sm mb-4" style="color: #6F4E37;">Premium quality in every bite. Worth every penny for a special occasion.</p>
+                    <div class="flex items-center gap-3">
+                        
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                             style="background: #8D6142;">
+                            H
+                        </div>
+                        
+                        <div class="flex-1">
+                            <h4 class="font-semibold" style="color: #000;">Hashim A.</h4>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <script>
+      // ========== CAROUSEL FUNCTIONALITY ==========
+      let currentIndex = 0;
+      let autoplayInterval = null;
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let mouseStartX = 0;
+      let mouseEndX = 0;
+      let isMouseDown = false;
+
+      function initCarousel(carouselId) {
+        const carousel = document.getElementById(carouselId);
+        if (!carousel) return;
+
+        const images = carousel.querySelectorAll('.carousel-image');
+        const indicators = carousel.querySelectorAll('.carousel-indicator');
+        
+        if (images.length <= 1) return;
+
+        function showSlide(index) {
+          currentIndex = index;
+          images.forEach((img, i) => {
+            img.style.opacity = i === index ? '1' : '0';
+          });
+          indicators.forEach((ind, i) => {
+            if (i === index) {
+              ind.classList.add('bg-white', 'scale-110');
+              ind.classList.remove('bg-white/50');
+            } else {
+              ind.classList.remove('bg-white', 'scale-110');
+              ind.classList.add('bg-white/50');
+            }
+          });
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % images.length;
+          showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showSlide(currentIndex);
+        }
+
+        // Auto-rotation every 5 seconds
+        autoplayInterval = setInterval(nextSlide, 5000);
+
+        // Touch events
+        carousel.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          clearInterval(autoplayInterval);
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+          autoplayInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Mouse events
+        carousel.addEventListener('mousedown', (e) => {
+          isMouseDown = true;
+          mouseStartX = e.screenX;
+          carousel.classList.add('swiping');
+          clearInterval(autoplayInterval);
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+          if (!isMouseDown) return;
+          mouseEndX = e.screenX;
+        });
+
+        carousel.addEventListener('mouseup', (e) => {
+          if (!isMouseDown) return;
+          isMouseDown = false;
+          mouseEndX = e.screenX;
+          handleMouseSwipe();
+          carousel.classList.remove('swiping');
+          autoplayInterval = setInterval(nextSlide, 5000);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+          if (isMouseDown) {
+            isMouseDown = false;
+            carousel.classList.remove('swiping');
+            autoplayInterval = setInterval(nextSlide, 5000);
+          }
+        });
+
+        function handleSwipe() {
+          const swipeThreshold = 50;
+          if (touchStartX - touchEndX > swipeThreshold) {
+            nextSlide();
+          } else if (touchEndX - touchStartX > swipeThreshold) {
+            prevSlide();
+          }
+        }
+
+        function handleMouseSwipe() {
+          const swipeThreshold = 50;
+          if (mouseStartX - mouseEndX > swipeThreshold) {
+            nextSlide();
+          } else if (mouseEndX - mouseStartX > swipeThreshold) {
+            prevSlide();
+          }
+        }
+
+        // Indicator clicks
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener('click', () => {
+            clearInterval(autoplayInterval);
+            showSlide(index);
+            autoplayInterval = setInterval(nextSlide, 5000);
+          });
+        });
+      }
+
+      // Initialize both carousels
+      initCarousel('carousel-mobile');
+      initCarousel('carousel-desktop');
+
+      // ========== SCROLL ANIMATIONS ==========
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const section = entry.target;
+            
+            // Animate section elements
+            const elements = section.querySelectorAll('.animate-element');
+            elements.forEach((el, index) => {
+              setTimeout(() => {
+                el.classList.add('animate-visible');
+              }, index * 120);
+            });
+            
+            // Disconnect after animating
+            observer.unobserve(section);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections
+      document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('#trust-badges, #featured-products, #signature-section, #testimonials-section');
+        sections.forEach(section => {
+          if (section) observer.observe(section);
+        });
+      });
+    </script>
+
 
     <!-- Footer -->
-    <footer class="bg-primary-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer class="mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Sweet Moment Chocolates</h3>
-                    <p class="text-primary-200">Premium handcrafted chocolates made with love in Herndon, Virginia.</p>
+                    <h3 class="font-bold text-xl mb-4">Sweet Moment Chocolates</h3>
+                    <p class="text-sm opacity-90">Premium handcrafted chocolates made with love and the finest ingredients.</p>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
-                    <div class="text-primary-200 space-y-2">
-                        <p>13720 Atlantis St</p>
-                        <p>Herndon, VA 20171</p>
-                        <p>United States</p>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <div class="flex flex-col gap-2">
+                        <a href="index.html">Home</a>
+                        <a href="menu.html">Menu</a>
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <div class="text-primary-200 space-y-2">
-                        <p><a href="index.html" class="hover:text-white">Home</a></p>
-                        <p><a href="menu.html" class="hover:text-white">Menu</a></p>
-                        <p><a href="about.html" class="hover:text-white">About</a></p>
-                        <p><a href="contact.html" class="hover:text-white">Contact</a></p>
-                    </div>
+                    <h4 class="font-semibold mb-4">Visit Us</h4>
+                    <p class="text-sm opacity-90">
+                        13720 Atlantis St<br>
+                        Herndon, VA 20171<br>
+                        United States
+                    </p>
                 </div>
             </div>
-            <div class="border-t border-primary-800 mt-8 pt-8 text-center text-primary-300">
-                <p>&copy; 2024 Sweet Moment Chocolates. All rights reserved.</p>
+            <div class="border-t border-white/20 pt-6 text-center text-sm opacity-75">
+                <p>&copy; 2025 Sweet Moment Chocolates. All rights reserved.</p>
             </div>
         </div>
     </footer>
