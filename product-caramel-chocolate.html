@@ -340,18 +340,78 @@
                 </div>
                 
                 
+                <div class="mb-6">
+                    <h3 class="font-medium mb-2 text-gray-900">Size Options</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        
+                        <button
+                            onclick="selectSize('small', 0.00)"
+                            id="size-small"
+                            class="size-option border border-[#6F4E37] ring-1 ring-[#6F4E37] bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
+                            <span class="font-medium text-sm">Small Box</span>
+                            <span class="text-xs text-gray-500">
+                                5 pcs - $8.00
+                            </span>
+                        </button>
+                        
+                        <button
+                            onclick="selectSize('medium', 7.00)"
+                            id="size-medium"
+                            class="size-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
+                            <span class="font-medium text-sm">Medium Box</span>
+                            <span class="text-xs text-gray-500">
+                                10 pcs - $15.00
+                            </span>
+                        </button>
+                        
+                        <button
+                            onclick="selectSize('large', 19.00)"
+                            id="size-large"
+                            class="size-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
+                            <span class="font-medium text-sm">Large Box</span>
+                            <span class="text-xs text-gray-500">
+                                25 pcs - $27.00
+                            </span>
+                        </button>
+                        
+                    </div>
+                </div>
                 
+                
+                
+                <div class="mb-8">
+                    <h3 class="font-medium mb-2 text-gray-900">Chocolate Type</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        
+                        <button
+                            onclick="selectType('milk', 0.00)"
+                            id="type-milk"
+                            class="type-option border border-[#6F4E37] ring-1 ring-[#6F4E37] bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
+                            <span class="font-medium text-sm">Milk Chocolate</span>
+                            <span class="text-xs text-gray-500">$0.00</span>
+                        </button>
+                        
+                        <button
+                            onclick="selectType('dark', 2.00)"
+                            id="type-dark"
+                            class="type-option border border-gray-300 bg-white rounded-md transition-all p-3 flex flex-col items-center hover:border-[#6F4E37]">
+                            <span class="font-medium text-sm">Dark Chocolate</span>
+                            <span class="text-xs text-gray-500">$2.00</span>
+                        </button>
+                        
+                    </div>
+                </div>
                 
                 
                 <script>
                     // Product data
                     const basePrice = 8.00;
-                    const sizeOptionsData = [];
-                    const typeOptionsData = [];
+                    const sizeOptionsData = [{"id":"small","label":"Small Box","price":0,"quantity":5,"boxTypeId":1},{"id":"medium","label":"Medium Box","price":7,"quantity":10,"boxTypeId":2},{"id":"large","label":"Large Box","price":19,"quantity":25,"boxTypeId":3}];
+                    const typeOptionsData = [{"id":"milk","label":"Milk Chocolate","value":"milk","price":0},{"id":"dark","label":"Dark Chocolate","value":"dark","price":2}];
                     
                     // Selected options (initialize with first option)
-                    let selectedSizeId = null;
-                    let selectedTypeId = null;
+                    let selectedSizeId = 'small';
+                    let selectedTypeId = 'milk';
                     
                     function selectSize(sizeId, sizePrice) {
                         selectedSizeId = sizeId;

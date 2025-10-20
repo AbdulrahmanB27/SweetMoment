@@ -31,4 +31,4 @@ This is a complete static website for Sweet Moment Chocolates, generated from re
 - Product details (name, price, ID) are automatically passed as URL parameters
 - Opens payment page in new tab for seamless checkout experience
 
-Generated on: 2025-10-20T16:52:09.158Z
+Generated on: 2025-10-20T17:02:43.677Z
