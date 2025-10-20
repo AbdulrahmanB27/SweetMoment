@@ -262,11 +262,18 @@
         
         // Payment redirect configuration
         const PAYMENT_REDIRECT = {"enabled":true,"redirectUrl":"https://chatgpt.com/"};
+        console.log('Payment redirect settings:', PAYMENT_REDIRECT);
         
         // Handle payment redirect for Order Now buttons
         function handleOrderButton(event) {
+            console.log('Order button clicked!', {
+                enabled: PAYMENT_REDIRECT.enabled,
+                redirectUrl: PAYMENT_REDIRECT.redirectUrl
+            });
+            
             if (!PAYMENT_REDIRECT.enabled || !PAYMENT_REDIRECT.redirectUrl) {
                 event.preventDefault();
+                console.log('Showing alert because redirect is not enabled or URL is empty');
                 alert('Thank you for your interest! Please contact us to place an order.');
                 return;
             }
@@ -277,6 +284,8 @@
             const productPrice = button.dataset.productPrice || '';
             const productId = button.dataset.productId || '';
             
+            console.log('Product details:', { productName, productPrice, productId });
+            
             // Build payment URL with product details as query parameters
             const params = new URLSearchParams();
             if (productName) params.append('product', productName);
@@ -285,6 +294,7 @@
             
             const paymentUrl = PAYMENT_REDIRECT.redirectUrl + (PAYMENT_REDIRECT.redirectUrl.includes('?') ? '&' : '?') + params.toString();
             
+            console.log('Redirecting to:', paymentUrl);
             // Open in new tab
             window.open(paymentUrl, '_blank');
         }
