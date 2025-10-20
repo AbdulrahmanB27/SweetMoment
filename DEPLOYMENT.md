@@ -48,4 +48,4 @@ To enable payment redirects (Order Now buttons):
 
 Product details (name, price, ID) will automatically be added as URL parameters to your payment URL.
 
-Generated: 2025-10-20T16:03:47.391Z
+Generated: 2025-10-20T16:18:01.818Z
