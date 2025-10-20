@@ -358,12 +358,12 @@
                         
                         // Update button styles
                         document.querySelectorAll('.size-option').forEach(btn => {
-                            btn.classList.remove('border-amber-800', 'ring-1', 'ring-amber-800');
-                            btn.classList.add('border-gray-300');
+                            btn.style.borderColor = '#d1d5db'; // gray-300
+                            btn.style.boxShadow = 'none';
                         });
                         const selectedBtn = document.getElementById('size-' + sizeId);
-                        selectedBtn.classList.remove('border-gray-300');
-                        selectedBtn.classList.add('border-amber-800', 'ring-1', 'ring-amber-800');
+                        selectedBtn.style.borderColor = '#6F4E37';
+                        selectedBtn.style.boxShadow = '0 0 0 1px #6F4E37';
                         
                         updatePrice();
                     }
@@ -373,12 +373,12 @@
                         
                         // Update button styles
                         document.querySelectorAll('.type-option').forEach(btn => {
-                            btn.classList.remove('border-amber-800', 'ring-1', 'ring-amber-800');
-                            btn.classList.add('border-gray-300');
+                            btn.style.borderColor = '#d1d5db'; // gray-300
+                            btn.style.boxShadow = 'none';
                         });
                         const selectedBtn = document.getElementById('type-' + typeId);
-                        selectedBtn.classList.remove('border-gray-300');
-                        selectedBtn.classList.add('border-amber-800', 'ring-1', 'ring-amber-800');
+                        selectedBtn.style.borderColor = '#6F4E37';
+                        selectedBtn.style.boxShadow = '0 0 0 1px #6F4E37';
                         
                         updatePrice();
                     }
