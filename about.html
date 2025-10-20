@@ -116,6 +116,40 @@
           transform: translateX(0);
         }
       }
+      
+      /* Slide-in-left animation for product pages */
+      @keyframes slide-in-left {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      
+      /* Slide-in-right animation for product pages */
+      @keyframes slide-in-right {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      
+      .slide-in-left {
+        animation: slide-in-left 0.5s ease-out 0.2s forwards;
+        opacity: 0;
+      }
+      
+      .slide-in-right {
+        animation: slide-in-right 0.5s ease-out 0.3s forwards;
+        opacity: 0;
+      }
 
       /* Base animation classes */
       .animate-element {
@@ -302,11 +336,21 @@
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Visit Us</h4>
-                    <p class="text-sm opacity-90">
+                    <a href="https://www.google.com/maps/search/?api=1&query=13720%20Atlantis%20St%2C%20Herndon%2C%20VA%2020171" 
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-sm opacity-90 hover:opacity-100 transition-opacity block">
                         13720 Atlantis St<br>
                         Herndon, VA 20171<br>
                         United States
-                    </p>
+                    </a>
+                    <div class="mt-3 space-y-1">
+                        <a href="mailto:info@sweetmomentchocolates.com" 
+                           class="text-sm opacity-90 hover:opacity-100 transition-opacity block"
+                           style="color: #E5C976;">
+                            📧 Email Us
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="border-t border-white/20 pt-6 text-center text-sm opacity-75">
