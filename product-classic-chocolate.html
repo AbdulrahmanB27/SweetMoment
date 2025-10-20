@@ -182,15 +182,16 @@
       
       /* Navigation styling */
       .nav-link {
-        color: hsl(var(--foreground));
+        color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.2s ease;
+        transition: all 0.2s ease;
       }
       
       .nav-link:hover,
       .nav-link.active {
-        color: hsl(var(--primary));
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.1);
       }
       
       /* Typography */
@@ -208,12 +209,12 @@
 </head>
 <body class="bg-gray-50">
     <!-- Pixel-perfect Navigation matching main site -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-gray-900 font-heading">Sweet Moment Chocolates</h1>
+                        <h1 class="text-xl font-bold text-white font-heading">Sweet Moment Chocolates</h1>
                     </div>
                 </div>
                 <div class="hidden md:block">
@@ -332,54 +333,79 @@
             <!-- Product Details -->
             <div>
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">Classic Chocolate</h1>
-                <div class="text-3xl font-bold text-primary-600 mb-6">$8.00</div>
+                <div id="display-price" class="text-3xl font-bold text-primary-600 mb-6">$8.00</div>
                 
                 <div class="prose prose-lg mb-8">
                     <p class="text-gray-600">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
                 </div>
                 
                 
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Size Options:</h3>
-                    <div class="space-y-2">
-                        
-                        <div class="flex justify-between items-center text-gray-700">
-                            <span>Small Box (5 pieces)</span>
-                            <span class="font-semibold">Base price</span>
-                        </div>
-                        
-                        <div class="flex justify-between items-center text-gray-700">
-                            <span>Medium Box (10 pieces)</span>
-                            <span class="font-semibold">+$700.00</span>
-                        </div>
-                        
-                        <div class="flex justify-between items-center text-gray-700">
-                            <span>Large Box (25 pieces)</span>
-                            <span class="font-semibold">+$1900.00</span>
-                        </div>
-                        
-                    </div>
-                </div>
                 
                 
                 
-                <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Chocolate Types:</h3>
-                    <div class="space-y-2">
+                <script>
+                    // Product data
+                    const basePrice = 8.00;
+                    const sizeOptionsData = [];
+                    const typeOptionsData = [];
+                    
+                    // Selected options (initialize with first option)
+                    let selectedSizeId = null;
+                    let selectedTypeId = null;
+                    
+                    function selectSize(sizeId, sizePrice) {
+                        selectedSizeId = sizeId;
                         
-                        <div class="flex justify-between items-center text-gray-700">
-                            <span>Milk Chocolate</span>
-                            <span class="font-semibold">Included</span>
-                        </div>
+                        // Update button styles
+                        document.querySelectorAll('.size-option').forEach(btn => {
+                            btn.classList.remove('border-amber-800', 'ring-1', 'ring-amber-800');
+                            btn.classList.add('border-gray-300');
+                        });
+                        const selectedBtn = document.getElementById('size-' + sizeId);
+                        selectedBtn.classList.remove('border-gray-300');
+                        selectedBtn.classList.add('border-amber-800', 'ring-1', 'ring-amber-800');
                         
-                        <div class="flex justify-between items-center text-gray-700">
-                            <span>Dark Chocolate</span>
-                            <span class="font-semibold">+$200.00</span>
-                        </div>
+                        updatePrice();
+                    }
+                    
+                    function selectType(typeId, typePrice) {
+                        selectedTypeId = typeId;
                         
-                    </div>
-                </div>
-                
+                        // Update button styles
+                        document.querySelectorAll('.type-option').forEach(btn => {
+                            btn.classList.remove('border-amber-800', 'ring-1', 'ring-amber-800');
+                            btn.classList.add('border-gray-300');
+                        });
+                        const selectedBtn = document.getElementById('type-' + typeId);
+                        selectedBtn.classList.remove('border-gray-300');
+                        selectedBtn.classList.add('border-amber-800', 'ring-1', 'ring-amber-800');
+                        
+                        updatePrice();
+                    }
+                    
+                    function updatePrice() {
+                        let totalPrice = basePrice;
+                        
+                        // Add size price
+                        if (selectedSizeId) {
+                            const sizeOption = sizeOptionsData.find(s => s.id === selectedSizeId);
+                            if (sizeOption) {
+                                totalPrice += parseFloat(sizeOption.price);
+                            }
+                        }
+                        
+                        // Add type price
+                        if (selectedTypeId) {
+                            const typeOption = typeOptionsData.find(t => t.id === selectedTypeId);
+                            if (typeOption) {
+                                totalPrice += parseFloat(typeOption.price);
+                            }
+                        }
+                        
+                        // Update display
+                        document.getElementById('display-price').textContent = '$' + totalPrice.toFixed(2);
+                    }
+                </script>
                 
                 <div class="space-y-4">
                     <a href="#" 

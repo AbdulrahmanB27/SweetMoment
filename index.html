@@ -182,15 +182,16 @@
       
       /* Navigation styling */
       .nav-link {
-        color: hsl(var(--foreground));
+        color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.2s ease;
+        transition: all 0.2s ease;
       }
       
       .nav-link:hover,
       .nav-link.active {
-        color: hsl(var(--primary));
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.1);
       }
       
       /* Typography */
@@ -208,12 +209,12 @@
 </head>
 <body class="bg-gray-50">
     <!-- Pixel-perfect Navigation matching main site -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-gray-900 font-heading">Sweet Moment Chocolates</h1>
+                        <h1 class="text-xl font-bold text-white font-heading">Sweet Moment Chocolates</h1>
                     </div>
                 </div>
                 <div class="hidden md:block">
