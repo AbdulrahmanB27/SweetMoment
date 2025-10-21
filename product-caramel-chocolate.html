@@ -423,7 +423,13 @@
       let selectedSizePrice = 8;
       let selectedTypePrice = 0;
       let selectedQuantity = 1;
+      let selectedSizeId = 'small';
+      let selectedTypeId = 'milk';
       const basePrice = 8;
+      
+      // Variant-specific payment links (if available)
+      const variantPaymentLinks = {};
+      const fallbackPaymentUrl = null;
       
       // Unified option selection handler
       function selectOption(button, optionClass, priceVar) {
@@ -443,11 +449,13 @@
         const price = parseFloat(button.dataset.price);
         if (priceVar === 'size') {
           selectedSizePrice = price;
+          selectedSizeId = button.getAttribute('data-size-id');
           // Extract quantity for size options
           const quantityMatch = button.textContent.match(/(\d+)\s*pcs/);
           if (quantityMatch) selectedQuantity = parseInt(quantityMatch[1], 10);
         } else {
           selectedTypePrice = price;
+          selectedTypeId = button.getAttribute('data-type-id');
         }
         
         updateTotalPrice();
@@ -464,17 +472,35 @@
         }
       }
       
-      // Handle order button click - append quantity parameter for Stripe Payment Links
+      // Handle order button click - use variant-specific payment link if available
       document.addEventListener('DOMContentLoaded', function() {
         const orderBtn = document.getElementById('order-now-btn');
         if (orderBtn) {
           orderBtn.addEventListener('click', function() {
-            const baseUrl = this.getAttribute('data-base-url');
-            if (baseUrl) {
+            let paymentUrl = null;
+            
+            // Try to find variant-specific payment link
+            if (selectedSizeId && selectedTypeId) {
+              const variantKey = selectedSizeId + '-' + selectedTypeId;
+              if (variantPaymentLinks[variantKey]) {
+                paymentUrl = variantPaymentLinks[variantKey];
+                console.log('Using variant-specific payment link for:', variantKey);
+              }
+            }
+            
+            // Fall back to default payment URL if no variant link
+            if (!paymentUrl) {
+              paymentUrl = fallbackPaymentUrl || this.getAttribute('data-base-url');
+            }
+            
+            if (paymentUrl) {
               // Append quantity parameter for Stripe Payment Links
-              const separator = baseUrl.includes('?') ? '&' : '?';
-              const finalUrl = baseUrl + separator + 'quantity=' + selectedQuantity;
+              const separator = paymentUrl.includes('?') ? '&' : '?';
+              const finalUrl = paymentUrl + separator + 'quantity=' + selectedQuantity;
+              console.log('Redirecting to payment URL:', finalUrl);
               window.location.href = finalUrl;
+            } else {
+              alert('No payment link configured for this product variant.');
             }
           });
         }
