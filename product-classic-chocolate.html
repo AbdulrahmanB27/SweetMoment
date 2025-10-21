@@ -209,6 +209,12 @@
         transition: transform 0.3s ease;
       }
 
+      /* Animated price changes */
+      .product-total-price {
+        transition: transform 0.2s ease, color 0.2s ease;
+        display: inline-block;
+      }
+
       /* Carousel transition */
       .carousel-image {
         transition: opacity 1s ease-in-out;
@@ -464,7 +470,18 @@
         const totalPrice = selectedSizePrice + selectedTypePrice;
         const priceElement = document.querySelector('.product-total-price');
         if (priceElement) {
-          priceElement.textContent = '$' + totalPrice.toFixed(2);
+          // Animate price change
+          priceElement.style.transform = 'scale(1.1)';
+          priceElement.style.color = '#E5C976';
+          
+          setTimeout(() => {
+            priceElement.textContent = '$' + totalPrice.toFixed(2);
+            
+            setTimeout(() => {
+              priceElement.style.transform = 'scale(1)';
+              priceElement.style.color = '';
+            }, 100);
+          }, 150);
         }
       }
       
