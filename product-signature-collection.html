@@ -209,10 +209,39 @@
         transition: transform 0.3s ease;
       }
 
-      /* Animated price changes */
+      /* Animated price changes - digit sliding animation like React app */
       .product-total-price {
-        transition: transform 0.2s ease, color 0.2s ease;
+        display: inline-flex;
+        align-items: baseline;
+      }
+      
+      .price-digit {
         display: inline-block;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        width: 0.7em;
+      }
+      
+      .price-decimal {
+        display: inline-block;
+        text-align: center;
+        width: 0.35em;
+      }
+      
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .digit-animate {
+        animation: slideDown 0.25s ease-out;
       }
 
       /* Carousel transition */
@@ -328,8 +357,11 @@
                     
                     <div class="mb-8">
                         
-                        <span class="product-total-price text-4xl font-bold" style="color: #5A3A30;">$10.00</span>
-                        
+                            <span class="product-total-price text-4xl font-bold" style="color: #5A3A30;" data-price="10.00">
+                                <span class="inline-block mr-[0.08em]">$</span>
+                                <div class="inline-flex"><span class="price-digit">1</span><span class="price-digit">0</span><span class="price-decimal">.</span><span class="price-digit">0</span><span class="price-digit">0</span></div>
+                            </span>
+                            
                     </div>
                     
                     
@@ -432,18 +464,31 @@
         const totalPrice = selectedSizePrice + selectedTypePrice;
         const priceElement = document.querySelector('.product-total-price');
         if (priceElement) {
-          // Animate price change
-          priceElement.style.transform = 'scale(1.1)';
-          priceElement.style.color = '#E5C976';
+          const oldPrice = priceElement.getAttribute('data-price') || totalPrice.toFixed(2);
+          const newPrice = totalPrice.toFixed(2);
           
-          setTimeout(() => {
-            priceElement.textContent = '$' + totalPrice.toFixed(2);
-            
-            setTimeout(() => {
-              priceElement.style.transform = 'scale(1)';
-              priceElement.style.color = '';
-            }, 100);
-          }, 150);
+          // Store the new price for next comparison
+          priceElement.setAttribute('data-price', newPrice);
+          
+          // Split prices into digits for comparison
+          const oldDigits = oldPrice.split('');
+          const newDigits = newPrice.split('');
+          
+          // Build the new price HTML with digit-by-digit animation
+          let html = '<span class="inline-block mr-[0.08em]">$</span><div class="inline-flex">';
+          
+          newDigits.forEach((digit, index) => {
+            if (digit === '.') {
+              html += '<span class="price-decimal">.</span>';
+            } else {
+              const hasChanged = oldDigits[index] !== digit;
+              const animateClass = hasChanged ? ' digit-animate' : '';
+              html += '<span class="price-digit' + animateClass + '">' + digit + '</span>';
+            }
+          });
+          
+          html += '</div>';
+          priceElement.innerHTML = html;
         }
       }
       

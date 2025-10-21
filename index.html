@@ -209,10 +209,39 @@
         transition: transform 0.3s ease;
       }
 
-      /* Animated price changes */
+      /* Animated price changes - digit sliding animation like React app */
       .product-total-price {
-        transition: transform 0.2s ease, color 0.2s ease;
+        display: inline-flex;
+        align-items: baseline;
+      }
+      
+      .price-digit {
         display: inline-block;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        width: 0.7em;
+      }
+      
+      .price-decimal {
+        display: inline-block;
+        text-align: center;
+        width: 0.35em;
+      }
+      
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .digit-animate {
+        animation: slideDown 0.25s ease-out;
       }
 
       /* Carousel transition */
@@ -455,8 +484,8 @@
             
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 
-                <a href="product-classic-chocolate.html" class="block product-card animate-element delay-0">
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md h-full">
+                <a href="product-classic-chocolate.html" class="block product-card animate-element delay-0 rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md h-full">
                         <div class="aspect-square overflow-hidden">
                             <img src="uploads/1742792807445-327362076.jpeg" 
                                  alt="Classic Chocolate"
@@ -477,8 +506,8 @@
                     </div>
                 </a>
                 
-                <a href="product-caramel-chocolate.html" class="block product-card animate-element delay-1">
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md h-full">
+                <a href="product-caramel-chocolate.html" class="block product-card animate-element delay-1 rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md h-full">
                         <div class="aspect-square overflow-hidden">
                             <img src="uploads/1743291047091-28168151.jpeg" 
                                  alt="Caramel Chocolate"
@@ -503,8 +532,8 @@
                     </div>
                 </a>
                 
-                <a href="product-signature-collection.html" class="block product-card animate-element delay-2">
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md h-full">
+                <a href="product-signature-collection.html" class="block product-card animate-element delay-2 rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md h-full">
                         <div class="aspect-square overflow-hidden">
                             <img src="uploads/placeholder.jpg" 
                                  alt="Signature Collection"
@@ -525,8 +554,8 @@
                     </div>
                 </a>
                 
-                <a href="product-dubai-bar.html" class="block product-card animate-element delay-3">
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md h-full">
+                <a href="product-dubai-bar.html" class="block product-card animate-element delay-3 rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md h-full">
                         <div class="aspect-square overflow-hidden">
                             <img src="uploads/placeholder.jpg" 
                                  alt="Dubai Bar"

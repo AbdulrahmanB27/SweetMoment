@@ -209,10 +209,39 @@
         transition: transform 0.3s ease;
       }
 
-      /* Animated price changes */
+      /* Animated price changes - digit sliding animation like React app */
       .product-total-price {
-        transition: transform 0.2s ease, color 0.2s ease;
+        display: inline-flex;
+        align-items: baseline;
+      }
+      
+      .price-digit {
         display: inline-block;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        width: 0.7em;
+      }
+      
+      .price-decimal {
+        display: inline-block;
+        text-align: center;
+        width: 0.35em;
+      }
+      
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .digit-animate {
+        animation: slideDown 0.25s ease-out;
       }
 
       /* Carousel transition */
