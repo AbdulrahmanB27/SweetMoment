@@ -225,15 +225,16 @@
 
       /* Navigation */
       nav {
-        background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, #4A2C2A 0%, #6F4E37 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         position: sticky;
         top: 0;
         z-index: 50;
+        padding: 0.75rem 0;
       }
 
       nav a {
-        color: #5A3A30;
+        color: white;
         text-decoration: none;
         font-weight: 500;
         padding: 0.5rem 1rem;
@@ -242,7 +243,13 @@
 
       nav a:hover,
       nav a.active {
-        color: #E5C976;
+        color: #F1E5AC;
+      }
+      
+      nav .logo-link {
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 0.05em;
       }
 
       /* Testimonial card styles */
@@ -282,9 +289,9 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="w-full py-4">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold" style="color: #5A3A30;">Sweet Moment</a>
+    <nav class="w-full">
+        <div class="container mx-auto px-4 flex justify-between items-center" style="min-height: 60px;">
+            <a href="index.html" class="text-2xl font-bold logo-link">Sweet Moment</a>
             <div class="flex gap-6">
                 <a href="index.html" class="">Home</a>
                 <a href="menu.html" class="">Menu</a>
