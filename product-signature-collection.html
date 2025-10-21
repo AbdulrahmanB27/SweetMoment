@@ -380,51 +380,39 @@
       // Interactive option selection for product pages
       let selectedSizePrice = 10;
       let selectedTypePrice = 0;
-      let selectedQuantity = 1; // Track quantity for Stripe Payment Links
+      let selectedQuantity = 1;
       const basePrice = 10;
       
-      function selectSize(button) {
-        // Remove selected class from all size options
-        document.querySelectorAll('.size-option').forEach(opt => {
+      // Unified option selection handler
+      function selectOption(button, optionClass, priceVar) {
+        // Remove selected state from all options of this type
+        document.querySelectorAll('.' + optionClass).forEach(opt => {
           opt.classList.remove('selected');
           opt.style.borderColor = '#d1d5db';
           opt.style.boxShadow = '';
         });
         
-        // Add selected class to clicked option
+        // Apply selected state
         button.classList.add('selected');
         button.style.borderColor = '#6F4E37';
         button.style.boxShadow = '0 0 0 1px #6F4E37';
         
-        // Update selected price
-        selectedSizePrice = parseFloat(button.dataset.price);
-        
-        // Extract quantity from size option label if present (e.g., "12 pcs - $25.00")
-        const quantityMatch = button.textContent.match(/(\d+)\s*pcs/);
-        if (quantityMatch) {
-          selectedQuantity = parseInt(quantityMatch[1], 10);
+        // Update price
+        const price = parseFloat(button.dataset.price);
+        if (priceVar === 'size') {
+          selectedSizePrice = price;
+          // Extract quantity for size options
+          const quantityMatch = button.textContent.match(/(\d+)\s*pcs/);
+          if (quantityMatch) selectedQuantity = parseInt(quantityMatch[1], 10);
+        } else {
+          selectedTypePrice = price;
         }
         
         updateTotalPrice();
       }
       
-      function selectType(button) {
-        // Remove selected class from all type options
-        document.querySelectorAll('.type-option').forEach(opt => {
-          opt.classList.remove('selected');
-          opt.style.borderColor = '#d1d5db';
-          opt.style.boxShadow = '';
-        });
-        
-        // Add selected class to clicked option
-        button.classList.add('selected');
-        button.style.borderColor = '#6F4E37';
-        button.style.boxShadow = '0 0 0 1px #6F4E37';
-        
-        // Update selected type price
-        selectedTypePrice = parseFloat(button.dataset.price);
-        updateTotalPrice();
-      }
+      function selectSize(button) { selectOption(button, 'size-option', 'size'); }
+      function selectType(button) { selectOption(button, 'type-option', 'type'); }
       
       function updateTotalPrice() {
         const totalPrice = selectedSizePrice + selectedTypePrice;
