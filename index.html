@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
-    <meta name="theme-color" content="hsl(25, 37%, 25%)">
+    <meta name="theme-color" content="hsl(25, 34%, 33%)">
     <base href="./">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +19,12 @@
               background: 'hsl(0 0% 100%)',
               foreground: 'hsl(20 14.3% 4.1%)',
               primary: {
-                DEFAULT: 'hsl(25, 37%, 25%)',
+                DEFAULT: 'hsl(25, 34%, 33%)',
                 foreground: 'hsl(24 14% 98%)'
               }
             },
             fontFamily: {
-              sans: ['Montserrat', 'Open Sans', 'system-ui', 'sans-serif'],
+              sans: ['Inter', 'Open Sans', 'system-ui', 'sans-serif'],
               montserrat: ['Montserrat', 'sans-serif'],
               opensans: ['Open Sans', 'sans-serif']
             }
@@ -34,8 +34,11 @@
     </script>
     <style>
       :root {
-        --primary: 25 37% 25%;
+        --primary: 25 34% 33%;
         --primary-foreground: 24 14% 98%;
+        --gold-accent: hsl(45, 70%, 60%);
+        --light-background: hsl(30, 30%, 96%);
+        --dark-brown: hsl(25, 44%, 18%);
       }
       
       * {
@@ -66,6 +69,34 @@
       img {
         max-width: 100%;
         height: auto;
+      }
+      
+      /* Mobile-specific fixes to prevent horizontal scroll */
+      @media (max-width: 768px) {
+        body, html {
+          overflow-x: hidden !important;
+          width: 100%;
+        }
+        
+        section, div, nav, footer {
+          max-width: 100vw;
+        }
+        
+        .container {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+        }
+        
+        /* Ensure hero sections don't overflow */
+        .hero-section {
+          width: 100% !important;
+          overflow: hidden;
+        }
+        
+        /* Prevent grid overflow */
+        .grid {
+          width: 100%;
+        }
       }
 
       /* ========== COMPLETE CSS ANIMATIONS FROM index.css ========== */
@@ -379,7 +410,7 @@
                     <div class="container mx-auto px-4 text-center">
                         <h1 class="text-3xl sm:text-4xl font-bold text-white mb-5 max-w-xs mx-auto">Experience Life's Sweetest Moments</h1>
                         <p class="text-sm text-amber-100 mb-8 max-w-xs mx-auto">Curated treats and heartfelt gifts that brighten every day</p>
-                        <a href="/menu" 
+                        <a href="menu.html" 
                            class="inline-block px-8 py-3 text-lg font-semibold rounded-md transition-all"
                            style="background: #D4AF37; color: #2A1A18;">
                             Discover Your Moment
@@ -426,7 +457,7 @@
                         <div class="max-w-3xl">
                             <h1 class="text-5xl lg:text-6xl font-bold text-white mb-5 max-w-xl">Experience Life's Sweetest Moments</h1>
                             <p class="text-lg text-amber-100 mb-8 max-w-xl">Curated treats and heartfelt gifts that brighten every day</p>
-                            <a href="/menu" 
+                            <a href="menu.html" 
                            class="inline-block px-8 py-3 text-lg font-semibold rounded-md transition-all"
                            style="background: #D4AF37; color: #2A1A18;">
                             Discover Your Moment
@@ -636,7 +667,7 @@
                         Luxury At Your Fingertips
                     </p>
                     <div class="pt-2 animate-element signature-button-float">
-                        <a href="/custom-order" 
+                        <a href="custom-order.html" 
                            class="inline-block px-8 py-2.5 rounded-md font-semibold transition-all"
                            style="background: #E5C976; color: #442D29;">
                             Custom Order
@@ -661,7 +692,99 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            <!-- Mobile Carousel -->
+            <div class="block md:hidden mb-8">
+                <div class="testimonials-carousel-container relative overflow-hidden" id="testimonials-carousel">
+                    <div class="testimonials-carousel-track flex transition-transform duration-300 ease-out">
+                        
+                        <div class="testimonials-carousel-slide flex-shrink-0 w-full px-4" data-index="0">
+                            <div class="bg-white p-6 rounded-lg shadow-md mx-auto max-w-md">
+                                <div class="star-rating mb-3" style="color: #E5C976;">
+                                    ★★★★★
+                                </div>
+                                <p class="text-sm mb-4" style="color: #6F4E37;">One of the best handmade chocolates I've ever tasted!</p>
+                                <div class="flex items-center gap-3">
+                                    
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                                         style="background: #8D6142;">
+                                        S
+                                    </div>
+                                    
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold" style="color: #000;">Saud A.</h4>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonials-carousel-slide flex-shrink-0 w-full px-4" data-index="1">
+                            <div class="bg-white p-6 rounded-lg shadow-md mx-auto max-w-md">
+                                <div class="star-rating mb-3" style="color: #E5C976;">
+                                    ★★★★★
+                                </div>
+                                <p class="text-sm mb-4" style="color: #6F4E37;">These chocolates make the perfect gift. The packaging is exquisite and the quality is unmatched.</p>
+                                <div class="flex items-center gap-3">
+                                    
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                                         style="background: #8D6142;">
+                                        M
+                                    </div>
+                                    
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold" style="color: #000;">Moath A.</h4>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonials-carousel-slide flex-shrink-0 w-full px-4" data-index="2">
+                            <div class="bg-white p-6 rounded-lg shadow-md mx-auto max-w-md">
+                                <div class="star-rating mb-3" style="color: #E5C976;">
+                                    ★★★★★
+                                </div>
+                                <p class="text-sm mb-4" style="color: #6F4E37;">Premium quality in every bite. Worth every penny for a special occasion.</p>
+                                <div class="flex items-center gap-3">
+                                    
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white"
+                                         style="background: #8D6142;">
+                                        H
+                                    </div>
+                                    
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold" style="color: #000;">Hashim A.</h4>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Dot Indicators -->
+                
+                <div class="flex justify-center gap-2 mt-4">
+                    
+                    <button class="testimonial-indicator w-2 h-2 rounded-full transition-all bg-[#6F4E37] scale-110" 
+                            data-index="0" 
+                            aria-label="Go to testimonial 1"></button>
+                    
+                    <button class="testimonial-indicator w-2 h-2 rounded-full transition-all bg-[#D4C3A3]" 
+                            data-index="1" 
+                            aria-label="Go to testimonial 2"></button>
+                    
+                    <button class="testimonial-indicator w-2 h-2 rounded-full transition-all bg-[#D4C3A3]" 
+                            data-index="2" 
+                            aria-label="Go to testimonial 3"></button>
+                    
+                </div>
+                
+            </div>
+            
+            <!-- Desktop Grid -->
+            <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 
                 <div class="testimonial-card animate-element delay-0 bg-white p-6 rounded-lg shadow-md">
                     <div class="star-rating mb-3" style="color: #E5C976;">
