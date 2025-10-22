@@ -604,28 +604,6 @@
                     </div>
                 </a>
                 
-                <a href="product-dubai-bar.html" class="block product-card animate-element delay-3 rounded-lg overflow-hidden">
-                    <div class="bg-white shadow-md h-full">
-                        <div class="aspect-square overflow-hidden">
-                            <img src="uploads/placeholder.jpg" 
-                                 alt="Dubai Bar"
-                                 class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Dubai Bar</h3>
-                            <p class="text-sm mb-3" style="color: #7D4E2C;">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    
-                                    <span class="text-lg font-bold" style="color: #5A3A30;">$5.00</span>
-                                    
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
             </div>
             
             <div class="text-center mt-16">
@@ -969,6 +947,79 @@
       // Initialize both carousels
       initCarousel('carousel-mobile');
       initCarousel('carousel-desktop');
+
+      // ========== TESTIMONIALS CAROUSEL FUNCTIONALITY ==========
+      let testimonialCurrentIndex = 0;
+      let testimonialAutoplayInterval = null;
+      let testimonialTouchStartX = 0;
+      let testimonialTouchEndX = 0;
+
+      function initTestimonialsCarousel() {
+        const carousel = document.getElementById('testimonials-carousel');
+        if (!carousel) return;
+
+        const track = carousel.querySelector('.testimonials-carousel-track');
+        const slides = carousel.querySelectorAll('.testimonials-carousel-slide');
+        const indicators = document.querySelectorAll('.testimonial-indicator');
+        
+        if (!track || slides.length <= 1) return;
+
+        function showTestimonialSlide(index) {
+          testimonialCurrentIndex = (index + slides.length) % slides.length;
+          track.style.transform = `translateX(-${testimonialCurrentIndex * 100}%)`;
+          
+          // Update indicators
+          indicators.forEach((indicator, idx) => {
+            if (idx === testimonialCurrentIndex) {
+              indicator.classList.add('bg-[#6F4E37]', 'scale-110');
+              indicator.classList.remove('bg-[#D4C3A3]');
+            } else {
+              indicator.classList.remove('bg-[#6F4E37]', 'scale-110');
+              indicator.classList.add('bg-[#D4C3A3]');
+            }
+          });
+        }
+
+        function nextTestimonialSlide() {
+          showTestimonialSlide(testimonialCurrentIndex + 1);
+        }
+
+        function prevTestimonialSlide() {
+          showTestimonialSlide(testimonialCurrentIndex - 1);
+        }
+
+        // Touch events
+        carousel.addEventListener('touchstart', (e) => {
+          testimonialTouchStartX = e.touches[0].screenX;
+          clearInterval(testimonialAutoplayInterval);
+        });
+
+        carousel.addEventListener('touchend', (e) => {
+          testimonialTouchEndX = e.changedTouches[0].screenX;
+          const swipeThreshold = 50;
+          if (testimonialTouchStartX - testimonialTouchEndX > swipeThreshold) {
+            nextTestimonialSlide();
+          } else if (testimonialTouchEndX - testimonialTouchStartX > swipeThreshold) {
+            prevTestimonialSlide();
+          }
+          testimonialAutoplayInterval = setInterval(nextTestimonialSlide, 5000);
+        });
+
+        // Indicator clicks
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener('click', () => {
+            clearInterval(testimonialAutoplayInterval);
+            showTestimonialSlide(index);
+            testimonialAutoplayInterval = setInterval(nextTestimonialSlide, 5000);
+          });
+        });
+
+        // Start autoplay
+        testimonialAutoplayInterval = setInterval(nextTestimonialSlide, 5000);
+      }
+
+      // Initialize testimonials carousel
+      initTestimonialsCarousel();
 
       // ========== SCROLL ANIMATIONS ==========
       const observerOptions = {
