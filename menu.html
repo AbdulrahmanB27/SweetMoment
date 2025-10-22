@@ -44,9 +44,28 @@
         box-sizing: border-box;
       }
       
+      html {
+        overflow-x: hidden;
+        max-width: 100%;
+      }
+      
       body {
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
         overflow-x: hidden;
+        max-width: 100vw;
+        position: relative;
+      }
+      
+      /* Prevent any element from causing horizontal scroll */
+      .container {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      
+      img {
+        max-width: 100%;
+        height: auto;
       }
 
       /* ========== COMPLETE CSS ANIMATIONS FROM index.css ========== */
@@ -307,7 +326,7 @@
 
       /* Footer styles */
       footer {
-        background: #5A3A30;
+        background: #2A1A18;
         color: white;
         padding: 2rem 1rem;
       }
@@ -341,7 +360,7 @@
         <div class="container mx-auto px-4">
             <h1 class="text-4xl font-bold text-center mb-12" style="color: #5A3A30;">Our Chocolate Collection</h1>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                 
                 <div class="product-card">
                     <a href="product-classic-chocolate.html" class="block">
@@ -459,7 +478,7 @@
 
 
     <!-- Footer -->
-    <footer class="mt-16">
+    <footer class="mt-0">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
