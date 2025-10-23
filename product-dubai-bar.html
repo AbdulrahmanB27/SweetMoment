@@ -405,10 +405,6 @@
                     
                     <p class="text-lg mb-6" style="color: #5A3A30;">A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.</p>
                     
-                    
-                    
-                    
-                    
                     <div class="mb-8">
                         
                             <span class="product-total-price text-4xl font-bold" style="color: #5A3A30;" data-price="5.00">
@@ -447,6 +443,34 @@
                     </div>
                     
                     
+                    <!-- Quantity Selector -->
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-2" style="color: #000;">Quantity</h3>
+                        <div class="flex items-center gap-3">
+                            <button 
+                                onclick="decreaseQuantity()"
+                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
+                                style="border-color: #d1d5db; color: #5A3A30;">
+                                -
+                            </button>
+                            <input 
+                                type="number" 
+                                id="quantity-input"
+                                value="1"
+                                min="1"
+                                max="100"
+                                class="w-20 h-10 text-center border rounded-md font-semibold"
+                                style="border-color: #d1d5db; color: #5A3A30;"
+                                onchange="updateQuantity(this.value)">
+                            <button 
+                                onclick="increaseQuantity()"
+                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
+                                style="border-color: #d1d5db; color: #5A3A30;">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    
                     
                     <button 
                        id="order-now-btn"
@@ -455,6 +479,9 @@
                        data-base-url="https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00">
                         Order Now
                     </button>
+                    
+                    <!-- Ingredients and Allergy Info - Discrete Section at Bottom -->
+                    
                 </div>
             </div>
         </div>
@@ -506,8 +533,35 @@
       function selectSize(button) { selectOption(button, 'size-option', 'size'); }
       function selectType(button) { selectOption(button, 'type-option', 'type'); }
       
+      // Quantity management functions
+      function updateQuantity(value) {
+        const qty = parseInt(value, 10);
+        if (qty >= 1 && qty <= 100) {
+          selectedQuantity = qty;
+          document.getElementById('quantity-input').value = qty;
+          updateTotalPrice();
+        }
+      }
+      
+      function decreaseQuantity() {
+        if (selectedQuantity > 1) {
+          selectedQuantity--;
+          document.getElementById('quantity-input').value = selectedQuantity;
+          updateTotalPrice();
+        }
+      }
+      
+      function increaseQuantity() {
+        if (selectedQuantity < 100) {
+          selectedQuantity++;
+          document.getElementById('quantity-input').value = selectedQuantity;
+          updateTotalPrice();
+        }
+      }
+      
       function updateTotalPrice() {
-        const totalPrice = selectedSizePrice + selectedTypePrice;
+        const unitPrice = selectedSizePrice + selectedTypePrice;
+        const totalPrice = unitPrice * selectedQuantity;
         const priceElement = document.querySelector('.product-total-price');
         if (priceElement) {
           const oldPrice = priceElement.getAttribute('data-price') || totalPrice.toFixed(2);

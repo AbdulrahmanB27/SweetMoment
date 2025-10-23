@@ -43,4 +43,4 @@ Upload all files to your web server's public directory (usually public_html or w
 ✅ Product detail pages
 ✅ Payment redirect configured: https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00
 
-Generated: 2025-10-22T17:42:00.241Z
+Generated: 2025-10-23T18:40:58.082Z
