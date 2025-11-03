@@ -6,6 +6,7 @@
     <title>Home - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
     <meta name="theme-color" content="hsl(25, 34%, 33%)">
+    
     <base href="./">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +35,11 @@
     </script>
     <style>
       :root {
-        --primary: 25 34% 33%;
+        --primary: 25 37% 25%;
         --primary-foreground: 24 14% 98%;
         --gold-accent: hsl(45, 70%, 60%);
         --light-background: hsl(30, 30%, 96%);
-        --dark-brown: hsl(25, 44%, 18%);
+        --dark-brown: hsl(25, 47%, 10%);
       }
       
       * {
@@ -52,11 +53,58 @@
         max-width: 100%;
       }
       
+      html, body {
+        height: 100%;
+      }
+      
       body {
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
         overflow-x: hidden;
         max-width: 100vw;
         position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      body > nav {
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: linear-gradient(135deg, #4A2C2A 0%, #6F4E37 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 0.75rem 0;
+      }
+      
+      body > nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      
+      body > nav a:hover {
+        color: #F1E5AC;
+      }
+      
+      body > nav a.active {
+        color: #F1E5AC;
+        font-weight: 600;
+      }
+      
+      body > nav .logo-link {
+        color: white;
+        font-weight: 700;
+      }
+      
+      body > section,
+      body > main {
+        flex: 1 0 auto;
+      }
+      
+      body > footer {
+        flex-shrink: 0;
+        margin-top: auto;
       }
       
       /* Prevent any element from causing horizontal scroll */
@@ -153,6 +201,17 @@
           color: #E5C976;
           text-shadow: none;
         }
+      }
+
+      /* Remove number input spinner arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
       }
 
       /* Fade-in-left animation */
@@ -294,6 +353,20 @@
         animation: slideDown 0.25s ease-out;
       }
 
+      /* Quantity input animation */
+      @keyframes quantityPulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+      
+      .quantity-animate {
+        animation: quantityPulse 0.3s ease-in-out;
+      }
+
       /* Carousel transition */
       .carousel-image {
         transition: opacity 1s ease-in-out;
@@ -373,6 +446,7 @@
     </style>
 </head>
 <body>
+    <a id="top" style="position: absolute; top: 0;"></a>
     <!-- Navigation -->
     <nav class="w-full">
         <div class="container mx-auto px-4 flex justify-between items-center" style="min-height: 60px;">
@@ -394,11 +468,11 @@
             <div class="relative w-full h-full swipe-container" id="carousel-mobile">
                 
                 <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
-                    <img src="uploads/1742773966114-127560992.jpeg" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1742773966114-127560992.jpeg?t=1762192513221" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
-                    <img src="uploads/1743207809787-339256261.jpeg" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1743207809787-339256261.jpeg?t=1762192513221" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 
@@ -440,11 +514,11 @@
             <div class="relative w-full h-full swipe-container" id="carousel-desktop">
                 
                 <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
-                    <img src="uploads/1742773966114-127560992.jpeg" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1742773966114-127560992.jpeg?t=1762192513221" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
-                    <img src="uploads/1743207809787-339256261.jpeg" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1743207809787-339256261.jpeg?t=1762192513221" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 
@@ -532,78 +606,9 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-                
-                <a href="product-classic-chocolate.html" class="block product-card animate-element delay-0 rounded-lg overflow-hidden">
-                    <div class="bg-white shadow-md h-full">
-                        <div class="aspect-square overflow-hidden">
-                            <img src="uploads/1742792807445-327362076.jpeg" 
-                                 alt="Classic Chocolate"
-                                 class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Classic Chocolate</h3>
-                            <p class="text-sm mb-3" style="color: #7D4E2C;">Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.</p>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    
-                                    <span class="text-lg font-bold" style="color: #5A3A30;">$8.00</span>
-                                    
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="product-caramel-chocolate.html" class="block product-card animate-element delay-1 rounded-lg overflow-hidden">
-                    <div class="bg-white shadow-md h-full">
-                        <div class="aspect-square overflow-hidden">
-                            <img src="uploads/1743291047091-28168151.jpeg" 
-                                 alt="Caramel Chocolate"
-                                 class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Caramel Chocolate</h3>
-                            <p class="text-sm mb-3" style="color: #7D4E2C;">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    
-                                    <span class="text-lg font-bold" style="color: #5A3A30;">$8.00</span>
-                                    
-                                </div>
-                                
-                                <span class="text-xs px-2 py-1 rounded" style="background: #E5C976; color: #2A1A18;">
-                                    PREMIUM
-                                </span>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="product-signature-collection.html" class="block product-card animate-element delay-2 rounded-lg overflow-hidden">
-                    <div class="bg-white shadow-md h-full">
-                        <div class="aspect-square overflow-hidden">
-                            <img src="uploads/placeholder.jpg" 
-                                 alt="Signature Collection"
-                                 class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">Signature Collection</h3>
-                            <p class="text-sm mb-3" style="color: #7D4E2C;">A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.</p>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    
-                                    <span class="text-lg font-bold" style="color: #5A3A30;">$10.00</span>
-                                    
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                
+            <!-- Featured products grid will be populated by JavaScript from products.json -->
+            <div id="featured-products-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                <!-- Featured products loaded dynamically -->
             </div>
             
             <div class="text-center mt-16">
@@ -615,6 +620,89 @@
         </div>
     </section>
     
+    <script>
+      // Featured products interpreter
+      (function() {
+        const featuredConfig = {"enabled":true,"title":"Featured Products","subtitle":"Our handpicked selection of luxurious chocolates","productIds":["42","44","assorted","41","46","48"],"displayCount":{"mobile":2,"desktop":3},"mobileProductIds":["42","44","assorted","41","46","48"],"desktopProductIds":["42","44","assorted","41","46","48"]};
+        
+        function createProductSlug(name) {
+          return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        }
+        
+        function normalizeImagePath(path) {
+          if (!path) return '';
+          if (path.startsWith('http://') || path.startsWith('https://')) return path;
+          if (path.startsWith('/')) return path.substring(1);
+          return path;
+        }
+        
+        function renderFeaturedProducts(productsData) {
+          const grid = document.getElementById('featured-products-grid');
+          if (!grid || !productsData || !productsData.products) {
+            console.error('Featured products grid or data not found');
+            return;
+          }
+          
+          // Get featured products based on config
+          let featuredProducts = productsData.products.filter(p => p.featured && p.visible !== false);
+          
+          // Limit based on display count (default to 6)
+          const maxProducts = 6;
+          featuredProducts = featuredProducts.slice(0, maxProducts);
+          
+          if (featuredProducts.length === 0) {
+            grid.parentElement.parentElement.style.display = 'none';
+            return;
+          }
+          
+          grid.innerHTML = featuredProducts.map((product, index) => {
+            const productSlug = createProductSlug(product.name);
+            const price = (product.basePrice || 0) / 100;
+            const salePrice = product.saleActive && product.salePrice ? product.salePrice / 100 : null;
+            const finalPrice = salePrice || price;
+            const productUrl = true ? `product.html?slug=${productSlug}` : `product-${productSlug}.html`;
+            
+            return `
+              <a href="${productUrl}" class="block product-card animate-element delay-${index} rounded-lg overflow-hidden">
+                <div class="bg-white shadow-md h-full">
+                  <div class="aspect-square overflow-hidden">
+                    <img src="${normalizeImagePath(product.image)}" 
+                         alt="${product.name}"
+                         class="w-full h-full object-cover">
+                  </div>
+                  <div class="p-4">
+                    <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">${product.name}</h3>
+                    <p class="text-sm mb-3" style="color: #7D4E2C;">${product.description || 'Delicious chocolate creation'}</p>
+                    <div class="flex items-center justify-between">
+                      <div>
+                        ${salePrice ? `
+                        <span class="text-lg font-bold" style="color: #E5C976;">$${finalPrice.toFixed(2)}</span>
+                        <span class="text-sm line-through ml-2" style="color: #999;">$${price.toFixed(2)}</span>
+                        ` : `
+                        <span class="text-lg font-bold" style="color: #5A3A30;">$${finalPrice.toFixed(2)}</span>
+                        `}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            `;
+          }).join('');
+        }
+        
+        // Load products.json and render featured products
+        fetch('products.json')
+          .then(response => response.json())
+          .then(data => {
+            console.log('[FEATURED] Loaded products, rendering featured items');
+            renderFeaturedProducts(data);
+          })
+          .catch(error => {
+            console.error('[FEATURED] Error loading products.json:', error);
+          });
+      })();
+    </script>
+    
 
     <!-- Signature Collection Section -->
     
@@ -625,7 +713,7 @@
                 <div class="md:w-1/2 flex items-center justify-center">
                     <div class="w-full max-w-md mx-auto md:mx-0 animate-element">
                         
-                        <img src="uploads/1744075563796-815996067.jpeg" 
+                        <img src="uploads/1744075563796-815996067.jpeg?t=1762192513221" 
                              alt="Signature Collection" 
                              class="w-full h-auto rounded-lg shadow-lg object-cover"
                              style="min-height: 300px;">
@@ -645,7 +733,8 @@
                         Luxury At Your Fingertips
                     </p>
                     <div class="pt-2 animate-element signature-button-float">
-                        <a href="custom-order.html" 
+                        <a href="https://www.instagram.com/m/sweetmomentchocolate" 
+                           target="_blank" rel="noopener noreferrer"
                            class="inline-block px-8 py-2.5 rounded-md font-semibold transition-all"
                            style="background: #E5C976; color: #442D29;">
                             Custom Order
@@ -1100,10 +1189,10 @@
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <div class="flex flex-col gap-2">
-                        <a href="index.html">Home</a>
-                        <a href="menu.html">Menu</a>
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="menu.html" class="footer-link">Menu</a>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -1130,5 +1219,98 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+      (function() {
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+        
+        function init() {
+          var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+          if (!currentPage.includes('.html')) currentPage = 'index.html';
+          
+          console.log('[SMOOTH SCROLL] Current page:', currentPage);
+          
+          var allLinks = document.querySelectorAll('nav a, footer a');
+          var modifiedCount = 0;
+          
+          allLinks.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href && href.split('/').pop() === currentPage) {
+              link.href = '#top';
+              modifiedCount++;
+              console.log('[SMOOTH SCROLL] Modified link to #top:', link.textContent);
+            }
+          });
+          
+          console.log('[SMOOTH SCROLL] Modified ' + modifiedCount + ' links to scroll to top');
+          
+          // Smooth scroll function with easing
+          function smoothScrollTo(targetY, duration) {
+            // Get current scroll position (try multiple methods for compatibility)
+            var startY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            var distance = targetY - startY;
+            var startTime = null;
+            
+            console.log('[SMOOTH SCROLL] Starting smooth scroll from', startY, 'to', targetY);
+            console.log('[SMOOTH SCROLL] Scroll detection methods:', {
+              scrollY: window.scrollY,
+              pageYOffset: window.pageYOffset,
+              docScrollTop: document.documentElement.scrollTop,
+              bodyScrollTop: document.body.scrollTop
+            });
+            
+            // Easing function for smooth animation
+            function easeInOutCubic(t) {
+              return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+            }
+            
+            function animation(currentTime) {
+              if (startTime === null) startTime = currentTime;
+              var timeElapsed = currentTime - startTime;
+              var progress = Math.min(timeElapsed / duration, 1);
+              var ease = easeInOutCubic(progress);
+              
+              var newPosition = startY + distance * ease;
+              
+              // Scroll both window and body for maximum compatibility
+              window.scrollTo(0, newPosition);
+              document.documentElement.scrollTop = newPosition;
+              document.body.scrollTop = newPosition;
+              
+              if (progress < 1) {
+                requestAnimationFrame(animation);
+              }
+            }
+            
+            requestAnimationFrame(animation);
+          }
+          
+          // Add smooth scroll to all anchor links
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            // Find the anchor tag if clicked element is inside one
+            while (target && target.tagName !== 'A') {
+              target = target.parentElement;
+            }
+            
+            if (target && target.tagName === 'A') {
+              var href = target.getAttribute('href');
+              console.log('[SMOOTH SCROLL] Link clicked with href:', href);
+              
+              if (href === '#top') {
+                e.preventDefault();
+                console.log('[SMOOTH SCROLL] Triggering smooth scroll to top');
+                smoothScrollTo(0, 800); // Scroll to top in 800ms
+              }
+            }
+          });
+        }
+      })();
+    </script>
 </body>
 </html>

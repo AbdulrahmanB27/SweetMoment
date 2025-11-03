@@ -26,10 +26,11 @@ Upload all files to your web server's public directory (usually public_html or w
 
 ## Files Included
 - index.html (Home page with carousel and all sections)
-- menu.html (Product catalog)
+- menu.html (Product catalog - reads from products.json)
+- product.html (Single dynamic product page - reads from products.json via ?slug= parameter)
 - about.html (About page)
 - contact.html (Contact information)
-- product-*.html (Individual product pages)
+- products.json (All product data in JSON format)
 - uploads/ (Product images)
 
 ## Features
@@ -41,6 +42,6 @@ Upload all files to your web server's public directory (usually public_html or w
 ✅ Customer testimonials
 ✅ Complete CSS animations matching main site
 ✅ Product detail pages
-✅ Payment redirect configured: https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00
+✅ Payment redirect configured: https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00?quantity=1
 
-Generated: 2025-10-23T18:40:58.082Z
+Generated: 2025-11-03T17:56:17.534Z

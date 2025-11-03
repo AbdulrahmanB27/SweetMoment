@@ -1,0 +1,236 @@
+{
+  "products": [
+    {
+      "id": "42",
+      "name": "Classic Chocolate",
+      "description": "Our timeless collection of handcrafted chocolates, made with the finest cocoa beans.",
+      "basePrice": 8,
+      "salePrice": null,
+      "saleActive": false,
+      "image": "/uploads/1742792807445-327362076.jpeg",
+      "allergyInfo": null,
+      "ingredients": null,
+      "category": "classic",
+      "featured": true,
+      "visible": true,
+      "sizeOptions": [
+        {
+          "id": "small",
+          "label": "Small Box",
+          "price": 0,
+          "quantity": 5,
+          "boxTypeId": 1
+        },
+        {
+          "id": "medium",
+          "label": "Medium Box",
+          "price": 7,
+          "quantity": 10,
+          "boxTypeId": 2
+        },
+        {
+          "id": "large",
+          "label": "Large Box",
+          "price": 19,
+          "quantity": 25,
+          "boxTypeId": 3
+        }
+      ],
+      "typeOptions": [
+        {
+          "id": "milk",
+          "label": "Milk Chocolate",
+          "value": "milk",
+          "price": 0
+        },
+        {
+          "id": "dark",
+          "label": "Dark Chocolate",
+          "value": "dark",
+          "price": 2
+        }
+      ],
+      "shapeOptions": null,
+      "shapesEnabled": false,
+      "customOrderUrl": null,
+      "variantPaymentLinks": null,
+      "displayOrder": 10
+    },
+    {
+      "id": "44",
+      "name": "Caramel Chocolate",
+      "description": "Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.",
+      "basePrice": 8,
+      "salePrice": null,
+      "saleActive": false,
+      "image": "/uploads/1743291047091-28168151.jpeg",
+      "allergyInfo": "caramel",
+      "ingredients": null,
+      "category": "caramel",
+      "featured": false,
+      "visible": true,
+      "sizeOptions": [
+        {
+          "id": "small",
+          "label": "Small Box",
+          "price": 0,
+          "quantity": 5,
+          "boxTypeId": 1
+        },
+        {
+          "id": "medium",
+          "label": "Medium Box",
+          "price": 7,
+          "quantity": 10,
+          "boxTypeId": 2
+        },
+        {
+          "id": "large",
+          "label": "Large Box",
+          "price": 19,
+          "quantity": 25,
+          "boxTypeId": 3
+        }
+      ],
+      "typeOptions": [
+        {
+          "id": "milk",
+          "label": "Milk Chocolate",
+          "value": "milk",
+          "price": 0
+        },
+        {
+          "id": "dark",
+          "label": "Dark Chocolate",
+          "value": "dark",
+          "price": 2
+        }
+      ],
+      "shapeOptions": null,
+      "shapesEnabled": false,
+      "customOrderUrl": null,
+      "variantPaymentLinks": null,
+      "displayOrder": 20
+    },
+    {
+      "id": "48",
+      "name": "Signature Collection",
+      "description": "A curated box of handcrafted favorites including Classic Milk, Dark, Caramel and Chocolate Covered Nuts. Perfect for those who crave variety in every bite.",
+      "basePrice": 10,
+      "salePrice": null,
+      "saleActive": false,
+      "image": "",
+      "allergyInfo": null,
+      "ingredients": null,
+      "category": "premium",
+      "featured": false,
+      "visible": true,
+      "sizeOptions": [
+        {
+          "id": "small",
+          "label": "Small",
+          "price": 0,
+          "quantity": 5,
+          "boxTypeId": 1
+        },
+        {
+          "id": "large",
+          "label": "Large",
+          "price": 20,
+          "quantity": 25,
+          "boxTypeId": 3
+        }
+      ],
+      "typeOptions": [],
+      "shapeOptions": null,
+      "shapesEnabled": false,
+      "customOrderUrl": null,
+      "variantPaymentLinks": null,
+      "displayOrder": 30
+    },
+    {
+      "id": "47",
+      "name": "Dubai Bar",
+      "description": "A larger take on our most-loved classic, handcrafted with the same signature richness and smooth texture.",
+      "basePrice": 5,
+      "salePrice": null,
+      "saleActive": false,
+      "image": "",
+      "allergyInfo": null,
+      "ingredients": null,
+      "category": "classic",
+      "featured": false,
+      "visible": true,
+      "sizeOptions": [],
+      "typeOptions": [
+        {
+          "id": "milk",
+          "label": "Milk",
+          "price": 0
+        },
+        {
+          "id": "dark",
+          "label": "Dark",
+          "price": 2
+        }
+      ],
+      "shapeOptions": [
+        {
+          "id": "rectangular",
+          "label": "Rectangular",
+          "price": 0
+        },
+        {
+          "id": "curved",
+          "label": "Curved",
+          "price": 0
+        }
+      ],
+      "shapesEnabled": true,
+      "customOrderUrl": null,
+      "variantPaymentLinks": null,
+      "displayOrder": 40
+    },
+    {
+      "id": "46",
+      "name": "Assorted Nuts Chocolate",
+      "description": "A delightful mix of premium chocolates with assorted nuts from around the world.",
+      "basePrice": 9,
+      "salePrice": null,
+      "saleActive": false,
+      "image": "https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      "allergyInfo": null,
+      "ingredients": null,
+      "category": "assorted",
+      "featured": true,
+      "visible": true,
+      "sizeOptions": [
+        {
+          "id": "standard",
+          "label": "Standard Bag",
+          "price": 0,
+          "quantity": 0
+        }
+      ],
+      "typeOptions": [
+        {
+          "id": "milk",
+          "label": "Milk Chocolate",
+          "value": "milk",
+          "price": 0
+        },
+        {
+          "id": "dark",
+          "label": "Dark Chocolate",
+          "value": "dark",
+          "price": 2
+        }
+      ],
+      "shapeOptions": null,
+      "shapesEnabled": false,
+      "customOrderUrl": null,
+      "variantPaymentLinks": null,
+      "displayOrder": 50
+    }
+  ]
+}

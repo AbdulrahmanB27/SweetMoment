@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Sweet Moment Chocolates</title>
+    <title>Product - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
     <meta name="theme-color" content="hsl(25, 34%, 33%)">
     
@@ -453,7 +453,7 @@
             <a href="index.html" class="text-2xl font-bold logo-link">Sweet Moment</a>
             <div class="flex gap-6">
                 <a href="index.html" class="">Home</a>
-                <a href="menu.html" class="active">Menu</a>
+                <a href="menu.html" class="">Menu</a>
                 <a href="about.html" class="">About</a>
                 <a href="contact.html" class="">Contact</a>
             </div>
@@ -461,20 +461,21 @@
     </nav>
 
     
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold text-center mb-12" style="color: #5A3A30;">Our Chocolate Collection</h1>
-            
-            <!-- Product grid will be populated by JavaScript from products.json -->
-            <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-                <!-- Products loaded dynamically -->
-            </div>
+    <!-- Product container will be populated by JavaScript from products.json -->
+    <div id="product-container">
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="text-center">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mb-4"></div>
+          <p style="color: #5A3A30;">Loading product...</p>
         </div>
-    </section>
+      </div>
+    </div>
     
     <script>
-      // Product interpreter - reads products.json and renders products
+      // Product detail page interpreter - reads products.json and renders based on URL
       (function() {
+        console.log('[PRODUCT_INIT] Script started, location:', window.location.href);
+        
         function createProductSlug(name) {
           return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         }
@@ -486,72 +487,333 @@
           return path;
         }
         
-        function renderProducts(productsData) {
-          const grid = document.getElementById('products-grid');
-          if (!grid || !productsData || !productsData.products) {
-            console.error('Products grid or data not found');
+        // Get product slug from URL (supports both ?slug=xxx and product-xxx.html)
+        function getProductSlug() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const slugParam = urlParams.get('slug');
+          if (slugParam) return slugParam;
+          
+          // Extract from filename (product-classic-chocolate.html → classic-chocolate)
+          const filename = window.location.pathname.split('/').pop();
+          const match = filename.match(/^product-(.+)\.html$/);
+          return match ? match[1] : null;
+        }
+        
+        function renderProduct(product) {
+          const container = document.getElementById('product-container');
+          if (!container || !product) {
+            console.error('Container or product not found');
             return;
           }
           
-          const visibleProducts = productsData.products.filter(p => p.visible !== false);
+          // Parse options
+          const sizeOptions = product.sizeOptions || [];
+          const typeOptions = product.typeOptions || [];
+          const shapeOptions = product.shapeOptions || [];
           
-          grid.innerHTML = visibleProducts.map((product, index) => {
-            const productSlug = createProductSlug(product.name);
-            const price = (product.basePrice || 0) / 100;
-            const salePrice = product.saleActive && product.salePrice ? product.salePrice / 100 : null;
-            const finalPrice = salePrice || price;
-            const productUrl = true ? `product.html?slug=${productSlug}` : `product-${productSlug}.html`;
+          // basePrice in products.json is already in dollars (not cents)
+          const price = product.basePrice || 0;
+          const salePrice = product.saleActive && product.salePrice ? product.salePrice : null;
+          const finalPrice = salePrice || price;
+          
+          const priceStr = finalPrice.toFixed(2);
+          const priceDigits = priceStr.split('').map(digit => 
+            digit === '.' 
+              ? '<span class="price-decimal">.</span>' 
+              : `<span class="price-digit">${digit}</span>`
+          ).join('');
+          
+          container.innerHTML = `
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <a href="menu.html" class="inline-block mb-8 text-lg font-semibold animate-element" style="color: #5A3A30;">
+                ← Back to Menu
+            </a>
             
-            return `
-              <div class="product-card animate-element delay-${index}">
-                <a href="${productUrl}" class="block">
-                  <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                    <div class="aspect-square overflow-hidden">
-                      <img src="${normalizeImagePath(product.image)}" 
-                           alt="${product.name}"
-                           class="w-full h-full object-cover">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="animate-element slide-in-left">
+                    <img src="${normalizeImagePath(product.image)}" 
+                         alt="${product.name}"
+                         class="w-full rounded-lg shadow-lg">
+                </div>
+                
+                <div class="animate-element slide-in-right">
+                    <h1 class="text-4xl font-bold mb-4 animate-element delay-1" style="color: #5A3A30;">${product.name}</h1>
+                    <p class="text-lg mb-6" style="color: #5A3A30;">${product.description || 'A delicious chocolate creation.'}</p>
+                    
+                    <div class="mb-8">
+                        <span class="product-total-price text-4xl font-bold" style="color: ${salePrice ? '#E5C976' : '#5A3A30'};" data-price="${priceStr}">
+                            <span class="inline-block mr-[0.08em]">$</span>
+                            <div class="inline-flex">${priceDigits}</div>
+                        </span>
+                        ${salePrice ? `<span class="text-2xl line-through ml-3" style="color: #999;">$${price.toFixed(2)}</span>` : ''}
                     </div>
-                    <div class="p-4">
-                      <h3 class="font-semibold text-lg mb-2" style="color: #5A3A30;">${product.name}</h3>
-                      <div class="flex items-center justify-between">
-                        <div>
-                          ${salePrice ? `
-                          <span class="text-lg font-bold" style="color: #E5C976;">$${finalPrice.toFixed(2)}</span>
-                          <span class="text-sm line-through ml-2" style="color: #999;">$${price.toFixed(2)}</span>
-                          ` : `
-                          <span class="text-lg font-bold" style="color: #5A3A30;">$${finalPrice.toFixed(2)}</span>
-                          `}
+                    
+                    ${sizeOptions.length > 0 ? `
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-2" style="color: #000;">Size Options</h3>
+                        <div class="grid grid-cols-3 gap-2" id="size-options">
+                            ${sizeOptions.map((option, idx) => {
+                              // option.price is already in dollars from products.json
+                              const optionPriceDollars = option.price || 0;
+                              const optionPrice = (price + optionPriceDollars).toFixed(2);
+                              const quantity = option.quantity || null;
+                              const isFirst = idx === 0;
+                              return `
+                            <button 
+                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md ${isFirst ? 'selected' : ''}"
+                                data-size-id="${option.id}"
+                                data-price="${optionPrice}"
+                                data-base-price="${price}"
+                                data-option-price="${optionPriceDollars}"
+                                onclick="window.productPage.selectSize(this)"
+                                style="border-color: ${isFirst ? '#6F4E37' : '#d1d5db'}; ${isFirst ? 'box-shadow: 0 0 0 1px #6F4E37;' : ''} cursor: pointer;">
+                                <span class="font-medium text-sm">${option.label}</span>
+                                <span class="text-xs" style="color: #666;">
+                                    ${quantity ? `${quantity} pcs - $${optionPrice}` : `$${optionPrice}`}
+                                </span>
+                            </button>`;
+                            }).join('')}
                         </div>
-                      </div>
                     </div>
-                  </div>
-                </a>
-              </div>
-            `;
-          }).join('');
+                    ` : ''}
+                    
+                    ${typeOptions.length > 0 ? `
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-2" style="color: #000;">Chocolate Type</h3>
+                        <div class="grid grid-cols-3 gap-2" id="type-options">
+                            ${typeOptions.map((option, idx) => {
+                              const isFirst = idx === 0;
+                              // option.price is already in dollars from products.json
+                              const optionPriceDollars = option.price || 0;
+                              const optionPrice = optionPriceDollars > 0 ? optionPriceDollars.toFixed(2) : '0.00';
+                              return `
+                            <button 
+                                class="type-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md ${isFirst ? 'selected' : ''}"
+                                data-type-id="${option.id}"
+                                data-price="${optionPriceDollars}"
+                                onclick="window.productPage.selectType(this)"
+                                style="border-color: ${isFirst ? '#6F4E37' : '#d1d5db'}; ${isFirst ? 'box-shadow: 0 0 0 1px #6F4E37;' : ''} cursor: pointer;">
+                                <span class="font-medium text-sm">${option.label}</span>
+                                <span class="text-xs" style="color: #666;">$${optionPrice}</span>
+                            </button>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Quantity Selector -->
+                    <div class="mb-6">
+                        <h3 class="font-medium mb-2" style="color: #000;">Quantity</h3>
+                        <div class="flex items-center gap-3">
+                            <button 
+                                onclick="window.productPage.decreaseQuantity()"
+                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
+                                style="border-color: #d1d5db; color: #5A3A30;">
+                                -
+                            </button>
+                            <input 
+                                type="number" 
+                                id="quantity-input"
+                                value="1"
+                                min="1"
+                                max="100"
+                                class="w-20 h-10 text-center border rounded-md font-semibold"
+                                style="border-color: #d1d5db; color: #5A3A30;"
+                                onchange="window.productPage.updateQuantity(this.value)">
+                            <button 
+                                onclick="window.productPage.increaseQuantity()"
+                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
+                                style="border-color: #d1d5db; color: #5A3A30;">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button 
+                       id="order-now-btn"
+                       class="px-8 py-4 rounded-md text-lg font-semibold"
+                       style="background: #E5C976; color: #442D29; cursor: pointer;"
+                       onclick="window.productPage.handleOrder()">
+                        Order Now
+                    </button>
+                    
+                    <!-- Ingredients and Allergy Info -->
+                    ${product.ingredients || product.allergyInfo ? `
+                    <div class="mt-12 pt-8 border-t" style="border-color: #E5E7EB;">
+                        ${product.ingredients ? `
+                        <div class="mb-4">
+                            <h3 class="text-sm font-medium mb-2" style="color: #6B7280;">Ingredients</h3>
+                            <p class="text-xs leading-relaxed" style="color: #6B7280;">${product.ingredients}</p>
+                        </div>
+                        ` : ''}
+                        
+                        ${product.allergyInfo ? `
+                        <div class="mb-2">
+                            <h3 class="text-sm font-medium mb-2" style="color: #6B7280;">Allergy Information</h3>
+                            <p class="text-xs leading-relaxed" style="color: #6B7280;">${product.allergyInfo}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        </div>
+    </section>
+          `;
           
-          // Trigger animations after products are rendered
-          setTimeout(() => {
-            const animateElements = document.querySelectorAll('.animate-element');
-            animateElements.forEach((el, index) => {
-              setTimeout(() => {
-                el.classList.add('animate-visible');
-              }, index * 120);
-            });
-          }, 100);
+          // Initialize product page state
+          window.productPage = {
+            product: product,
+            selectedSizePrice: price,
+            selectedTypePrice: 0,
+            selectedQuantity: 1,
+            selectedSizeId: sizeOptions.length > 0 ? sizeOptions[0].id : null,
+            selectedTypeId: typeOptions.length > 0 ? typeOptions[0].id : null,
+            basePrice: price,
+            
+            selectSize(button) {
+              document.querySelectorAll('.size-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.borderColor = '#d1d5db';
+                opt.style.boxShadow = '';
+              });
+              button.classList.add('selected');
+              button.style.borderColor = '#6F4E37';
+              button.style.boxShadow = '0 0 0 1px #6F4E37';
+              this.selectedSizePrice = parseFloat(button.dataset.price);
+              this.selectedSizeId = button.getAttribute('data-size-id');
+              this.updateTotalPrice();
+            },
+            
+            selectType(button) {
+              document.querySelectorAll('.type-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.style.borderColor = '#d1d5db';
+                opt.style.boxShadow = '';
+              });
+              button.classList.add('selected');
+              button.style.borderColor = '#6F4E37';
+              button.style.boxShadow = '0 0 0 1px #6F4E37';
+              this.selectedTypePrice = parseFloat(button.dataset.price);
+              this.selectedTypeId = button.getAttribute('data-type-id');
+              this.updateTotalPrice();
+            },
+            
+            updateQuantity(value) {
+              const qty = parseInt(value, 10);
+              if (qty >= 1 && qty <= 100) {
+                this.selectedQuantity = qty;
+                document.getElementById('quantity-input').value = qty;
+                this.updateTotalPrice();
+              }
+            },
+            
+            decreaseQuantity() {
+              if (this.selectedQuantity > 1) {
+                this.selectedQuantity--;
+                document.getElementById('quantity-input').value = this.selectedQuantity;
+                this.updateTotalPrice();
+              }
+            },
+            
+            increaseQuantity() {
+              if (this.selectedQuantity < 100) {
+                this.selectedQuantity++;
+                document.getElementById('quantity-input').value = this.selectedQuantity;
+                this.updateTotalPrice();
+              }
+            },
+            
+            updateTotalPrice() {
+              const unitPrice = this.selectedSizePrice + this.selectedTypePrice;
+              const totalPrice = unitPrice * this.selectedQuantity;
+              const priceElement = document.querySelector('.product-total-price');
+              if (priceElement) {
+                const newPrice = totalPrice.toFixed(2);
+                const oldPrice = priceElement.getAttribute('data-price');
+                
+                // Only animate if price actually changed
+                if (oldPrice !== newPrice) {
+                  priceElement.setAttribute('data-price', newPrice);
+                  const priceDigits = newPrice.split('').map(digit => 
+                    digit === '.' 
+                      ? '<span class="price-decimal">.</span>' 
+                      : `<span class="price-digit digit-animate">${digit}</span>`
+                  ).join('');
+                  priceElement.innerHTML = '<span class="inline-block mr-[0.08em]">$</span><div class="inline-flex">' + priceDigits + '</div>';
+                }
+              }
+            },
+            
+            handleOrder() {
+              let paymentUrl = null;
+              const variantPaymentLinks = this.product.variantPaymentLinks || {};
+              
+              // Try variant-specific payment link
+              if (this.selectedSizeId && this.selectedTypeId) {
+                const variantKey = this.selectedSizeId + '-' + this.selectedTypeId;
+                if (variantPaymentLinks[variantKey]) {
+                  paymentUrl = variantPaymentLinks[variantKey];
+                  console.log('[ORDER] Using variant-specific payment link:', variantKey);
+                }
+              }
+              
+              // Fallback to product custom order URL
+              if (!paymentUrl && this.product.customOrderUrl) {
+                paymentUrl = this.product.customOrderUrl;
+                console.log('[ORDER] Using product custom order URL');
+              }
+              
+              // Fallback to global fallback URL
+              if (!paymentUrl) {
+                paymentUrl = 'https://www.instagram.com/m/sweetmomentchocolate';
+                console.log('[ORDER] Using fallback order URL');
+              }
+              
+              // Ensure URL has protocol
+              if (paymentUrl && !paymentUrl.startsWith('http://') && !paymentUrl.startsWith('https://')) {
+                paymentUrl = 'https://' + paymentUrl;
+              }
+              
+              if (paymentUrl) {
+                const separator = paymentUrl.includes('?') ? '&' : '?';
+                const finalUrl = paymentUrl + separator + 'quantity=' + this.selectedQuantity;
+                console.log('[ORDER] Redirecting to:', finalUrl);
+                window.location.href = finalUrl;
+              } else {
+                alert('No payment link configured for this product.');
+              }
+            }
+          };
+          
+          console.log('[PRODUCT] Product page rendered:', product.name);
         }
         
-        // Load products.json and render
+        // Load products.json and render the appropriate product
+        const productSlug = getProductSlug();
+        if (!productSlug) {
+          document.getElementById('product-container').innerHTML = 
+            '<div class="container mx-auto px-4 py-16 text-center"><p style="color: #5A3A30;">Product not found. <a href="menu.html" style="text-decoration: underline;">Return to menu</a></p></div>';
+          return;
+        }
+        
         fetch('products.json')
           .then(response => response.json())
           .then(data => {
-            console.log('[PRODUCTS] Loaded', data.products.length, 'products from products.json');
-            renderProducts(data);
+            console.log('[PRODUCT] Loaded products.json, searching for slug:', productSlug);
+            const product = data.products.find(p => createProductSlug(p.name) === productSlug);
+            if (product) {
+              renderProduct(product);
+            } else {
+              document.getElementById('product-container').innerHTML = 
+                '<div class="container mx-auto px-4 py-16 text-center"><p style="color: #5A3A30;">Product not found. <a href="menu.html" style="text-decoration: underline;">Return to menu</a></p></div>';
+            }
           })
           .catch(error => {
-            console.error('[PRODUCTS] Error loading products.json:', error);
-            document.getElementById('products-grid').innerHTML = 
-              '<p class="text-center text-red-600">Error loading products. Please refresh the page.</p>';
+            console.error('[PRODUCT] Error loading products.json:', error);
+            document.getElementById('product-container').innerHTML = 
+              '<div class="container mx-auto px-4 py-16 text-center"><p class="text-red-600">Error loading product. Please try again.</p></div>';
           });
       })();
     </script>

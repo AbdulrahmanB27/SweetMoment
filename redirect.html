@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caramel Chocolate - Sweet Moment Chocolates</title>
+    <title>Redirect - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
     <meta name="theme-color" content="hsl(25, 34%, 33%)">
+    
     <base href="./">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +35,11 @@
     </script>
     <style>
       :root {
-        --primary: 25 34% 33%;
+        --primary: 25 37% 25%;
         --primary-foreground: 24 14% 98%;
         --gold-accent: hsl(45, 70%, 60%);
         --light-background: hsl(30, 30%, 96%);
-        --dark-brown: hsl(25, 44%, 18%);
+        --dark-brown: hsl(25, 47%, 10%);
       }
       
       * {
@@ -52,11 +53,58 @@
         max-width: 100%;
       }
       
+      html, body {
+        height: 100%;
+      }
+      
       body {
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
         overflow-x: hidden;
         max-width: 100vw;
         position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      body > nav {
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: linear-gradient(135deg, #4A2C2A 0%, #6F4E37 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 0.75rem 0;
+      }
+      
+      body > nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      
+      body > nav a:hover {
+        color: #F1E5AC;
+      }
+      
+      body > nav a.active {
+        color: #F1E5AC;
+        font-weight: 600;
+      }
+      
+      body > nav .logo-link {
+        color: white;
+        font-weight: 700;
+      }
+      
+      body > section,
+      body > main {
+        flex: 1 0 auto;
+      }
+      
+      body > footer {
+        flex-shrink: 0;
+        margin-top: auto;
       }
       
       /* Prevent any element from causing horizontal scroll */
@@ -153,6 +201,17 @@
           color: #E5C976;
           text-shadow: none;
         }
+      }
+
+      /* Remove number input spinner arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
       }
 
       /* Fade-in-left animation */
@@ -294,6 +353,20 @@
         animation: slideDown 0.25s ease-out;
       }
 
+      /* Quantity input animation */
+      @keyframes quantityPulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+      
+      .quantity-animate {
+        animation: quantityPulse 0.3s ease-in-out;
+      }
+
       /* Carousel transition */
       .carousel-image {
         transition: opacity 1s ease-in-out;
@@ -373,6 +446,7 @@
     </style>
 </head>
 <body>
+    <a id="top" style="position: absolute; top: 0;"></a>
     <!-- Navigation -->
     <nav class="w-full">
         <div class="container mx-auto px-4 flex justify-between items-center" style="min-height: 60px;">
@@ -387,305 +461,22 @@
     </nav>
 
     
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <a href="menu.html" class="inline-block mb-8 text-lg font-semibold animate-element" style="color: #5A3A30;">
-                ← Back to Menu
-            </a>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="animate-element slide-in-left">
-                    <img src="uploads/1743291047091-28168151.jpeg" 
-                         alt="Caramel Chocolate"
-                         class="w-full rounded-lg shadow-lg">
-                </div>
-                
-                <div class="animate-element slide-in-right">
-                    <h1 class="text-4xl font-bold mb-4 animate-element delay-1" style="color: #5A3A30;">Caramel Chocolate</h1>
-                    
-                    <span class="inline-block px-3 py-1 rounded text-sm font-semibold mb-4" style="background: #E5C976; color: #2A1A18;">
-                        PREMIUM
-                    </span>
-                    
-                    <p class="text-lg mb-6" style="color: #5A3A30;">Smooth caramel wrapped in rich chocolate, crafted to perfection for a luxurious treat.</p>
-                    
-                    <div class="mb-8">
-                        
-                            <span class="product-total-price text-4xl font-bold" style="color: #5A3A30;" data-price="8.00">
-                                <span class="inline-block mr-[0.08em]">$</span>
-                                <div class="inline-flex"><span class="price-digit">8</span><span class="price-decimal">.</span><span class="price-digit">0</span><span class="price-digit">0</span></div>
-                            </span>
-                            
-                    </div>
-                    
-                    
-                    <div class="mb-6">
-                        <h3 class="font-medium mb-2" style="color: #000;">Size Options</h3>
-                        <div class="grid grid-cols-3 gap-2" id="size-options">
-                            
-                            <button 
-                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md selected"
-                                data-size-id="small"
-                                data-price="8.00"
-                                data-base-price="8"
-                                data-option-price="0"
-                                onclick="selectSize(this)"
-                                style="border-color: #6F4E37; box-shadow: 0 0 0 1px #6F4E37; cursor: pointer;">
-                                <span class="font-medium text-sm">Small Box</span>
-                                <span class="text-xs" style="color: #666;">
-                                    5 pcs - $8.00
-                                </span>
-                            </button>
-                            <button 
-                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md "
-                                data-size-id="medium"
-                                data-price="15.00"
-                                data-base-price="8"
-                                data-option-price="7"
-                                onclick="selectSize(this)"
-                                style="border-color: #d1d5db;  cursor: pointer;">
-                                <span class="font-medium text-sm">Medium Box</span>
-                                <span class="text-xs" style="color: #666;">
-                                    10 pcs - $15.00
-                                </span>
-                            </button>
-                            <button 
-                                class="size-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md "
-                                data-size-id="large"
-                                data-price="27.00"
-                                data-base-price="8"
-                                data-option-price="19"
-                                onclick="selectSize(this)"
-                                style="border-color: #d1d5db;  cursor: pointer;">
-                                <span class="font-medium text-sm">Large Box</span>
-                                <span class="text-xs" style="color: #666;">
-                                    25 pcs - $27.00
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    <div class="mb-6">
-                        <h3 class="font-medium mb-2" style="color: #000;">Chocolate Type</h3>
-                        <div class="grid grid-cols-3 gap-2" id="type-options">
-                            
-                            <button 
-                                class="type-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md selected"
-                                data-type-id="milk"
-                                data-price="0"
-                                onclick="selectType(this)"
-                                style="border-color: #6F4E37; box-shadow: 0 0 0 1px #6F4E37; cursor: pointer;">
-                                <span class="font-medium text-sm">Milk Chocolate</span>
-                                <span class="text-xs" style="color: #666;">$0.00</span>
-                            </button>
-                            <button 
-                                class="type-option border bg-white rounded-md p-3 flex flex-col items-center transition-all hover:shadow-md "
-                                data-type-id="dark"
-                                data-price="2"
-                                onclick="selectType(this)"
-                                style="border-color: #d1d5db;  cursor: pointer;">
-                                <span class="font-medium text-sm">Dark Chocolate</span>
-                                <span class="text-xs" style="color: #666;">$2.00</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    
-                    <!-- Quantity Selector -->
-                    <div class="mb-6">
-                        <h3 class="font-medium mb-2" style="color: #000;">Quantity</h3>
-                        <div class="flex items-center gap-3">
-                            <button 
-                                onclick="decreaseQuantity()"
-                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
-                                style="border-color: #d1d5db; color: #5A3A30;">
-                                -
-                            </button>
-                            <input 
-                                type="number" 
-                                id="quantity-input"
-                                value="1"
-                                min="1"
-                                max="100"
-                                class="w-20 h-10 text-center border rounded-md font-semibold"
-                                style="border-color: #d1d5db; color: #5A3A30;"
-                                onchange="updateQuantity(this.value)">
-                            <button 
-                                onclick="increaseQuantity()"
-                                class="w-10 h-10 rounded-md border flex items-center justify-center font-semibold hover:bg-gray-100 transition-colors"
-                                style="border-color: #d1d5db; color: #5A3A30;">
-                                +
-                            </button>
-                        </div>
-                    </div>
-                    
-                    
-                    <button 
-                       id="order-now-btn"
-                       class="px-8 py-4 rounded-md text-lg font-semibold"
-                       style="background: #E5C976; color: #442D29; cursor: pointer;"
-                       data-base-url="https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00">
-                        Order Now
-                    </button>
-                    
-                    <!-- Ingredients and Allergy Info - Discrete Section at Bottom -->
-                    
-                    <div class="mt-12 pt-8 border-t" style="border-color: #E5E7EB;">
-                        
-                        
-                        
-                        <div class="mb-2">
-                            <h3 class="text-sm font-medium mb-2" style="color: #6B7280;">Allergy Information</h3>
-                            <p class="text-xs leading-relaxed" style="color: #6B7280;">caramel</p>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </div>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mb-4"></div>
+            <p class="text-lg mt-4" style="color: #5A3A30;">Redirecting...</p>
         </div>
-    </section>
+    </div>
     
     <script>
-      // Interactive option selection for product pages
-      let selectedSizePrice = 8;
-      let selectedTypePrice = 0;
-      let selectedQuantity = 1;
-      let selectedSizeId = 'small';
-      let selectedTypeId = 'milk';
-      const basePrice = 8;
-      
-      // Variant-specific payment links (if available)
-      const variantPaymentLinks = {};
-      const fallbackPaymentUrl = null;
-      
-      // Unified option selection handler
-      function selectOption(button, optionClass, priceVar) {
-        // Remove selected state from all options of this type
-        document.querySelectorAll('.' + optionClass).forEach(opt => {
-          opt.classList.remove('selected');
-          opt.style.borderColor = '#d1d5db';
-          opt.style.boxShadow = '';
-        });
+      // Immediate redirect to configured destination
+      (function() {
+        const redirectUrl = 'https://ig.me/m/sweetmomentchocolate';
+        console.log('[QR_REDIRECT] Redirecting to:', redirectUrl);
         
-        // Apply selected state
-        button.classList.add('selected');
-        button.style.borderColor = '#6F4E37';
-        button.style.boxShadow = '0 0 0 1px #6F4E37';
-        
-        // Update price
-        const price = parseFloat(button.dataset.price);
-        if (priceVar === 'size') {
-          selectedSizePrice = price;
-          selectedSizeId = button.getAttribute('data-size-id');
-          // Extract quantity for size options
-          const quantityMatch = button.textContent.match(/(\d+)\s*pcs/);
-          if (quantityMatch) selectedQuantity = parseInt(quantityMatch[1], 10);
-        } else {
-          selectedTypePrice = price;
-          selectedTypeId = button.getAttribute('data-type-id');
-        }
-        
-        updateTotalPrice();
-      }
-      
-      function selectSize(button) { selectOption(button, 'size-option', 'size'); }
-      function selectType(button) { selectOption(button, 'type-option', 'type'); }
-      
-      // Quantity management functions
-      function updateQuantity(value) {
-        const qty = parseInt(value, 10);
-        if (qty >= 1 && qty <= 100) {
-          selectedQuantity = qty;
-          document.getElementById('quantity-input').value = qty;
-          updateTotalPrice();
-        }
-      }
-      
-      function decreaseQuantity() {
-        if (selectedQuantity > 1) {
-          selectedQuantity--;
-          document.getElementById('quantity-input').value = selectedQuantity;
-          updateTotalPrice();
-        }
-      }
-      
-      function increaseQuantity() {
-        if (selectedQuantity < 100) {
-          selectedQuantity++;
-          document.getElementById('quantity-input').value = selectedQuantity;
-          updateTotalPrice();
-        }
-      }
-      
-      function updateTotalPrice() {
-        const unitPrice = selectedSizePrice + selectedTypePrice;
-        const totalPrice = unitPrice * selectedQuantity;
-        const priceElement = document.querySelector('.product-total-price');
-        if (priceElement) {
-          const oldPrice = priceElement.getAttribute('data-price') || totalPrice.toFixed(2);
-          const newPrice = totalPrice.toFixed(2);
-          
-          // Store the new price for next comparison
-          priceElement.setAttribute('data-price', newPrice);
-          
-          // Split prices into digits for comparison
-          const oldDigits = oldPrice.split('');
-          const newDigits = newPrice.split('');
-          
-          // Build the new price HTML with digit-by-digit animation
-          let html = '<span class="inline-block mr-[0.08em]">$</span><div class="inline-flex">';
-          
-          newDigits.forEach((digit, index) => {
-            if (digit === '.') {
-              html += '<span class="price-decimal">.</span>';
-            } else {
-              const hasChanged = oldDigits[index] !== digit;
-              const animateClass = hasChanged ? ' digit-animate' : '';
-              html += '<span class="price-digit' + animateClass + '">' + digit + '</span>';
-            }
-          });
-          
-          html += '</div>';
-          priceElement.innerHTML = html;
-        }
-      }
-      
-      // Handle order button click - use variant-specific payment link if available
-      document.addEventListener('DOMContentLoaded', function() {
-        const orderBtn = document.getElementById('order-now-btn');
-        if (orderBtn) {
-          orderBtn.addEventListener('click', function() {
-            let paymentUrl = null;
-            
-            // Try to find variant-specific payment link
-            if (selectedSizeId && selectedTypeId) {
-              const variantKey = selectedSizeId + '-' + selectedTypeId;
-              if (variantPaymentLinks[variantKey]) {
-                paymentUrl = variantPaymentLinks[variantKey];
-                console.log('Using variant-specific payment link for:', variantKey);
-              }
-            }
-            
-            // Fall back to default payment URL if no variant link
-            if (!paymentUrl) {
-              paymentUrl = fallbackPaymentUrl || this.getAttribute('data-base-url');
-            }
-            
-            if (paymentUrl) {
-              // Append quantity parameter for Stripe Payment Links
-              const separator = paymentUrl.includes('?') ? '&' : '?';
-              const finalUrl = paymentUrl + separator + 'quantity=' + selectedQuantity;
-              console.log('Redirecting to payment URL:', finalUrl);
-              window.location.href = finalUrl;
-            } else {
-              alert('No payment link configured for this product variant.');
-            }
-          });
-        }
-      });
+        // Redirect immediately
+        window.location.href = redirectUrl;
+      })();
     </script>
 
 
@@ -733,10 +524,10 @@
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <div class="flex flex-col gap-2">
-                        <a href="index.html">Home</a>
-                        <a href="menu.html">Menu</a>
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="menu.html" class="footer-link">Menu</a>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -763,5 +554,98 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+      (function() {
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+        
+        function init() {
+          var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+          if (!currentPage.includes('.html')) currentPage = 'index.html';
+          
+          console.log('[SMOOTH SCROLL] Current page:', currentPage);
+          
+          var allLinks = document.querySelectorAll('nav a, footer a');
+          var modifiedCount = 0;
+          
+          allLinks.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href && href.split('/').pop() === currentPage) {
+              link.href = '#top';
+              modifiedCount++;
+              console.log('[SMOOTH SCROLL] Modified link to #top:', link.textContent);
+            }
+          });
+          
+          console.log('[SMOOTH SCROLL] Modified ' + modifiedCount + ' links to scroll to top');
+          
+          // Smooth scroll function with easing
+          function smoothScrollTo(targetY, duration) {
+            // Get current scroll position (try multiple methods for compatibility)
+            var startY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            var distance = targetY - startY;
+            var startTime = null;
+            
+            console.log('[SMOOTH SCROLL] Starting smooth scroll from', startY, 'to', targetY);
+            console.log('[SMOOTH SCROLL] Scroll detection methods:', {
+              scrollY: window.scrollY,
+              pageYOffset: window.pageYOffset,
+              docScrollTop: document.documentElement.scrollTop,
+              bodyScrollTop: document.body.scrollTop
+            });
+            
+            // Easing function for smooth animation
+            function easeInOutCubic(t) {
+              return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+            }
+            
+            function animation(currentTime) {
+              if (startTime === null) startTime = currentTime;
+              var timeElapsed = currentTime - startTime;
+              var progress = Math.min(timeElapsed / duration, 1);
+              var ease = easeInOutCubic(progress);
+              
+              var newPosition = startY + distance * ease;
+              
+              // Scroll both window and body for maximum compatibility
+              window.scrollTo(0, newPosition);
+              document.documentElement.scrollTop = newPosition;
+              document.body.scrollTop = newPosition;
+              
+              if (progress < 1) {
+                requestAnimationFrame(animation);
+              }
+            }
+            
+            requestAnimationFrame(animation);
+          }
+          
+          // Add smooth scroll to all anchor links
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            // Find the anchor tag if clicked element is inside one
+            while (target && target.tagName !== 'A') {
+              target = target.parentElement;
+            }
+            
+            if (target && target.tagName === 'A') {
+              var href = target.getAttribute('href');
+              console.log('[SMOOTH SCROLL] Link clicked with href:', href);
+              
+              if (href === '#top') {
+                e.preventDefault();
+                console.log('[SMOOTH SCROLL] Triggering smooth scroll to top');
+                smoothScrollTo(0, 800); // Scroll to top in 800ms
+              }
+            }
+          });
+        }
+      })();
+    </script>
 </body>
 </html>

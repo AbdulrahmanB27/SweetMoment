@@ -6,6 +6,7 @@
     <title>Contact - Sweet Moment Chocolates</title>
     <meta name="description" content="Premium handcrafted chocolates in Herndon, VA. Experience life's sweetest moments with our luxury chocolate collection.">
     <meta name="theme-color" content="hsl(25, 34%, 33%)">
+    
     <base href="./">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +35,11 @@
     </script>
     <style>
       :root {
-        --primary: 25 34% 33%;
+        --primary: 25 37% 25%;
         --primary-foreground: 24 14% 98%;
         --gold-accent: hsl(45, 70%, 60%);
         --light-background: hsl(30, 30%, 96%);
-        --dark-brown: hsl(25, 44%, 18%);
+        --dark-brown: hsl(25, 47%, 10%);
       }
       
       * {
@@ -52,11 +53,58 @@
         max-width: 100%;
       }
       
+      html, body {
+        height: 100%;
+      }
+      
       body {
         font-family: 'Montserrat', 'Open Sans', system-ui, sans-serif;
         overflow-x: hidden;
         max-width: 100vw;
         position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      body > nav {
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: linear-gradient(135deg, #4A2C2A 0%, #6F4E37 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        padding: 0.75rem 0;
+      }
+      
+      body > nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      
+      body > nav a:hover {
+        color: #F1E5AC;
+      }
+      
+      body > nav a.active {
+        color: #F1E5AC;
+        font-weight: 600;
+      }
+      
+      body > nav .logo-link {
+        color: white;
+        font-weight: 700;
+      }
+      
+      body > section,
+      body > main {
+        flex: 1 0 auto;
+      }
+      
+      body > footer {
+        flex-shrink: 0;
+        margin-top: auto;
       }
       
       /* Prevent any element from causing horizontal scroll */
@@ -153,6 +201,17 @@
           color: #E5C976;
           text-shadow: none;
         }
+      }
+
+      /* Remove number input spinner arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
       }
 
       /* Fade-in-left animation */
@@ -294,6 +353,20 @@
         animation: slideDown 0.25s ease-out;
       }
 
+      /* Quantity input animation */
+      @keyframes quantityPulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+      
+      .quantity-animate {
+        animation: quantityPulse 0.3s ease-in-out;
+      }
+
       /* Carousel transition */
       .carousel-image {
         transition: opacity 1s ease-in-out;
@@ -373,6 +446,7 @@
     </style>
 </head>
 <body>
+    <a id="top" style="position: absolute; top: 0;"></a>
     <!-- Navigation -->
     <nav class="w-full">
         <div class="container mx-auto px-4 flex justify-between items-center" style="min-height: 60px;">
@@ -461,10 +535,10 @@
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <div class="flex flex-col gap-2">
-                        <a href="index.html">Home</a>
-                        <a href="menu.html">Menu</a>
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="menu.html" class="footer-link">Menu</a>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
                     </div>
                 </div>
                 <div>
@@ -491,5 +565,98 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+      (function() {
+        // Wait for DOM to be ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+        
+        function init() {
+          var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+          if (!currentPage.includes('.html')) currentPage = 'index.html';
+          
+          console.log('[SMOOTH SCROLL] Current page:', currentPage);
+          
+          var allLinks = document.querySelectorAll('nav a, footer a');
+          var modifiedCount = 0;
+          
+          allLinks.forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href && href.split('/').pop() === currentPage) {
+              link.href = '#top';
+              modifiedCount++;
+              console.log('[SMOOTH SCROLL] Modified link to #top:', link.textContent);
+            }
+          });
+          
+          console.log('[SMOOTH SCROLL] Modified ' + modifiedCount + ' links to scroll to top');
+          
+          // Smooth scroll function with easing
+          function smoothScrollTo(targetY, duration) {
+            // Get current scroll position (try multiple methods for compatibility)
+            var startY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            var distance = targetY - startY;
+            var startTime = null;
+            
+            console.log('[SMOOTH SCROLL] Starting smooth scroll from', startY, 'to', targetY);
+            console.log('[SMOOTH SCROLL] Scroll detection methods:', {
+              scrollY: window.scrollY,
+              pageYOffset: window.pageYOffset,
+              docScrollTop: document.documentElement.scrollTop,
+              bodyScrollTop: document.body.scrollTop
+            });
+            
+            // Easing function for smooth animation
+            function easeInOutCubic(t) {
+              return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+            }
+            
+            function animation(currentTime) {
+              if (startTime === null) startTime = currentTime;
+              var timeElapsed = currentTime - startTime;
+              var progress = Math.min(timeElapsed / duration, 1);
+              var ease = easeInOutCubic(progress);
+              
+              var newPosition = startY + distance * ease;
+              
+              // Scroll both window and body for maximum compatibility
+              window.scrollTo(0, newPosition);
+              document.documentElement.scrollTop = newPosition;
+              document.body.scrollTop = newPosition;
+              
+              if (progress < 1) {
+                requestAnimationFrame(animation);
+              }
+            }
+            
+            requestAnimationFrame(animation);
+          }
+          
+          // Add smooth scroll to all anchor links
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            // Find the anchor tag if clicked element is inside one
+            while (target && target.tagName !== 'A') {
+              target = target.parentElement;
+            }
+            
+            if (target && target.tagName === 'A') {
+              var href = target.getAttribute('href');
+              console.log('[SMOOTH SCROLL] Link clicked with href:', href);
+              
+              if (href === '#top') {
+                e.preventDefault();
+                console.log('[SMOOTH SCROLL] Triggering smooth scroll to top');
+                smoothScrollTo(0, 800); // Scroll to top in 800ms
+              }
+            }
+          });
+        }
+      })();
+    </script>
 </body>
 </html>
