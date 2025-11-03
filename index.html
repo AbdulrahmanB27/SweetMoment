@@ -468,11 +468,11 @@
             <div class="relative w-full h-full swipe-container" id="carousel-mobile">
                 
                 <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
-                    <img src="uploads/1742773966114-127560992.jpeg?t=1762192513221" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1742773966114-127560992.jpeg?t=1762194941969" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
-                    <img src="uploads/1743207809787-339256261.jpeg?t=1762192513221" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1743207809787-339256261.jpeg?t=1762194941969" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 
@@ -514,11 +514,11 @@
             <div class="relative w-full h-full swipe-container" id="carousel-desktop">
                 
                 <div class="carousel-image absolute inset-0 opacity-100" data-index="0">
-                    <img src="uploads/1742773966114-127560992.jpeg?t=1762192513221" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1742773966114-127560992.jpeg?t=1762194941969" alt="Hero 1" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 <div class="carousel-image absolute inset-0 opacity-0" data-index="1">
-                    <img src="uploads/1743207809787-339256261.jpeg?t=1762192513221" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
+                    <img src="uploads/1743207809787-339256261.jpeg?t=1762194941969" alt="Hero 2" class="w-full h-full object-cover" style="object-position: center center;">
                 </div>
                 
                 
@@ -657,8 +657,8 @@
           
           grid.innerHTML = featuredProducts.map((product, index) => {
             const productSlug = createProductSlug(product.name);
-            const price = (product.basePrice || 0) / 100;
-            const salePrice = product.saleActive && product.salePrice ? product.salePrice / 100 : null;
+            const price = product.basePrice || 0;
+            const salePrice = product.saleActive && product.salePrice ? product.salePrice : null;
             const finalPrice = salePrice || price;
             const productUrl = true ? `product.html?slug=${productSlug}` : `product-${productSlug}.html`;
             
@@ -713,7 +713,7 @@
                 <div class="md:w-1/2 flex items-center justify-center">
                     <div class="w-full max-w-md mx-auto md:mx-0 animate-element">
                         
-                        <img src="uploads/1744075563796-815996067.jpeg?t=1762192513221" 
+                        <img src="uploads/1744075563796-815996067.jpeg?t=1762194941969" 
                              alt="Signature Collection" 
                              class="w-full h-auto rounded-lg shadow-lg object-cover"
                              style="min-height: 300px;">

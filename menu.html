@@ -497,8 +497,8 @@
           
           grid.innerHTML = visibleProducts.map((product, index) => {
             const productSlug = createProductSlug(product.name);
-            const price = (product.basePrice || 0) / 100;
-            const salePrice = product.saleActive && product.salePrice ? product.salePrice / 100 : null;
+            const price = product.basePrice || 0;
+            const salePrice = product.saleActive && product.salePrice ? product.salePrice : null;
             const finalPrice = salePrice || price;
             const productUrl = true ? `product.html?slug=${productSlug}` : `product-${productSlug}.html`;
             

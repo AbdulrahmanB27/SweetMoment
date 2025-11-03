@@ -511,7 +511,7 @@
           const typeOptions = product.typeOptions || [];
           const shapeOptions = product.shapeOptions || [];
           
-          // basePrice in products.json is already in dollars (not cents)
+          // basePrice in products.json is already in dollars (from /api/products)
           const price = product.basePrice || 0;
           const salePrice = product.saleActive && product.salePrice ? product.salePrice : null;
           const finalPrice = salePrice || price;
