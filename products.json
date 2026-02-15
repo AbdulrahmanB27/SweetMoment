@@ -8,9 +8,12 @@
       "salePrice": null,
       "saleActive": false,
       "image": "/uploads/1742792807445-327362076.jpeg",
+      "images": [
+        "/uploads/1742792807445-327362076.jpeg",
+        "/uploads/1742793137082-559151893.jpeg"
+      ],
       "allergyInfo": null,
       "ingredients": null,
-      "category": "classic",
       "featured": true,
       "visible": true,
       "sizeOptions": [
@@ -64,9 +67,11 @@
       "salePrice": null,
       "saleActive": false,
       "image": "/uploads/1743291047091-28168151.jpeg",
+      "images": [
+        "/uploads/1743291047091-28168151.jpeg"
+      ],
       "allergyInfo": "caramel",
       "ingredients": null,
-      "category": "caramel",
       "featured": false,
       "visible": true,
       "sizeOptions": [
@@ -120,9 +125,9 @@
       "salePrice": null,
       "saleActive": false,
       "image": "",
+      "images": [],
       "allergyInfo": null,
       "ingredients": null,
-      "category": "premium",
       "featured": false,
       "visible": true,
       "sizeOptions": [
@@ -156,9 +161,9 @@
       "salePrice": null,
       "saleActive": false,
       "image": "",
+      "images": [],
       "allergyInfo": null,
       "ingredients": null,
-      "category": "classic",
       "featured": false,
       "visible": true,
       "sizeOptions": [],
@@ -199,9 +204,9 @@
       "salePrice": null,
       "saleActive": false,
       "image": "https://images.unsplash.com/photo-1624454002302-c8d1d73b916c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+      "images": [],
       "allergyInfo": null,
       "ingredients": null,
-      "category": "assorted",
       "featured": true,
       "visible": true,
       "sizeOptions": [

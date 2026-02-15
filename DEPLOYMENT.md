@@ -28,6 +28,7 @@ Upload all files to your web server's public directory (usually public_html or w
 - index.html (Home page with carousel and all sections)
 - menu.html (Product catalog - reads from products.json)
 - product.html (Single dynamic product page - reads from products.json via ?slug= parameter)
+- Slide-out cart pane with IndexedDB persistence (no separate cart page)
 - about.html (About page)
 - contact.html (Contact information)
 - products.json (All product data in JSON format)
@@ -42,6 +43,6 @@ Upload all files to your web server's public directory (usually public_html or w
 ✅ Customer testimonials
 ✅ Complete CSS animations matching main site
 ✅ Product detail pages
-✅ Payment redirect configured: https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00?quantity=1
+✅ Payment redirect configured: https://buy.stripe.com/test_14A28k9EA3mNb23cK5c3m00
 
-Generated: 2025-11-03T18:58:11.561Z
+Generated: 2026-02-15T03:23:18.354Z
